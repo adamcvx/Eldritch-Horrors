@@ -1,6 +1,6 @@
 import { horrors, relics } from '../../../game.mjs';
 import catalog from './base44Catalog.json';
-import { cloudEnabled, loadCloudSave, storeCloudSave, hasCloudSave, packSave } from './cloudSave.js';
+import { cloudEnabled, loadCloudSave, storeCloudSave, packSave } from './cloudSave.js';
 import { validSave, playerCollections } from './saveFormat.js';
 
 const saveKey = 'eldritch-base44-preview-v1';
@@ -30,10 +30,10 @@ const legacyTalentRow = {
   statBonus: { all_hp_boost: .08, all_attack_boost: .08, all_defense_boost: .08, all_speed_boost: .08, all_cost_reduction: .20 },
 };
 
-function initialData() {
+function initialData(includePrototype = true) {
   let old;
   try {
-    const candidate = JSON.parse(localStorage.getItem('eldritch-horrors-v1'));
+    const candidate = includePrototype ? JSON.parse(localStorage.getItem('eldritch-horrors-v1')) : null;
     if (candidate?.version === 1 && Array.isArray(candidate.creatures)) old = candidate;
   } catch {
     // Start with the default local player if the earlier save is unavailable.
@@ -116,7 +116,7 @@ function unpackSave(save) {
 function ensureCloudSave() {
   if (!cloudEnabled || cloudData) return Promise.resolve();
   loadingCloud ??= loadCloudSave().then(save => {
-    cloudData = save ? unpackSave(save) : upgradeCatalog(initialData());
+    cloudData = save ? unpackSave(save) : upgradeCatalog(initialData(false));
   }).finally(() => { loadingCloud = undefined; });
   return loadingCloud;
 }
@@ -148,19 +148,6 @@ export async function exportPlayerSave() {
   await ensureCloudSave();
   await pendingWrite;
   return packSave(read());
-}
-
-export async function importPlayerSave(save, overwrite = false) {
-  const imported = unpackSave(save);
-  if (!cloudEnabled) throw new Error('Import is available on the deployed build.');
-  const result = pendingWrite.then(async () => {
-    await ensureCloudSave();
-    if (hasCloudSave() && !overwrite) throw new Error('This browser already has a cloud save. Select Replace existing save to continue.');
-    await storeCloudSave(packSave(imported));
-    cloudData = imported;
-  });
-  pendingWrite = result.catch(() => {});
-  await result;
 }
 
 function matches(row, query) {

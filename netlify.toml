@@ -4,6 +4,7 @@
   publish = "dist"
 
 [build.environment]
+  NODE_VERSION = "22"
   VITE_CLOUD_SAVES = "true"
 
 [functions]

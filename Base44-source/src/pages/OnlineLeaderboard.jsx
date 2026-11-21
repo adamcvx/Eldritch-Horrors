@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { saveKey } from '@/api/cloudSave';
 
 export default function OnlineLeaderboard() {
   const [rows, setRows] = useState(null);
@@ -9,7 +8,7 @@ export default function OnlineLeaderboard() {
     (async () => {
       try {
         const response = await fetch('/api/multiplayer?view=leaderboard', {
-          headers: { Authorization: 'Bearer ' + saveKey() }, signal: controller.signal,
+          signal: controller.signal,
         });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || 'Leaderboard unavailable.');

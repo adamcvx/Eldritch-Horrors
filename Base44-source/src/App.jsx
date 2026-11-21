@@ -1,4 +1,6 @@
 import './App.css'
+import IdentityGate from '@/components/user/IdentityGate';
+import { cloudEnabled } from '@/api/cloudSave';
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -74,8 +76,7 @@ const AuthenticatedApp = () => {
 
 
 function App() {
-
-  return (
+  const game = (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
@@ -86,7 +87,9 @@ function App() {
         <VisualEditAgent />
       </QueryClientProvider>
     </AuthProvider>
-  )
+  );
+
+  return cloudEnabled ? <IdentityGate>{game}</IdentityGate> : game;
 }
 
 export default App

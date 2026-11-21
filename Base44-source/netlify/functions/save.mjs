@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { getAccountId, isSameOrigin } from '../lib/account.mjs';
 import { createClient } from '@libsql/client/web';
 import { validSave } from '../../src/api/saveFormat.js';
 
@@ -9,15 +9,14 @@ function respond(status, data) {
   return Response.json(data, { status, headers: { 'Cache-Control': 'no-store' } });
 }
 
-export function saveHandler(client) {
+export function saveHandler(client, authenticate = getAccountId) {
   let ready;
   return async request => {
     if (!['GET', 'PUT'].includes(request.method)) return respond(405, { error: 'Method not allowed' });
-    const key = request.headers.get('Authorization')?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];
-    if (!key) return respond(401, { error: 'Save key required' });
-
-    const id = createHash('sha256').update(key).digest('hex');
+    if (request.method === 'PUT' && !isSameOrigin(request)) return respond(403, { error: 'Request origin rejected' });
     try {
+      const id = await authenticate();
+      if (!id) return respond(401, { error: 'Sign in to access your save' });
       ready ??= client.execute(`CREATE TABLE IF NOT EXISTS single_player_saves (
         id TEXT PRIMARY KEY,
         revision INTEGER NOT NULL,

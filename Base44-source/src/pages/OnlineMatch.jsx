@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Fusion } from '@/entities/Fusion';
-import { saveKey } from '@/api/cloudSave';
 import catalog from '@/api/base44Catalog.json';
 
 const glyphs = new Map(catalog.Ability.map(ability => [ability.id, ability.name]));
@@ -9,7 +8,7 @@ const glyphs = new Map(catalog.Ability.map(ability => [ability.id, ability.name]
 async function request(action) {
   const response = await fetch('/api/multiplayer', {
     method: action ? 'POST' : 'GET', cache: 'no-store',
-    headers: { Authorization: 'Bearer ' + saveKey(), 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' },
     body: action ? JSON.stringify(action) : undefined,
   });
   const result = await response.json();

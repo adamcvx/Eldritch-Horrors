@@ -1,3 +1,5 @@
+import { SignOut } from '@/components/user/IdentityGate';
+import { cloudEnabled } from '@/api/cloudSave';
 import SaveTransfer from '@/components/user/SaveTransfer';
 import { isLocalPreview } from '@/api/base44Client';
 import React, { useState } from 'react';
@@ -60,7 +62,8 @@ export default function ProfilePage() {
                 <span>Profile updated successfully!</span>
             </div>
           )}
-          {isLocalPreview && <SaveTransfer onImported={refreshUserData} />}
+          {isLocalPreview && <SaveTransfer />}
+          {cloudEnabled && <SignOut />}
         </CardContent>
       </Card>
     </div>

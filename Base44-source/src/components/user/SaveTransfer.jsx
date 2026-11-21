@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cloudEnabled } from '@/api/cloudSave';
-import { exportPlayerSave, importPlayerSave } from '@/api/localBase44';
+import { exportPlayerSave } from '@/api/localBase44';
 
-export default function SaveTransfer({ onImported }) {
-  const [file, setFile] = useState(null);
-  const [savedText, setSavedText] = useState('');
+export default function SaveTransfer() {
   const [exportedText, setExportedText] = useState('');
-  const [overwrite, setOverwrite] = useState(false);
   const [working, setWorking] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -36,27 +33,10 @@ export default function SaveTransfer({ onImported }) {
     });
   }
 
-  function upload(event) {
-    event.preventDefault();
-    if ((!file && !savedText.trim()) || (file && file.size > 295_000) || new Blob([savedText]).size > 295_000) {
-      setMessage('Choose a save file or paste save JSON under 295 KB.');
-      return;
-    }
-    const form = event.currentTarget;
-    return transfer(async () => {
-      await importPlayerSave(JSON.parse(savedText.trim() || await file.text()), overwrite);
-      await onImported();
-      setSavedText('');
-      setFile(null);
-      form.reset();
-      setMessage('Save imported into Turso.');
-    });
-  }
-
   return <section className="mt-6 space-y-3 border-t pt-5">
     <h2 className="text-xl font-semibold">Game save</h2>
     <p className="text-sm text-muted-foreground">
-      {cloudEnabled ? 'Progress saves to Turso. This browser keeps the key to your save.' : 'Progress saves in this browser. Export it to move to the deployed game.'}
+      {cloudEnabled ? 'Progress saves to Turso. Sign in to access your progress on another device.' : 'Progress saves in this browser.'}
     </p>
     <div className="flex flex-wrap gap-2">
       <Button type="button" onClick={download} disabled={working}>Export save</Button>
@@ -72,21 +52,6 @@ export default function SaveTransfer({ onImported }) {
       <textarea className="block w-full border rounded bg-background" readOnly value={exportedText}
         onFocus={event => event.currentTarget.select()} rows={3} />
     </label>}
-    {cloudEnabled && <form onSubmit={upload} className="space-y-3">
-      <label className="block">Select a save file
-        <input className="block" type="file" accept=".json,application/json"
-          onChange={event => setFile(event.target.files?.[0] ?? null)} />
-      </label>
-      <label className="block">Or paste save JSON
-        <textarea className="block w-full border rounded bg-background" value={savedText}
-          onChange={event => setSavedText(event.target.value)} rows={3} />
-      </label>
-      <label className="block">
-        <input type="checkbox" checked={overwrite} onChange={event => setOverwrite(event.target.checked)} />
-        {' Replace existing save'}
-      </label>
-      <Button type="submit" disabled={working || (!file && !savedText.trim())}>Import save</Button>
-    </form>}
     <p role="status">{message}</p>
   </section>;
 }

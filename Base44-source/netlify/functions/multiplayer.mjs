@@ -1,4 +1,5 @@
-import { createHash, randomBytes } from 'node:crypto';
+import { randomBytes } from 'node:crypto';
+import { getAccountId, isSameOrigin } from '../lib/account.mjs';
 import { createClient } from '@libsql/client/web';
 import catalog from '../../src/api/base44Catalog.json' with { type: 'json' };
 
@@ -98,16 +99,17 @@ function takeTurn(state, abilityId) {
   return true;
 }
 
-export function multiplayerHandler(db) {
+export function multiplayerHandler(db, authenticate = getAccountId) {
   let ready;
   return async request => {
-    const key = request.headers.get('Authorization')?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];
-    if (!key) return reply(401, { error: 'Save key required.' });
-    const owner = createHash('sha256').update(key).digest('hex');
-    const run = (sql, args = []) => db.execute({ sql, args });
-    const view = row => ({ code: row.code, state: row.status, mode: row.mode, private: Boolean(row.invite),
-      side: row.host === owner ? 0 : 1, round: Number(row.revision), ...JSON.parse(row.payload) });
+    if (!['GET', 'POST'].includes(request.method)) return reply(405, { error: 'Method not allowed.' });
+    if (request.method === 'POST' && !isSameOrigin(request)) return reply(403, { error: 'Request origin rejected.' });
     try {
+      const owner = await authenticate();
+      if (!owner) return reply(401, { error: 'Sign in to play online.' });
+      const run = (sql, args = []) => db.execute({ sql, args });
+      const view = row => ({ code: row.code, state: row.status, mode: row.mode, private: Boolean(row.invite),
+        side: row.host === owner ? 0 : 1, round: Number(row.revision), ...JSON.parse(row.payload) });
       ready ??= run(`CREATE TABLE IF NOT EXISTS multiplayer_rooms (
         code TEXT PRIMARY KEY, host TEXT NOT NULL, guest TEXT, status TEXT NOT NULL,
         mode TEXT NOT NULL, invite INTEGER NOT NULL, revision INTEGER NOT NULL DEFAULT 0,

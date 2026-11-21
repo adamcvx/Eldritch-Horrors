@@ -15,6 +15,7 @@ import {
   TrendingUp,
   Info
 } from 'lucide-react';
+import FusionPortrait from '../cards/FusionPortrait';
 import FusionCard from '../cards/FusionCard';
 import ParticleSystem from './ParticleSystem';
 import { createPageUrl } from '@/utils';
@@ -42,7 +43,8 @@ const PlayerProfile = ({ user, fusion, isPve, alignment = 'left' }) => {
         <p className="text-sm text-purple-300">{rank}</p>
       </div>
       <Avatar className="w-16 h-16 border-2 border-gray-600 shadow-lg">
-        <AvatarImage src={avatarUrl} alt={name} className="object-cover" />
+        {isPve && fusion ? <FusionPortrait fusion={fusion} fill className="h-full w-full object-cover" />
+          : <AvatarImage src={avatarUrl} alt={name} className="object-cover" />}
         <AvatarFallback className="bg-purple-800 text-white">{avatarFallback}</AvatarFallback>
       </Avatar>
     </>
@@ -458,12 +460,12 @@ export default function BattleUI({
 
   return (
     <>
-      <div className="relative h-screen w-screen flex flex-col items-center justify-between text-white p-4 overflow-hidden">
+      <div className="relative min-h-dvh w-full flex flex-col items-center gap-4 text-white p-2 sm:p-4">
         <ParticleSystem />
 
         {/* Top Bar Info */}
-        <div className="absolute top-0 left-0 right-0 p-4 z-20 bg-black/30 backdrop-blur-sm">
-          <div className="flex justify-between items-center w-full max-w-7xl mx-auto">
+        <div className="w-full p-2 sm:p-4 z-20 bg-black/30 backdrop-blur-sm">
+          <div className="flex flex-wrap justify-between items-center gap-3 w-full max-w-7xl mx-auto">
 
             {/* Player Profile (Left) */}
             <PlayerProfile user={currentUser} />
@@ -512,8 +514,8 @@ export default function BattleUI({
         </div>
 
         {/* Center Area: Fusions and VS */}
-        <div className="w-full flex-grow flex items-center justify-center max-w-7xl mx-auto z-10 pt-24 pb-64">
-          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 relative">
+        <div className="w-full flex-1 flex items-center justify-center max-w-7xl mx-auto z-10">
+          <div className="grid w-full min-w-0 grid-cols-1 justify-items-center items-center gap-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-4">
             {/* Player Fusion */}
             <motion.div
               initial={{ x: -100, opacity: 0 }}
@@ -543,13 +545,13 @@ export default function BattleUI({
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 relative p-8"
+              className="grid place-items-center"
             >
-              <div className="mx-24 my-48 px-2">
+              <div className="px-1 text-center sm:px-2">
                 {match?.state !== 'finished' && (
                   <>
-                    <div className="w-24 h-24 bg-purple-600/50 rounded-full flex items-center justify-center border-2 border-purple-500 shadow-2xl shadow-purple-500/30">
-                      <span className="text-4xl font-bold font-title">
+                    <div className="w-10 h-10 sm:w-20 sm:h-20 bg-purple-600/50 rounded-full flex items-center justify-center border-2 border-purple-500 shadow-2xl shadow-purple-500/30">
+                      <span className="text-lg sm:text-4xl font-bold font-title">
                         VS
                       </span>
                     </div>
@@ -593,10 +595,10 @@ export default function BattleUI({
         </div>
 
         {/* Bottom Area: Actions and Log */}
-        <div className="absolute bottom-0 left-0 right-0 h-[45vh] max-h-96 p-4 z-20">
-          <div className="w-full h-full max-w-7xl mx-auto grid grid-cols-12 gap-6">
+        <div className="w-full z-20">
+          <div className="w-full max-w-7xl mx-auto grid grid-cols-1 gap-4 md:grid-cols-2">
             {/* Battle Log */}
-            <div className="col-span-6 h-full flex flex-col">
+            <div className="min-w-0 flex flex-col">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="font-bold text-lg font-title">Battle Log</h3>
                 <Button
@@ -674,7 +676,7 @@ export default function BattleUI({
             </div>
 
             {/* Actions */}
-            <div className="col-span-6 h-full flex flex-col">
+            <div className="min-w-0 flex flex-col">
               <AnimatePresence mode="wait">
                 {match?.state !== 'finished' ? (
                   <motion.div

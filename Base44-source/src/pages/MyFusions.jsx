@@ -1,3 +1,4 @@
+import FusionPortrait from '@/components/cards/FusionPortrait';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Fusion } from '@/entities/Fusion';
@@ -99,9 +100,7 @@ const LevelUpDialog = ({ fusion, currentUser, effectiveCost, onLevelUp, onClose 
 
       {/* Fusion Preview */}
       <PopupPreview>
-        <img
-          src={fusion.generatedImage}
-          alt={fusion.fusedName}
+        <FusionPortrait fusion={fusion}
           className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-purple-500/30" />
 
         <div className="text-4xl font-bold text-purple-400 mb-2">
@@ -245,9 +244,7 @@ const DeletionConfirmModal = ({ fusion, onConfirm, onCancel, currentUser, econom
 
       {/* Fusion Preview */}
       <PopupPreview>
-        <img
-          src={fusion.generatedImage}
-          alt={fusion.fusedName}
+        <FusionPortrait fusion={fusion}
           className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-red-500/30" />
 
         <h3 className="font-bold text-lg mb-1">{fusion.fusedName}</h3>
@@ -559,7 +556,7 @@ export default function MyFusions() {
       {/* Header */}
       <Card className="bg-gray-800/50 border-gray-700 mb-8">
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center gap-2">
             <div>
               <CardTitle className="flex items-center gap-3">
                 <Star className="w-8 h-8 text-purple-400" />
@@ -593,7 +590,7 @@ export default function MyFusions() {
           </Link>
         </div> :
 
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,17rem),1fr))] gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
           <AnimatePresence>
             {fusions.map((fusion) => {
             const isMaxLevel = fusion.level >= 25;
@@ -607,7 +604,7 @@ export default function MyFusions() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.2 }} className="flex-shrink-0 flex flex-col p-10">
+                transition={{ duration: 0.2 }} className="min-w-0 w-full max-w-[365px] justify-self-center flex flex-col">
 
 
                   <FusionCard

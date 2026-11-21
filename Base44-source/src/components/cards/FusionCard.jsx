@@ -1,3 +1,4 @@
+import FusionPortrait from '@/components/cards/FusionPortrait';
 import { isLocalPreview } from '@/api/base44Client';
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -326,7 +327,7 @@ export default function FusionCard({
         }
       `}</style>
 
-      <Card className="rounded-lg border text-card-foreground shadow-sm relative overflow-hidden border-yellow-500/60 shadow-yellow-500/20 hover:border-slate-200 transition-all group bg-gray-900 w-full max-w-[365px] aspect-[2/3] p-5">
+      <Card className="rounded-lg border text-card-foreground shadow-sm relative overflow-hidden border-yellow-500/60 shadow-yellow-500/20 hover:border-slate-200 transition-all group bg-gray-900 w-full max-w-[365px] min-h-[26rem] p-2 sm:p-4">
         {/* Eldritchborn Glow & Particles */}
         {fusion.ascensionLevel > 0 &&
           <>
@@ -363,17 +364,13 @@ export default function FusionCard({
         <CardContent className="px-6 relative z-10 w-full h-full">
           <div className="relative h-48">
             {/* Background fill */}
-            <img
-              src={fusion.generatedImage}
-              alt={`${fusion.fusedName} background`} className="my-2 absolute inset-0 w-full h-[90%] object-cover blur-sm scale-110 opacity-60" />
+            <FusionPortrait fusion={fusion} decorative fill className="my-2 absolute inset-0 w-full h-[90%] object-cover blur-sm scale-110 opacity-60" />
 
 
 
 
             {/* Foreground art (uncropped, full visible) */}
-            <img
-              src={fusion.generatedImage}
-              alt={fusion.fusedName} className="my-2 py-2 relative z-0 w-full h-[95%] object-contain" />
+            <FusionPortrait fusion={fusion} className="my-2 py-2 relative z-0 w-full h-[95%] object-contain" />
 
             {/* Ascension Stars - Always show 5 slots */}
             <div className="absolute bottom-2 left-2 flex gap-1 z-20">
@@ -443,10 +440,10 @@ export default function FusionCard({
 
           <div className="py-2">
             {/* Name + Origin */}
-            <div className="flex justify-between items-start">
+            <div className="flex flex-wrap justify-between items-start gap-x-2">
               <h3
                 style={{ fontSize: getFontSize(fusion.fusedName) }}
-                className={`font-bold mb-3 relative z-20 ${isHolographic ? 'holographic-text' : 'text-white'}`}>
+                className={`font-bold mb-3 relative z-20 break-words min-w-0 ${isHolographic ? 'holographic-text' : 'text-white'}`}>
 
                 {fusion.fusedName}
               </h3>
@@ -464,7 +461,7 @@ export default function FusionCard({
                 const talentBonus = fusion.talentBonus?.[stat] || 0;
 
                 return (
-                  <div key={stat} className="flex items-center gap-2 text-gray-300">
+                  <div key={stat} className="flex min-w-0 items-center gap-1.5 text-gray-300">
                     <StatIcon stat={stat} />
                     <span className="text-sm">
                       {baseValue}

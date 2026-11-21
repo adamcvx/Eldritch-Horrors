@@ -206,7 +206,7 @@ const FusionConfirmationModal = ({ selectedHorrors, currentUser, effectiveCost, 
           <p>• A new abomination will be conjured</p>
           <p>• Base stats will be averaged from parents</p>
           <p>• Rarity will determine stat multiplier</p>
-          <p>{isLocalPreview ? '• Uses imported fusion artwork' : '• A unique image will be generated'}</p>
+          <p>{isLocalPreview ? '• Combines both prime horror portraits' : '• A unique image will be generated'}</p>
         </div>
       </PopupSection>
 
@@ -556,7 +556,7 @@ export default function FusionLabPage() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -50 }} className="my-1 py-1 pb-8">
 
-            <div className="max-w-lg mx-auto p-16">
+            <div className="max-w-lg mx-auto p-3 sm:p-8">
               {/* Fusion Success Title */}
               <div className="text-center mb-6">
                 <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-300 to-blue-400">
@@ -598,16 +598,16 @@ export default function FusionLabPage() {
             {/* Header */}
             <Card className="bg-gray-800/50 border-gray-700 mb-8">
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex flex-wrap justify-between items-start gap-4">
                   <div>
                     <CardTitle className="flex items-center gap-3">
-                      <Beaker className="w-8 h-8 text-purple-400" />
-                      <span className="text-3xl">The Flesh Altar</span>
+                      <Beaker className="w-8 h-8 shrink-0 text-purple-400" />
+                      <span className="text-2xl sm:text-3xl">The Flesh Altar</span>
                     </CardTitle>
                     <p className="text-gray-400 mt-2">Select two horrors to merge their unholy essences.</p>
                   </div>
                   {currentUser &&
-                <div className="flex items-center gap-4">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                       <div className="flex items-center gap-2 bg-purple-500/20 px-4 py-2 rounded-lg border border-purple-500/50">
                         <Gem className="w-5 h-5 text-purple-400" />
                         <span className="font-bold text-purple-300">{currentUser.currency || 0}</span>
@@ -626,7 +626,7 @@ export default function FusionLabPage() {
                         
             {error && <div className="bg-red-500/20 border border-red-500 text-red-300 p-3 rounded-lg text-center mb-6">{error}</div>}
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 gap-8 lg:grid-cols-3 gap-8 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
               {horrors.map((horror) =>
             <HorrorCard
               key={horror.id}

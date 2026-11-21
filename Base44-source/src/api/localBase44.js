@@ -1,4 +1,5 @@
 import { horrors, relics } from '../../../game.mjs';
+import { conjureName, upgradeFusionName } from './fusionIdentity.js';
 import catalog from './base44Catalog.json';
 import { cloudEnabled, loadCloudSave, storeCloudSave, packSave } from './cloudSave.js';
 import { validSave, playerCollections } from './saveFormat.js';
@@ -65,7 +66,7 @@ function initialData(includePrototype = true) {
   };
 }
 
-const catalogVersion = 3;
+const catalogVersion = 4;
 const localTalents = catalog.Talent.map(talent => talent.name === 'Echo Mastery'
   ? { ...talent, dependencies: talent.dependencies.filter(name => name !== 'Echoes of the Void') }
   : talent);
@@ -86,7 +87,7 @@ function upgradeCatalog(data) {
       return { ...user, prototypeCampaignProgress: user.campaignProgress, campaignProgress: 0 };
     }),
     Horror: starterRows,
-    Fusion: [...legacyFusions, ...catalog.Fusion],
+    Fusion: [...legacyFusions.map(upgradeFusionName), ...catalog.Fusion],
     Ability: existingAbility ? [...catalog.Ability, starterAbility] : catalog.Ability,
     Orb: [...catalog.Orb, ...orbRows.filter(orb => ownedOrbs.has(orb.id))],
     Talent: legacyTalent ? [...localTalents, legacyTalentRow] : localTalents,
@@ -232,16 +233,12 @@ export const localBase44 = {
     InvokeLLM: async ({ prompt }) => {
       const parents = starterRows.filter(horror => prompt.includes(horror.name));
       if (parents.length !== 2 || !prompt.includes('fusion of two abominations')) return unavailableLocally();
-      return { name: parents[0].name + ' / ' + parents[1].name };
+      return { name: conjureName(parents[0].name, parents[1].name) };
     },
     GenerateImage: async ({ prompt }) => {
       const parents = starterRows.filter(horror => prompt.includes(horror.name));
       if (parents.length !== 2 || !prompt.includes('eldritch abomination named')) return unavailableLocally();
-      const [first, second] = parents.map(horror => horror.name);
-      const artwork = read().Images.filter(({ nameA, nameB }) =>
-        (nameA === first && nameB === second) || (nameA === second && nameB === first));
-      const selected = artwork[Math.floor(Math.random() * artwork.length)];
-      return { url: selected?.image ?? parents[0].image };
+      return { url: parents[0].image };
     },
     UploadFile: unavailableLocally,
     ExtractDataFromUploadedFile: unavailableLocally,

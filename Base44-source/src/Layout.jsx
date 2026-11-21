@@ -375,6 +375,8 @@ function LayoutContent({ children, currentPageName }) {
         <div className="lg:hidden fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border/50 z-40 px-4 py-3">
           <div className="flex items-center justify-between">
             <button
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 hover:bg-muted/30 rounded-lg transition-colors">
 
@@ -402,7 +404,7 @@ function LayoutContent({ children, currentPageName }) {
         {/* Sidebar */}
         <aside className={`
           fixed lg:static inset-y-0 left-0 z-50 lg:z-auto
-          w-80 lg:w-64 bg-background/95 lg:bg-background/80 backdrop-blur-lg 
+          w-80 max-w-[calc(100vw-2rem)] shrink-0 lg:w-64 bg-background/95 lg:bg-background/80 backdrop-blur-lg
           border-r border-border/50 flex flex-col p-4
           transform transition-transform duration-300 ease-in-out lg:transform-none
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -415,10 +417,13 @@ function LayoutContent({ children, currentPageName }) {
           </div>
 
           {/* Mobile Title */}
-          <div className="lg:hidden p-4 mb-6 text-center border-b border-border/30">
+          <div className="lg:hidden flex items-center justify-between gap-2 p-2 mb-4 border-b border-border/30">
             <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary font-title">
               Eldritch-Horrors
             </h1>
+            <button type="button" className="shrink-0 rounded p-2 hover:bg-muted/30" aria-label="Close menu" onClick={() => setIsMobileMenuOpen(false)}>
+              <X className="size-5" />
+            </button>
           </div>
 
           {/* User Profile Section - At Top */}
@@ -499,8 +504,8 @@ function LayoutContent({ children, currentPageName }) {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-auto">
-          <div className="p-4 md:p-8 pt-20 lg:pt-4">
+        <main className="min-w-0 flex-1 overflow-x-auto">
+          <div className="px-3 pb-4 pt-20 sm:px-4 lg:px-6 lg:pt-4">
             {children}
           </div>
         </main>
@@ -524,7 +529,7 @@ function LayoutContent({ children, currentPageName }) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 50 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-md mx-4">
+              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101] w-[calc(100%-2rem)] max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto">
 
                 <div className="bg-gray-800/50 text-card-foreground pt-6 pr-6 pb-6 pl-6 rounded-lg border shadow-sm border-gray-700">
                   {/* Welcome header */}

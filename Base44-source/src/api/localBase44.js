@@ -40,6 +40,8 @@ function initialData() {
   }
   const player = {
     id: playerId, email: 'local-player@example.invalid', full_name: 'Local Cultist', displayName: 'Local Cultist',
+    wins: 0, losses: 0, casualWins: 0, casualLosses: 0, rankedWins: 0, rankedLosses: 0,
+    rankingPoints: 1000, rank: 'Initiate',
     role: 'user', currency: old?.echoes ?? 350, voidFragments: old?.fragments ?? 0,
     campaignProgress: old?.stage ?? 0, learnedTalents: old?.talent ? ['Whispers Below'] : [],
     hasSeenTutorial: true,

@@ -6,6 +6,7 @@ import { exportPlayerSave, importPlayerSave } from '@/api/localBase44';
 export default function SaveTransfer({ onImported }) {
   const [file, setFile] = useState(null);
   const [savedText, setSavedText] = useState('');
+  const [exportedText, setExportedText] = useState('');
   const [overwrite, setOverwrite] = useState(false);
   const [working, setWorking] = useState(false);
   const [message, setMessage] = useState('');
@@ -64,6 +65,13 @@ export default function SaveTransfer({ onImported }) {
         setMessage('Save copied to clipboard.');
       })}>Copy save</Button>
     </div>
+    <Button type="button" variant="outline" disabled={working} onClick={() => transfer(async () => {
+      setExportedText(JSON.stringify(await exportPlayerSave()));
+    })}>Show save JSON</Button>
+    {exportedText && <label className="block">Exported save JSON
+      <textarea className="block w-full border rounded bg-background" readOnly value={exportedText}
+        onFocus={event => event.currentTarget.select()} rows={3} />
+    </label>}
     {cloudEnabled && <form onSubmit={upload} className="space-y-3">
       <label className="block">Select a save file
         <input className="block" type="file" accept=".json,application/json"

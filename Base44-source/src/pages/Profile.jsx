@@ -29,7 +29,7 @@ export default function ProfilePage() {
     }
   };
 
-  if (loading) {
+  if (loading && !currentUser) {
     return (
       <div className="flex justify-center items-center h-64">
         <Loader2 className="w-12 h-12 animate-spin text-purple-500" />

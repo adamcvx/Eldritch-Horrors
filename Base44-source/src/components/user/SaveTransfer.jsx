@@ -5,6 +5,7 @@ import { exportPlayerSave, importPlayerSave } from '@/api/localBase44';
 
 export default function SaveTransfer({ onImported }) {
   const [file, setFile] = useState(null);
+  const [savedText, setSavedText] = useState('');
   const [overwrite, setOverwrite] = useState(false);
   const [working, setWorking] = useState(false);
   const [message, setMessage] = useState('');
@@ -36,13 +37,17 @@ export default function SaveTransfer({ onImported }) {
 
   function upload(event) {
     event.preventDefault();
-    if (!file || file.size > 295_000) {
-      setMessage('Select a save file under 295 KB.');
+    if ((!file && !savedText.trim()) || (file && file.size > 295_000) || new Blob([savedText]).size > 295_000) {
+      setMessage('Choose a save file or paste save JSON under 295 KB.');
       return;
     }
+    const form = event.currentTarget;
     return transfer(async () => {
-      await importPlayerSave(JSON.parse(await file.text()), overwrite);
+      await importPlayerSave(JSON.parse(savedText.trim() || await file.text()), overwrite);
       await onImported();
+      setSavedText('');
+      setFile(null);
+      form.reset();
       setMessage('Save imported into Turso.');
     });
   }
@@ -52,17 +57,27 @@ export default function SaveTransfer({ onImported }) {
     <p className="text-sm text-muted-foreground">
       {cloudEnabled ? 'Progress saves to Turso. This browser keeps the key to your save.' : 'Progress saves in this browser. Export it to move to the deployed game.'}
     </p>
-    <Button type="button" onClick={download} disabled={working}>Export save</Button>
+    <div className="flex flex-wrap gap-2">
+      <Button type="button" onClick={download} disabled={working}>Export save</Button>
+      <Button type="button" disabled={working} onClick={() => transfer(async () => {
+        await navigator.clipboard.writeText(JSON.stringify(await exportPlayerSave()));
+        setMessage('Save copied to clipboard.');
+      })}>Copy save</Button>
+    </div>
     {cloudEnabled && <form onSubmit={upload} className="space-y-3">
       <label className="block">Select a save file
         <input className="block" type="file" accept=".json,application/json"
           onChange={event => setFile(event.target.files?.[0] ?? null)} />
       </label>
+      <label className="block">Or paste save JSON
+        <textarea className="block w-full border rounded bg-background" value={savedText}
+          onChange={event => setSavedText(event.target.value)} rows={3} />
+      </label>
       <label className="block">
         <input type="checkbox" checked={overwrite} onChange={event => setOverwrite(event.target.checked)} />
         {' Replace existing save'}
       </label>
-      <Button type="submit" disabled={working || !file}>Import save</Button>
+      <Button type="submit" disabled={working || (!file && !savedText.trim())}>Import save</Button>
     </form>}
     <p role="status">{message}</p>
   </section>;

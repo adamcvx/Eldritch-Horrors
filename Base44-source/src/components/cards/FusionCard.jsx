@@ -1,4 +1,3 @@
-import FusionPortrait from '@/components/cards/FusionPortrait';
 import { isLocalPreview } from '@/api/base44Client';
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -364,13 +363,13 @@ export default function FusionCard({
         <CardContent className="px-6 relative z-10 w-full h-full">
           <div className="relative h-48">
             {/* Background fill */}
-            <FusionPortrait fusion={fusion} decorative fill className="my-2 absolute inset-0 w-full h-[90%] object-cover blur-sm scale-110 opacity-60" />
+            <img src={fusion.generatedImage} alt="" className="my-2 absolute inset-0 w-full h-[90%] object-cover blur-sm scale-110 opacity-60" />
 
 
 
 
             {/* Foreground art (uncropped, full visible) */}
-            <FusionPortrait fusion={fusion} className="my-2 py-2 relative z-0 w-full h-[95%] object-contain" />
+            <img src={fusion.generatedImage} alt={fusion.fusedName} className="my-2 py-2 relative z-0 w-full h-[95%] object-contain" />
 
             {/* Ascension Stars - Always show 5 slots */}
             <div className="absolute bottom-2 left-2 flex gap-1 z-20">

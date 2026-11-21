@@ -15,7 +15,6 @@ import {
   TrendingUp,
   Info
 } from 'lucide-react';
-import FusionPortrait from '../cards/FusionPortrait';
 import FusionCard from '../cards/FusionCard';
 import ParticleSystem from './ParticleSystem';
 import { createPageUrl } from '@/utils';
@@ -43,8 +42,7 @@ const PlayerProfile = ({ user, fusion, isPve, alignment = 'left' }) => {
         <p className="text-sm text-purple-300">{rank}</p>
       </div>
       <Avatar className="w-16 h-16 border-2 border-gray-600 shadow-lg">
-        {isPve && fusion ? <FusionPortrait fusion={fusion} fill className="h-full w-full object-cover" />
-          : <AvatarImage src={avatarUrl} alt={name} className="object-cover" />}
+        <AvatarImage src={avatarUrl} alt={name} className="object-cover" />
         <AvatarFallback className="bg-purple-800 text-white">{avatarFallback}</AvatarFallback>
       </Avatar>
     </>

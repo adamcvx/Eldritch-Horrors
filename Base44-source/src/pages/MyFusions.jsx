@@ -1,4 +1,3 @@
-import FusionPortrait from '@/components/cards/FusionPortrait';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Fusion } from '@/entities/Fusion';
@@ -100,7 +99,7 @@ const LevelUpDialog = ({ fusion, currentUser, effectiveCost, onLevelUp, onClose 
 
       {/* Fusion Preview */}
       <PopupPreview>
-        <FusionPortrait fusion={fusion}
+        <img src={fusion.generatedImage} alt={fusion.fusedName}
           className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-purple-500/30" />
 
         <div className="text-4xl font-bold text-purple-400 mb-2">
@@ -244,7 +243,7 @@ const DeletionConfirmModal = ({ fusion, onConfirm, onCancel, currentUser, econom
 
       {/* Fusion Preview */}
       <PopupPreview>
-        <FusionPortrait fusion={fusion}
+        <img src={fusion.generatedImage} alt={fusion.fusedName}
           className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-red-500/30" />
 
         <h3 className="font-bold text-lg mb-1">{fusion.fusedName}</h3>

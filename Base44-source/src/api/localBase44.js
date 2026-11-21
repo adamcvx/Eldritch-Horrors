@@ -1,5 +1,5 @@
 import { horrors, relics } from '../../../game.mjs';
-import { conjureName, upgradeFusionName } from './fusionIdentity.js';
+import { chooseFusionArtwork, conjureName, upgradeFusionIdentity } from './fusionIdentity.js';
 import catalog from './base44Catalog.json';
 import { cloudEnabled, loadCloudSave, storeCloudSave, packSave } from './cloudSave.js';
 import { validSave, playerCollections } from './saveFormat.js';
@@ -66,7 +66,7 @@ function initialData(includePrototype = true) {
   };
 }
 
-const catalogVersion = 4;
+const catalogVersion = 5;
 const localTalents = catalog.Talent.map(talent => talent.name === 'Echo Mastery'
   ? { ...talent, dependencies: talent.dependencies.filter(name => name !== 'Echoes of the Void') }
   : talent);
@@ -87,7 +87,7 @@ function upgradeCatalog(data) {
       return { ...user, prototypeCampaignProgress: user.campaignProgress, campaignProgress: 0 };
     }),
     Horror: starterRows,
-    Fusion: [...legacyFusions.map(upgradeFusionName), ...catalog.Fusion],
+    Fusion: [...legacyFusions.map(upgradeFusionIdentity), ...catalog.Fusion],
     Ability: existingAbility ? [...catalog.Ability, starterAbility] : catalog.Ability,
     Orb: [...catalog.Orb, ...orbRows.filter(orb => ownedOrbs.has(orb.id))],
     Talent: legacyTalent ? [...localTalents, legacyTalentRow] : localTalents,
@@ -238,7 +238,7 @@ export const localBase44 = {
     GenerateImage: async ({ prompt }) => {
       const parents = starterRows.filter(horror => prompt.includes(horror.name));
       if (parents.length !== 2 || !prompt.includes('eldritch abomination named')) return unavailableLocally();
-      return { url: parents[0].image };
+      return { url: chooseFusionArtwork(parents[0].name, parents[1].name) };
     },
     UploadFile: unavailableLocally,
     ExtractDataFromUploadedFile: unavailableLocally,

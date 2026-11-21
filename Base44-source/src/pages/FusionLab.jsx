@@ -1,4 +1,5 @@
 import { isLocalPreview } from '@/api/base44Client';
+import { cloudEnabled } from '@/api/cloudSave';
 
 import React, { useState, useEffect } from 'react';
 import { Horror } from '@/entities/Horror';
@@ -206,7 +207,7 @@ const FusionConfirmationModal = ({ selectedHorrors, currentUser, effectiveCost, 
           <p>• A new abomination will be conjured</p>
           <p>• Base stats will be averaged from parents</p>
           <p>• Rarity will determine stat multiplier</p>
-          <p>{isLocalPreview ? '• Combines both prime horror portraits' : '• A unique image will be generated'}</p>
+          <p>{isLocalPreview ? '• Randomly conjures an illustrated hybrid of both horrors' : '• A unique image will be generated'}</p>
         </div>
       </PopupSection>
 
@@ -436,7 +437,18 @@ export default function FusionLabPage() {
       setFusionStep('conjuring');
       const namePrompt = `Generate a single, terrifying, Lovecraftian name for a new eldritch horror. It is a fusion of two abominations: a ${horrorA.origin}-origin horror named "${horrorA.name}" and a ${horrorB.origin}-origin horror named "${horrorB.name}". The name should sound ancient, unknowable, and sanity-shattering. Examples: 'The Gibbering Maw', 'Yog-Sothoth', 'The Crawling Chaos'. Respond with ONLY the generated name and nothing else.`;
 
-      const nameResponse = await InvokeLLM({
+      let hostedIdentity;
+      if (cloudEnabled) {
+        const response = await fetch('/api/fusion-identity', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ parents: [horrorA.id, horrorB.id] }),
+        });
+        hostedIdentity = await response.json();
+        if (!response.ok) throw new Error(hostedIdentity.error || 'The fusion ritual failed. Try again.');
+      }
+
+      const nameResponse = hostedIdentity ?? await InvokeLLM({
         prompt: namePrompt,
         response_json_schema: {
           type: 'object',
@@ -474,31 +486,33 @@ export default function FusionLabPage() {
       // Step 3: Generate image using the new name
       setFusionStep('manifesting');
       const prompt = `An eldritch abomination named "${fusedName}", created by combining a ${horrorA.origin} horror (${horrorA.name}) and a ${horrorB.origin} horror (${horrorB.name}). cosmic horror, lovecraftian, surreal, dark fantasy, unsettling, detailed, Todd McFarlane comicbook style only, no text.`;
-      let imageUrl;
-      try {
-        const imageResult = await GenerateImage({ prompt });
-        if (!imageResult || !imageResult.url) {
-          throw new Error("Image generation failed, using fallback.");
-        }
-        imageUrl = imageResult.url;
-      } catch (imageGenError) {
-        console.warn("Image generation failed:", imageGenError.message, "Attempting to use pre-generated fallback image.");
-        setError("The image conjuration ritual failed. A placeholder form will be used.");
+      let imageUrl = hostedIdentity?.imageUrl;
+      if (!hostedIdentity) {
+        try {
+          const imageResult = await GenerateImage({ prompt });
+          if (!imageResult || !imageResult.url) {
+            throw new Error("Image generation failed, using fallback.");
+          }
+          imageUrl = imageResult.url;
+        } catch (imageGenError) {
+          console.warn("Image generation failed:", imageGenError.message, "Attempting to use pre-generated fallback image.");
+          setError("The image conjuration ritual failed. A placeholder form will be used.");
 
-        // New fallback logic: Check for pre-generated images for this specific pair
-        const [results1, results2] = await Promise.all([
-        Images.filter({ nameA: horrorA.name, nameB: horrorB.name }),
-        Images.filter({ nameA: horrorB.name, nameB: horrorA.name })]
-        );
-        const fallbackImages = [...results1, ...results2];
+          // New fallback logic: Check for pre-generated images for this specific pair
+          const [results1, results2] = await Promise.all([
+          Images.filter({ nameA: horrorA.name, nameB: horrorB.name }),
+          Images.filter({ nameA: horrorB.name, nameB: horrorA.name })]
+          );
+          const fallbackImages = [...results1, ...results2];
 
-        if (fallbackImages.length > 0) {
-          const randomIndex = Math.floor(Math.random() * fallbackImages.length);
-          imageUrl = fallbackImages[randomIndex].image;
-          console.log(`Using pre-generated fallback image for ${horrorA.name} + ${horrorB.name}`);
-        } else {
-          imageUrl = "https://images.unsplash.com/photo-1505527299942-502069a2da3c?w=500&q=80"; // Final fallback image
-          console.log(`No pre-generated fallback found for this pair. Using default placeholder.`);
+          if (fallbackImages.length > 0) {
+            const randomIndex = Math.floor(Math.random() * fallbackImages.length);
+            imageUrl = fallbackImages[randomIndex].image;
+            console.log(`Using pre-generated fallback image for ${horrorA.name} + ${horrorB.name}`);
+          } else {
+            imageUrl = "https://images.unsplash.com/photo-1505527299942-502069a2da3c?w=500&q=80"; // Final fallback image
+            console.log(`No pre-generated fallback found for this pair. Using default placeholder.`);
+          }
         }
       }
 

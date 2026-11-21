@@ -1,0 +1,41 @@
+{
+  "name": "PlayerOrb",
+  "type": "object",
+  "properties": {
+    "playerId": {
+      "type": "string",
+      "description": "The User ID who owns this orb instance"
+    },
+    "orbId": {
+      "type": "string",
+      "description": "The ID of the base Orb this instance is based on"
+    },
+    "equippedToFusion": {
+      "type": "string",
+      "description": "The Fusion ID this orb is currently equipped to (null if unequipped)"
+    },
+    "acquiredDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this orb was acquired by the player"
+    }
+  },
+  "required": [
+    "playerId",
+    "orbId"
+  ],
+  "rls": {
+    "write": {
+      "$or": [
+        {
+          "playerId": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

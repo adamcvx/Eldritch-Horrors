@@ -1,0 +1,40 @@
+{
+  "name": "Tome",
+  "type": "object",
+  "properties": {
+    "horrorName": {
+      "type": "string",
+      "description": "The name of the Horror this lore page belongs to."
+    },
+    "pageNumber": {
+      "type": "number",
+      "description": "The order of this page in the tome (e.g., 1, 2, 3)."
+    },
+    "unlockRequirement": {
+      "type": "number",
+      "description": "Number of fusions with this Horror required to unlock the page."
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the lore page (e.g., 'First Glimpse')."
+    },
+    "content": {
+      "type": "string",
+      "description": "The main text content of the lore page."
+    }
+  },
+  "required": [
+    "horrorName",
+    "pageNumber",
+    "unlockRequirement",
+    "title",
+    "content"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

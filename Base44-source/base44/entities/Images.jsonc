@@ -1,0 +1,30 @@
+{
+  "name": "Images",
+  "type": "object",
+  "properties": {
+    "nameA": {
+      "type": "string",
+      "description": "The name of the first horror in the fusion pair."
+    },
+    "nameB": {
+      "type": "string",
+      "description": "The name of the second horror in the fusion pair."
+    },
+    "image": {
+      "type": "string",
+      "description": "The URL of the pre-generated image for this fusion."
+    }
+  },
+  "required": [
+    "nameA",
+    "nameB",
+    "image"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

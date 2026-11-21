@@ -1,0 +1,41 @@
+{
+  "name": "Assets",
+  "type": "object",
+  "properties": {
+    "fileName": {
+      "type": "string",
+      "description": "The original filename of the uploaded asset"
+    },
+    "assetUrl": {
+      "type": "string",
+      "description": "The URL of the uploaded asset"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of what this asset is used for"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "ui",
+        "icons",
+        "backgrounds",
+        "decorations",
+        "other"
+      ],
+      "default": "ui",
+      "description": "Category of the asset for organization"
+    }
+  },
+  "required": [
+    "fileName",
+    "assetUrl"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

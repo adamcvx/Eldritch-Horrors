@@ -1,0 +1,2106 @@
+{
+  "Ability": [
+    {
+      "id": "68d245697c8aa2b7ac57fd57",
+      "name": "Abyssal Ward",
+      "type": "defense",
+      "power": 25,
+      "cooldown": 4,
+      "turnLength": 3,
+      "statEffect": [
+        "defense_up"
+      ],
+      "statEffectName": "Warded",
+      "effect": "Wraps the caster in protective shadows from the deep, increasing defense by {power}% and reflecting {power/2}% of incoming damage for {turnLength} turns."
+    },
+    {
+      "id": "68d245697c8aa2b7ac57fd56",
+      "name": "Sanity Drain",
+      "type": "debuff",
+      "power": 12,
+      "cooldown": 2,
+      "turnLength": 5,
+      "statEffect": [
+        "damage_over_time"
+      ],
+      "statEffectName": "Mind Shattered",
+      "effect": "Exposes the enemy to incomprehensible visions, dealing {power}% of attack as psychic damage each turn for {turnLength} turns."
+    },
+    {
+      "id": "68d245697c8aa2b7ac57fd55",
+      "name": "Cosmic Devastation",
+      "type": "attack",
+      "power": 45,
+      "cooldown": 5,
+      "turnLength": 1,
+      "effect": "Unleashes the raw fury of distant stars, dealing {power}% of attack as cosmic damage that ignores {power/2}% of enemy defense."
+    },
+    {
+      "id": "68d245697c8aa2b7ac57fd54",
+      "name": "Eldritch Regeneration",
+      "type": "buff",
+      "power": 20,
+      "cooldown": 4,
+      "turnLength": 3,
+      "statEffect": [
+        "heal_over_time"
+      ],
+      "statEffectName": "Regenerating",
+      "effect": "Channels cosmic energies to restore {power}% of max health each turn for {turnLength} turns, drawing power from the void itself."
+    },
+    {
+      "id": "68d245697c8aa2b7ac57fd53",
+      "name": "Void Whispers",
+      "type": "debuff",
+      "power": 15,
+      "cooldown": 3,
+      "turnLength": 4,
+      "statEffect": [
+        "attack_down",
+        "defense_down"
+      ],
+      "statEffectName": "Maddened",
+      "effect": "The abomination whispers forbidden truths that weaken the enemy's resolve, reducing their attack and defense by {power}% for {turnLength} turns."
+    },
+    {
+      "id": "68b1e4a62a977dae0672d170",
+      "name": "Dream-Eater’s Embrace",
+      "type": "debuff",
+      "power": 0.2,
+      "cooldown": 5,
+      "turnLength": 3,
+      "statEffect": [
+        "heal_over_time",
+        "damage_over_time"
+      ],
+      "statEffectName": "Dream-Eater’s Embrace",
+      "effect": "Siphons living flesh to your own, deals {speed} * {power}. 3 turns."
+    },
+    {
+      "id": "68b1344a3343896a8f53d389",
+      "name": "Crawling Chaos",
+      "type": "debuff",
+      "power": 0.25,
+      "cooldown": 6,
+      "turnLength": 5,
+      "statEffect": [
+        "damage_over_time"
+      ],
+      "statEffectName": "Crawling Chaos",
+      "effect": "Chaotic matter infects the target, deals {speed} * {power}. 5 turns."
+    },
+    {
+      "id": "68abd7159be9c3c8615bfc62",
+      "name": "Unspeakable Regeneration",
+      "type": "buff",
+      "power": 0.15,
+      "cooldown": 5,
+      "turnLength": 4,
+      "statEffect": [
+        "heal_over_time"
+      ],
+      "statEffectName": "Unspeakable Regeneration",
+      "effect": "Unnaturally stiches wounds, healing {speed} * {power}. 4 turns."
+    },
+    {
+      "id": "68abd7159be9c3c8615bfc60",
+      "name": "Whispers from the Void",
+      "type": "debuff",
+      "power": 0.3,
+      "cooldown": 4,
+      "turnLength": 3,
+      "statEffect": [
+        "damage_over_time"
+      ],
+      "statEffectName": "Whispers from the Void",
+      "effect": "Maddening whispers deals {speed} * {power}. 3 turns."
+    },
+    {
+      "id": "68abd7159be9c3c8615bfc5e",
+      "name": "Eldritch Tentacle",
+      "type": "attack",
+      "power": 0.6,
+      "cooldown": 2,
+      "turnLength": 1,
+      "effect": "Lashes out with a shattering tentacle, deals {attack} * {power}."
+    }
+  ],
+  "Orb": [
+    {
+      "id": "base44-orb-1",
+      "name": "Eldritch Parasite",
+      "description": "+ {stat1} for {benefit}% of initial damage dealt.",
+      "rarity": "Ephemeral",
+      "orbType": "Parasitic",
+      "orbStatBenefit": "hp",
+      "orbBenefitValue": 5,
+      "orbDrawbackValue": 0,
+      "originSynergy": "Void",
+      "orbTrigger": "OnAttack",
+      "costToEquip": 25,
+      "iconUrl": "/Artwork/base44/3c6f9d6ee15a1ebcf171629d.png"
+    },
+    {
+      "id": "base44-orb-2",
+      "name": "Eldritch Whispers",
+      "description": "Apply a curse for {benefit} to the enemy at the end of a turn.",
+      "rarity": "Ephemeral",
+      "orbType": "Chaos",
+      "orbBenefitValue": 2,
+      "orbDrawbackValue": 10,
+      "orbTrigger": "OnTurnEnd",
+      "costToEquip": 25,
+      "iconUrl": "/Artwork/base44/7de64792149f7eff3022c2ff.png"
+    },
+    {
+      "id": "base44-orb-3",
+      "name": "Eldritch Resilience",
+      "description": "+ {stat1} by {benefit}% but - {stat2} by {drawback}%.",
+      "rarity": "Ephemeral",
+      "orbType": "Unstable",
+      "orbStatBenefit": "defense",
+      "orbStatDrawback": "attack",
+      "orbBenefitValue": 15,
+      "orbDrawbackValue": 15,
+      "orbTrigger": "Passive",
+      "costToEquip": 25,
+      "iconUrl": "/Artwork/base44/34165aa6d6bd95d077f26d36.png"
+    },
+    {
+      "id": "base44-orb-4",
+      "name": "Eldritch Power",
+      "description": "+ {stat1} by {benefit}% but - {stat2} by {drawback}%.",
+      "rarity": "Abyssal",
+      "orbType": "Unstable",
+      "orbStatBenefit": "attack",
+      "orbStatDrawback": "hp",
+      "orbBenefitValue": 10,
+      "orbDrawbackValue": 10,
+      "orbTrigger": "Passive",
+      "costToEquip": 25,
+      "iconUrl": "/Artwork/base44/646a075c537b4e0daa049363.png"
+    }
+  ],
+  "Talent": [
+    {
+      "id": "base44-talent-1",
+      "name": "Void Champion",
+      "description": "Become one with the endless dark. All stat bonuses from talents are increased by 50%.",
+      "cost": 900,
+      "icon": "Skull",
+      "tier": 5,
+      "tree": "Utility",
+      "dependencies": [
+        "Reality Bender"
+      ],
+      "statBonus": {
+        "all_talent_boost": 1.5
+      }
+    },
+    {
+      "id": "base44-talent-2",
+      "name": "Reality Bender",
+      "description": "Warp the fundamental laws. Your abominations can use abilities 20% more often.",
+      "cost": 650,
+      "icon": "Star",
+      "tier": 4,
+      "tree": "Utility",
+      "dependencies": [
+        "Echo Mastery"
+      ],
+      "statBonus": {
+        "all_cooldown_reduction": 0.2
+      }
+    },
+    {
+      "id": "base44-talent-3",
+      "name": "Echo Mastery",
+      "description": "Master the currency of madness. Gain 25% more Echoes from all sources.",
+      "cost": 500,
+      "icon": "Gem",
+      "tier": 3,
+      "tree": "Utility",
+      "dependencies": [
+        "Echoes of the Void"
+      ],
+      "statBonus": {
+        "all_currency_boost": 0.25
+      }
+    },
+    {
+      "id": "base44-talent-4",
+      "name": "Flesh Mastery",
+      "description": "Command over biological matter grants your abominations +5% to all base stats.",
+      "cost": 250,
+      "icon": "Heart",
+      "tier": 2,
+      "tree": "Utility",
+      "dependencies": [
+        "Dream Walker"
+      ],
+      "statBonus": {
+        "all_hp_boost": 0.05,
+        "all_attack_boost": 0.05,
+        "all_defense_boost": 0.05,
+        "all_speed_boost": 0.05
+      }
+    },
+    {
+      "id": "base44-talent-5",
+      "name": "Dream Walker",
+      "description": "Navigate the realm of sleeping minds. Fusion costs are reduced by 20%.",
+      "cost": 200,
+      "icon": "Moon",
+      "tier": 1,
+      "tree": "Utility",
+      "statBonus": {
+        "all_cost_reduction": 0.2
+      },
+      "dependencies": []
+    },
+    {
+      "id": "base44-talent-6",
+      "name": "Cosmic Speed",
+      "description": "Bend spacetime to your will. All abominations gain +15% speed.",
+      "cost": 300,
+      "icon": "Wind",
+      "tier": 4,
+      "tree": "Offense",
+      "dependencies": [
+        "Void Sight"
+      ],
+      "statBonus": {
+        "all_speed_boost": 0.15
+      }
+    },
+    {
+      "id": "base44-talent-7",
+      "name": "Void Sight",
+      "description": "Channel the raw power of the deep. All abominations gain +15% attack power.",
+      "cost": 300,
+      "icon": "Zap",
+      "tier": 3,
+      "tree": "Offense",
+      "dependencies": [
+        "Frenzied Claws"
+      ],
+      "statBonus": {
+        "all_attack_boost": 0.15
+      }
+    },
+    {
+      "id": "base44-talent-8",
+      "name": "Frenzied Claws",
+      "description": "All of your abominations gain a 5% bonus to their base Speed.",
+      "cost": 250,
+      "icon": "Wind",
+      "tier": 2,
+      "tree": "Offense",
+      "dependencies": [
+        "Abyssal Strength"
+      ],
+      "statBonus": {
+        "all_speed_boost": 0.05
+      }
+    },
+    {
+      "id": "base44-talent-9",
+      "name": "Abyssal Strength",
+      "description": "All of your abominations gain a 5% bonus to their base Attack.",
+      "cost": 100,
+      "icon": "Zap",
+      "tier": 1,
+      "tree": "Offense",
+      "statBonus": {
+        "all_attack_boost": 0.05
+      },
+      "dependencies": []
+    },
+    {
+      "id": "base44-talent-10",
+      "name": "Stellar Defense",
+      "description": "Armor forged from starlight protects your abominations. +15% defense to all.",
+      "cost": 300,
+      "icon": "Shield",
+      "tier": 4,
+      "tree": "Defense",
+      "dependencies": [
+        "Eldritch Vitality II"
+      ],
+      "statBonus": {
+        "all_defense_boost": 0.15
+      }
+    },
+    {
+      "id": "base44-talent-11",
+      "name": "Eldritch Vitality II",
+      "description": "Infuse your creations with otherworldly life force. All abominations gain +20% HP.",
+      "cost": 250,
+      "icon": "Heart",
+      "tier": 3,
+      "tree": "Defense",
+      "dependencies": [
+        "Carapaced Hide"
+      ],
+      "statBonus": {
+        "all_hp_boost": 0.2
+      }
+    },
+    {
+      "id": "base44-talent-12",
+      "name": "Carapaced Hide",
+      "description": "All of your abominations gain a 5% bonus to their base Defense.",
+      "cost": 250,
+      "icon": "Shield",
+      "tier": 2,
+      "tree": "Defense",
+      "dependencies": [
+        "Eldritch Vitality"
+      ],
+      "statBonus": {
+        "all_defense_boost": 0.05
+      }
+    },
+    {
+      "id": "base44-talent-13",
+      "name": "Eldritch Vitality",
+      "description": "All of your abominations gain a 5% bonus to their base HP.",
+      "cost": 100,
+      "icon": "Heart",
+      "tier": 1,
+      "tree": "Defense",
+      "statBonus": {
+        "all_hp_boost": 0.05
+      },
+      "dependencies": []
+    }
+  ],
+  "Campaign": [
+    {
+      "id": "base44-stage-5",
+      "chapter": 1,
+      "chapterTitle": "Legacy of the Forgotten",
+      "stageNumber": 5,
+      "name": "Eclipsed Halls of Eternal Night",
+      "description": "A domain of unspeakable power.",
+      "story": "In the shadowed recesses of the Eclipsed Halls, whispers of the ancients entwine with the fabric of darkness, hinting at the unfathomable horrors that linger just beyond the veil of sanity. Here, the air thrums with an unholy resonance, as the Gibbering Dream-Shambler beckons from the abyss, its laughter a cacophony of despair that rends the very essence of reality. To confront this abomination is to awaken lost truths better left buried; for in its presence, the line between dream and nightmare...",
+      "enemyFusionId": "69b780b528fcb26b34fb7ac7",
+      "rewardShards": 220,
+      "rewardFragments": 15,
+      "isBoss": true,
+      "isFinalBoss": true
+    },
+    {
+      "id": "base44-stage-4",
+      "chapter": 1,
+      "chapterTitle": "Legacy of the Forgotten",
+      "stageNumber": 4,
+      "name": "Nameless Spire of Shattered Dreams",
+      "description": "A twisted place where reality frays.",
+      "story": "As the weary travelers ascend the spiraling path of the Nameless Spire, the air grows thick with the whisper of forgotten sorrows, each echo promising truths better left undisturbed. Shadows writhe upon the cold stone walls, as though the very remnants of shattered hopes seep from cracks unseen, beckoning the unwise to unearth their lingering despair. Within the crumbling tower, an insidious presence lurks, poised to awaken the specters of ancestral nightmares, waiting to reclaim what was forsak...",
+      "enemyFusionId": "69b780985bad97a3df2cddd7",
+      "rewardShards": 110,
+      "rewardFragments": 0,
+      "isBoss": false,
+      "isFinalBoss": false
+    },
+    {
+      "id": "base44-stage-3",
+      "chapter": 1,
+      "chapterTitle": "Legacy of the Forgotten",
+      "stageNumber": 3,
+      "name": "Whispering Labyrinth of Eternal Night",
+      "description": "A twisted place where reality frays.",
+      "story": "In the suffocating gloom of the Whispering Labyrinth, echoes of the ancients curl around you like the tendrils of a long-forgotten nightmare, each whisper unraveling the threads of sanity. Shadows twist and writhe ahead, hinting at a truth best left buried beneath the weight of aeons, where the very walls seem to breathe with the agonizing secrets of a cosmic horror. As you tread deeper into this abyss, remember: in the absence of light, the unblinking eyes of the dark will not just observe, but...",
+      "enemyFusionId": "69b780750dc9436ecdb35142",
+      "rewardShards": 100,
+      "rewardFragments": 0,
+      "isBoss": false,
+      "isFinalBoss": false
+    },
+    {
+      "id": "base44-stage-2",
+      "chapter": 1,
+      "chapterTitle": "Legacy of the Forgotten",
+      "stageNumber": 2,
+      "name": "Eclipsed Caverns of Forgotten Gods",
+      "description": "A twisted place where reality frays.",
+      "story": "In the shadowed depths of the Eclipsed Caverns, where the light of forgotten stars no longer penetrates, whispers of long-slumbering deities curl like smoke through the damp air. Unearthed by the foolish and the desperate, the echoes of ancient rituals thrum beneath your feet, beckoning you closer with promises laced in madness. Beware, for the secrets you seek may awaken beings for whom time and sanity are as fleeting as shadows in the dark.",
+      "enemyFusionId": "69b780596ed043b6f4b4b8a9",
+      "rewardShards": 90,
+      "rewardFragments": 0,
+      "isBoss": false,
+      "isFinalBoss": false
+    },
+    {
+      "id": "base44-stage-1",
+      "chapter": 1,
+      "chapterTitle": "Legacy of the Forgotten",
+      "stageNumber": 1,
+      "name": "Nameless Citadel of a Thousand Eyes",
+      "description": "A twisted place where reality frays.",
+      "story": "As you step into the shrouded halls of the Nameless Citadel, an unsettling multitude of unseen gazes pierces through the shadows, as if the very stones themselves are witnesses to a forgotten horror. Whispers of lost knowledge echo from the depths, a cacophony of voices that entwine with the air—a siren's call to those brave enough to unearth their lingering despair. Beware, for the eyes that observe from the eternal dark are not merely of flesh and bone; they are remnants of an unspeakable truth that should have remained entombed.",
+      "enemyFusionId": "69b7802d7631ac426d85b385",
+      "rewardShards": 80,
+      "rewardFragments": 0,
+      "isBoss": false,
+      "isFinalBoss": false
+    }
+  ],
+  "Fusion": [
+    {
+      "parents": [
+        "68aaabab48dbadf5a6af1c09",
+        "68aaabab48dbadf5a6af1c0a"
+      ],
+      "fusedName": "Gibbering Dream-Shambler",
+      "stats": {
+        "hp": 88,
+        "defense": 36,
+        "attack": 36,
+        "speed": 39
+      },
+      "level": 4,
+      "levelBonus": {
+        "hp": 20,
+        "defense": 4,
+        "attack": 8,
+        "speed": 4
+      },
+      "generatedImage": "/Artwork/base44/2e08f741210713ac2e9401e2.webp",
+      "abilities": [
+        "68abd7159be9c3c8615bfc5e",
+        "68b1e4a62a977dae0672d170",
+        "68d245697c8aa2b7ac57fd54"
+      ],
+      "rarity": "Outer",
+      "originType": "Dream",
+      "orbSlots": 1,
+      "equippedOrbs": [
+        "68b3afc191f028588b0caf9c"
+      ],
+      "ascensionLevel": 0,
+      "id": "69b780b528fcb26b34fb7ac7",
+      "playerOwner": "base44-campaign"
+    },
+    {
+      "parents": [
+        "68aaabab48dbadf5a6af1c09",
+        "68aaabab48dbadf5a6af1c08"
+      ],
+      "fusedName": "Lurking Dream-Eater of the Sunken Abyss",
+      "stats": {
+        "hp": 78,
+        "defense": 30,
+        "attack": 39,
+        "speed": 39
+      },
+      "level": 2,
+      "levelBonus": {
+        "hp": 10,
+        "defense": 2,
+        "attack": 4,
+        "speed": 2
+      },
+      "generatedImage": "/Artwork/base44/b93fd7142d8b335de4a0c8c3.webp",
+      "abilities": [
+        "68abd7159be9c3c8615bfc5e",
+        "68abd7159be9c3c8615bfc62",
+        "68d245697c8aa2b7ac57fd55"
+      ],
+      "rarity": "Cosmic",
+      "originType": "Dream",
+      "orbSlots": 1,
+      "equippedOrbs": [
+        "68b3afc191f028588b0caf9d"
+      ],
+      "ascensionLevel": 0,
+      "id": "69b780985bad97a3df2cddd7",
+      "playerOwner": "base44-campaign"
+    },
+    {
+      "parents": [
+        "68aaabab48dbadf5a6af1c08",
+        "68aaabab48dbadf5a6af1c07"
+      ],
+      "fusedName": "Lurking Watcher of the Abyssal Void",
+      "stats": {
+        "hp": 76,
+        "defense": 31,
+        "attack": 31,
+        "speed": 31
+      },
+      "level": 1,
+      "levelBonus": {
+        "hp": 5,
+        "defense": 1,
+        "attack": 2,
+        "speed": 1
+      },
+      "generatedImage": "/Artwork/base44/37ac533b952bf87ee6e7366c.webp",
+      "abilities": [
+        "68d245697c8aa2b7ac57fd53",
+        "68b1344a3343896a8f53d389",
+        "68abd7159be9c3c8615bfc60"
+      ],
+      "rarity": "Abyssal",
+      "originType": "Sunken",
+      "orbSlots": 1,
+      "equippedOrbs": [
+        "68b3afc191f028588b0caf9f"
+      ],
+      "ascensionLevel": 0,
+      "id": "69b780750dc9436ecdb35142",
+      "playerOwner": "base44-campaign"
+    },
+    {
+      "parents": [
+        "68aaabab48dbadf5a6af1c07",
+        "68aac4cc0f259dcb6ada7024"
+      ],
+      "fusedName": "The Faceless Serpent of the Veil Beyond",
+      "stats": {
+        "hp": 64,
+        "defense": 34,
+        "attack": 39,
+        "speed": 36
+      },
+      "level": 1,
+      "levelBonus": {
+        "hp": 5,
+        "defense": 1,
+        "attack": 2,
+        "speed": 1
+      },
+      "generatedImage": "/Artwork/base44/c8402dbeff6a0924c82082ea.webp",
+      "abilities": [
+        "68b1e4a62a977dae0672d170",
+        "68abd7159be9c3c8615bfc5e",
+        "68d245697c8aa2b7ac57fd57"
+      ],
+      "rarity": "Abyssal",
+      "originType": "Void",
+      "orbSlots": 1,
+      "equippedOrbs": [
+        "68b3afc191f028588b0caf9f"
+      ],
+      "ascensionLevel": 0,
+      "id": "69b780596ed043b6f4b4b8a9",
+      "playerOwner": "base44-campaign"
+    },
+    {
+      "parents": [
+        "68aaabab48dbadf5a6af1c08",
+        "68aaabab48dbadf5a6af1c0a"
+      ],
+      "fusedName": "Sibilant Deep Shambler",
+      "stats": {
+        "hp": 81,
+        "defense": 39,
+        "attack": 26,
+        "speed": 13
+      },
+      "level": 1,
+      "levelBonus": {
+        "hp": 5,
+        "defense": 1,
+        "attack": 2,
+        "speed": 1
+      },
+      "generatedImage": "/Artwork/base44/03c7153f7f95ccb915561f2e.webp",
+      "abilities": [
+        "68d245697c8aa2b7ac57fd55",
+        "68d245697c8aa2b7ac57fd56",
+        "68d245697c8aa2b7ac57fd57"
+      ],
+      "rarity": "Uncanny",
+      "originType": "Sunken",
+      "orbSlots": 1,
+      "equippedOrbs": [
+        "68b3afc191f028588b0caf9d"
+      ],
+      "ascensionLevel": 0,
+      "id": "69b7802d7631ac426d85b385",
+      "playerOwner": "base44-campaign"
+    }
+  ],
+  "Images": [
+    {
+      "id": "base44-fusion-art-1",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/afe06d6fb5a3297a8cdc5806.jpg"
+    },
+    {
+      "id": "base44-fusion-art-2",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/15fb94e4464ac730e5e66b9a.jpg"
+    },
+    {
+      "id": "base44-fusion-art-3",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/c9ae4580df4fa90b28d351a9.jpg"
+    },
+    {
+      "id": "base44-fusion-art-4",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/4e7f0bb2fb48f4690bb07837.jpg"
+    },
+    {
+      "id": "base44-fusion-art-5",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/25b0415a2032cdad55318942.jpg"
+    },
+    {
+      "id": "base44-fusion-art-6",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/854e6cc333fc63f6b635f5a6.jpg"
+    },
+    {
+      "id": "base44-fusion-art-7",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/7ecc7b8b2fe12f2d7dec9028.jpg"
+    },
+    {
+      "id": "base44-fusion-art-8",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/ff3676d57bb86327cb5dc0e6.jpg"
+    },
+    {
+      "id": "base44-fusion-art-9",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/a386c16728a037359dd74993.jpg"
+    },
+    {
+      "id": "base44-fusion-art-10",
+      "nameA": "Gibbering Shambler",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/408a71aa6f7920a99c46469a.jpg"
+    },
+    {
+      "id": "base44-fusion-art-11",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/4369c7b0c1a91ce5eb4882b8.jpg"
+    },
+    {
+      "id": "base44-fusion-art-12",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/91a10c914656ff3c8722865a.jpg"
+    },
+    {
+      "id": "base44-fusion-art-13",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/3f4a234ffee72d962648a7b9.jpg"
+    },
+    {
+      "id": "base44-fusion-art-14",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/1d7c25869e62ae5d1a85f581.jpg"
+    },
+    {
+      "id": "base44-fusion-art-15",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/dca42eb2a4584c2d322ed2ed.jpg"
+    },
+    {
+      "id": "base44-fusion-art-16",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/0ccc51f4305672aa7eb8b669.jpg"
+    },
+    {
+      "id": "base44-fusion-art-17",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/4502539513c840515b550bfd.jpg"
+    },
+    {
+      "id": "base44-fusion-art-18",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/24298a240a3879e0d5b81a87.jpg"
+    },
+    {
+      "id": "base44-fusion-art-19",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/4c4f10258c8f26a2d21be4be.jpg"
+    },
+    {
+      "id": "base44-fusion-art-20",
+      "nameA": "Dream-Eater",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/32bca37df3cb60772a069afd.jpg"
+    },
+    {
+      "id": "base44-fusion-art-21",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/202d6090429c48147237b3eb.jpg"
+    },
+    {
+      "id": "base44-fusion-art-22",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/5e8cdff32067f1973d2cd1f3.jpg"
+    },
+    {
+      "id": "base44-fusion-art-23",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/bf72bac1b70682c69dae72cc.jpg"
+    },
+    {
+      "id": "base44-fusion-art-24",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/db692d5632f46f1720f9968f.jpg"
+    },
+    {
+      "id": "base44-fusion-art-25",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/2a3e3d95a4ac196a19553ab4.jpg"
+    },
+    {
+      "id": "base44-fusion-art-26",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/a2ea777da48a2c99d6655f3e.jpg"
+    },
+    {
+      "id": "base44-fusion-art-27",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/025c67bc7c6d59c64453d554.jpg"
+    },
+    {
+      "id": "base44-fusion-art-28",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/d67c68d604d3ae5e765da7cf.jpg"
+    },
+    {
+      "id": "base44-fusion-art-29",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/906128e9e1de6a7c1ece0bfc.jpg"
+    },
+    {
+      "id": "base44-fusion-art-30",
+      "nameA": "Dream-Eater",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/dd32c894c9eded175e07242b.jpg"
+    },
+    {
+      "id": "base44-fusion-art-31",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/48863e9dd86e4ef97e9e6670.jpg"
+    },
+    {
+      "id": "base44-fusion-art-32",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/112a8ef381f0f5f77717b156.jpg"
+    },
+    {
+      "id": "base44-fusion-art-33",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/03d3fcf5c03b4936433b2e0c.jpg"
+    },
+    {
+      "id": "base44-fusion-art-34",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/f176a2972d51d7691245eb1f.jpg"
+    },
+    {
+      "id": "base44-fusion-art-35",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/a135a8efdf75afeefe881e1e.jpg"
+    },
+    {
+      "id": "base44-fusion-art-36",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/c3788480c124cb69892fda17.jpg"
+    },
+    {
+      "id": "base44-fusion-art-37",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/379a26a8cc8519af9395e3e2.jpg"
+    },
+    {
+      "id": "base44-fusion-art-38",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/dec5b7f99cb86e9e6197c65e.jpg"
+    },
+    {
+      "id": "base44-fusion-art-39",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/84609c3c7538a0b2a373c493.jpg"
+    },
+    {
+      "id": "base44-fusion-art-40",
+      "nameA": "Deep Lurker",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/5c3da0defa467a275307df9d.jpg"
+    },
+    {
+      "id": "base44-fusion-art-41",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/4251152060bd21ff65ab37a8.jpg"
+    },
+    {
+      "id": "base44-fusion-art-42",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/6645d25be1e7d3b898abaf24.jpg"
+    },
+    {
+      "id": "base44-fusion-art-43",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/a87156d7433308e18b50e4f9.jpg"
+    },
+    {
+      "id": "base44-fusion-art-44",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/4c4b4f3397db6654d11b2251.jpg"
+    },
+    {
+      "id": "base44-fusion-art-45",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/5b06318cd98f4d587105ecc2.jpg"
+    },
+    {
+      "id": "base44-fusion-art-46",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/420ff656bf848b1803db3944.jpg"
+    },
+    {
+      "id": "base44-fusion-art-47",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/c1981c52f854dc8e1db00219.jpg"
+    },
+    {
+      "id": "base44-fusion-art-48",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/7de5dc14656d5057e55e645c.jpg"
+    },
+    {
+      "id": "base44-fusion-art-49",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/fb1b783f7aeb2d0b10c8e580.jpg"
+    },
+    {
+      "id": "base44-fusion-art-50",
+      "nameA": "Deep Lurker",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/39f1c85e64e129c7c5ab0cd4.jpg"
+    },
+    {
+      "id": "base44-fusion-art-51",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/4181d900259018ecc6887a0e.jpg"
+    },
+    {
+      "id": "base44-fusion-art-52",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/7123a74de3773168feb54e17.jpg"
+    },
+    {
+      "id": "base44-fusion-art-53",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/31cd12bf436a016450ecc163.jpg"
+    },
+    {
+      "id": "base44-fusion-art-54",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/7d7171e24d5b4257246d4d81.jpg"
+    },
+    {
+      "id": "base44-fusion-art-55",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/dbe2b2d888d24f87baf2f918.jpg"
+    },
+    {
+      "id": "base44-fusion-art-56",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/c4819690811b43535c94f252.jpg"
+    },
+    {
+      "id": "base44-fusion-art-57",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/375e108d7eb2c393441cc172.jpg"
+    },
+    {
+      "id": "base44-fusion-art-58",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/dcf3e86d5f303cc2c32afda9.jpg"
+    },
+    {
+      "id": "base44-fusion-art-59",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/134eb51220b32d6d8f8f71ae.jpg"
+    },
+    {
+      "id": "base44-fusion-art-60",
+      "nameA": "Deep Lurker",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/708e61ddc98f5ff118542feb.jpg"
+    },
+    {
+      "id": "base44-fusion-art-61",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/3a8e7f820e6dfa39d6193b33.jpg"
+    },
+    {
+      "id": "base44-fusion-art-62",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/57fae261a1f876b8ea90cc68.jpg"
+    },
+    {
+      "id": "base44-fusion-art-63",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/c7feccb64456a7984913eb2e.jpg"
+    },
+    {
+      "id": "base44-fusion-art-64",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/4b1b6f30fd49df8fb41cfe5c.jpg"
+    },
+    {
+      "id": "base44-fusion-art-65",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/3c1ad5e69bb2a37a3f53d10d.jpg"
+    },
+    {
+      "id": "base44-fusion-art-66",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/f6a02f1691042091fafc5d84.jpg"
+    },
+    {
+      "id": "base44-fusion-art-67",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/13d50d8a85b0544a38066bb2.jpg"
+    },
+    {
+      "id": "base44-fusion-art-68",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/b15f08c690c9dcc0fa370e0f.jpg"
+    },
+    {
+      "id": "base44-fusion-art-69",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/c8fc9a9a16479246a4512649.jpg"
+    },
+    {
+      "id": "base44-fusion-art-70",
+      "nameA": "Faceless Watcher",
+      "nameB": "Veil Serpent",
+      "image": "/Artwork/base44/531a79724d83fe2ebb66cad3.jpg"
+    },
+    {
+      "id": "base44-fusion-art-71",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/db926bb388e115bf91ea38e5.jpg"
+    },
+    {
+      "id": "base44-fusion-art-72",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/bb71696e24304d931e929301.jpg"
+    },
+    {
+      "id": "base44-fusion-art-73",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/19c21d7887489004447793b2.jpg"
+    },
+    {
+      "id": "base44-fusion-art-74",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/188aefb15992bace964aa1fb.jpg"
+    },
+    {
+      "id": "base44-fusion-art-75",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/73bde9e6e49c56921de96123.jpg"
+    },
+    {
+      "id": "base44-fusion-art-76",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/f06925b6db90f029adff7dc5.jpg"
+    },
+    {
+      "id": "base44-fusion-art-77",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/6a21b17e4af5f42f5bd31d7f.jpg"
+    },
+    {
+      "id": "base44-fusion-art-78",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/e67d4e6c9eac3868549cbe26.jpg"
+    },
+    {
+      "id": "base44-fusion-art-79",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/047f07fe12b26e1db31bf7f8.jpg"
+    },
+    {
+      "id": "base44-fusion-art-80",
+      "nameA": "Faceless Watcher",
+      "nameB": "Gibbering Shambler",
+      "image": "/Artwork/base44/09943734502edd6a124862ef.jpg"
+    },
+    {
+      "id": "base44-fusion-art-81",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/0a5a5bfa920e8422d7ae48e6.jpg"
+    },
+    {
+      "id": "base44-fusion-art-82",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/0c734ee8d28125190ca4b01c.jpg"
+    },
+    {
+      "id": "base44-fusion-art-83",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/bbedfd09a99714fc787cd0ff.jpg"
+    },
+    {
+      "id": "base44-fusion-art-84",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/b1c8e32ba8be4716daafa8a2.jpg"
+    },
+    {
+      "id": "base44-fusion-art-85",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/44057e61c46707ca9be34936.jpg"
+    },
+    {
+      "id": "base44-fusion-art-86",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/f751f71793217c2dc40ac1b8.jpg"
+    },
+    {
+      "id": "base44-fusion-art-87",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/fb64a391ad7255ba72d3c3c4.jpg"
+    },
+    {
+      "id": "base44-fusion-art-88",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/42d797cfc868cddffda98039.jpg"
+    },
+    {
+      "id": "base44-fusion-art-89",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/210991eb79cbc4e727eaec1c.jpg"
+    },
+    {
+      "id": "base44-fusion-art-90",
+      "nameA": "Faceless Watcher",
+      "nameB": "Dream-Eater",
+      "image": "/Artwork/base44/c3ce5afe27495bddfec7a8d6.jpg"
+    },
+    {
+      "id": "base44-fusion-art-91",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/0ba508e0e1a4cde6250e3615.jpg"
+    },
+    {
+      "id": "base44-fusion-art-92",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/bab62a757ef97b9e44d8e4cb.jpg"
+    },
+    {
+      "id": "base44-fusion-art-93",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/7306bd364fa331d3623e4372.jpg"
+    },
+    {
+      "id": "base44-fusion-art-94",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/fb27f4fed392a42de70fbf11.jpg"
+    },
+    {
+      "id": "base44-fusion-art-95",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/f823ba3269839a13147f3473.jpg"
+    },
+    {
+      "id": "base44-fusion-art-96",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/f1e9d079eab8593f87ea141e.jpg"
+    },
+    {
+      "id": "base44-fusion-art-97",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/cdd14ddec6bae53864971238.jpg"
+    },
+    {
+      "id": "base44-fusion-art-98",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/7a12789f245658d80161f278.jpg"
+    },
+    {
+      "id": "base44-fusion-art-99",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/ffc51e8c0787d437da2bbc79.jpg"
+    },
+    {
+      "id": "base44-fusion-art-100",
+      "nameA": "Faceless Watcher",
+      "nameB": "Deep Lurker",
+      "image": "/Artwork/base44/2e36ca625b77c8116dad7fc3.jpg"
+    }
+  ],
+  "Backgrounds": [
+    {
+      "id": "base44-background-1",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/98e4b143b2f1f9008f2fb5cf.jpg"
+    },
+    {
+      "id": "base44-background-2",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/f476cddb44fcf90ea7b80047.jpg"
+    },
+    {
+      "id": "base44-background-3",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/f7f2fd1914a51c1331c78a3b.jpg"
+    },
+    {
+      "id": "base44-background-4",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/ab1611600dc9efdc33432f70.jpg"
+    },
+    {
+      "id": "base44-background-5",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/0772a327d9d58915bf2b0966.jpg"
+    },
+    {
+      "id": "base44-background-6",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/f458d4c326e1bb5932987646.jpg"
+    },
+    {
+      "id": "base44-background-7",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/7e193718f688dcb01d6dad31.jpg"
+    },
+    {
+      "id": "base44-background-8",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/d6d318272c9ac1f6648355bc.jpg"
+    },
+    {
+      "id": "base44-background-9",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/9d67572e6b68f853a96badf3.jpg"
+    },
+    {
+      "id": "base44-background-10",
+      "originType": "Dimension",
+      "image": "/Artwork/base44/a3dec18b5c253ad35f0c59fe.jpg"
+    },
+    {
+      "id": "base44-background-11",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/d3fc2e0bb2ac22538011877a.jpg"
+    },
+    {
+      "id": "base44-background-12",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/2a0eb28b05ccdf1317dc5341.jpg"
+    },
+    {
+      "id": "base44-background-13",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/9a6fc2bc8a949ff85013abf6.jpg"
+    },
+    {
+      "id": "base44-background-14",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/c5cbf4d0bb091ac159254c17.jpg"
+    },
+    {
+      "id": "base44-background-15",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/04ad404768d037e421e18e17.jpg"
+    },
+    {
+      "id": "base44-background-16",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/ce19a00deb7b9a6ad223e7c3.jpg"
+    },
+    {
+      "id": "base44-background-17",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/d809dad2539da55ae76dd1b5.jpg"
+    },
+    {
+      "id": "base44-background-18",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/1236c439e7a997e1ce6165a6.jpg"
+    },
+    {
+      "id": "base44-background-19",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/3235b2f88ff960655657ed0f.jpg"
+    },
+    {
+      "id": "base44-background-20",
+      "originType": "Sunken",
+      "image": "/Artwork/base44/087f72d926a7835817187620.jpg"
+    },
+    {
+      "id": "base44-background-21",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/8ed1d64f7e0ae961a47ae40a.jpg"
+    },
+    {
+      "id": "base44-background-22",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/76bc507d12ee916d80531fb1.jpg"
+    },
+    {
+      "id": "base44-background-23",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/4fa2a33faf32914c8d3ba3fb.jpg"
+    },
+    {
+      "id": "base44-background-24",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/4e1a3321bf94f6941e34e5d9.jpg"
+    },
+    {
+      "id": "base44-background-25",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/3f85edc5e041ff3a327e7fe5.jpg"
+    },
+    {
+      "id": "base44-background-26",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/894152f9af9da19d66e4a837.jpg"
+    },
+    {
+      "id": "base44-background-27",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/779cbfc414dac63f850d5489.jpg"
+    },
+    {
+      "id": "base44-background-28",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/1e87989d8ab6fb9cff495cfe.jpg"
+    },
+    {
+      "id": "base44-background-29",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/6306b5db7ce8dfc88e567249.jpg"
+    },
+    {
+      "id": "base44-background-30",
+      "originType": "Flesh",
+      "image": "/Artwork/base44/436abe42b5d3017bc2a48ce2.jpg"
+    },
+    {
+      "id": "base44-background-31",
+      "originType": "Dream",
+      "image": "/Artwork/base44/d71ec256b5360c496e64f8a0.jpg"
+    },
+    {
+      "id": "base44-background-32",
+      "originType": "Dream",
+      "image": "/Artwork/base44/acb748ec8a5886983657b1c2.jpg"
+    },
+    {
+      "id": "base44-background-33",
+      "originType": "Dream",
+      "image": "/Artwork/base44/691304f423c73497ffaad5a4.jpg"
+    },
+    {
+      "id": "base44-background-34",
+      "originType": "Dream",
+      "image": "/Artwork/base44/84ba47a7209bbd772b976dfa.jpg"
+    },
+    {
+      "id": "base44-background-35",
+      "originType": "Dream",
+      "image": "/Artwork/base44/6df6c290796e0223bd8851c4.jpg"
+    },
+    {
+      "id": "base44-background-36",
+      "originType": "Dream",
+      "image": "/Artwork/base44/cc11de1373a186b31fbca625.jpg"
+    },
+    {
+      "id": "base44-background-37",
+      "originType": "Dream",
+      "image": "/Artwork/base44/60da1dd68189a6c8ea356598.jpg"
+    },
+    {
+      "id": "base44-background-38",
+      "originType": "Dream",
+      "image": "/Artwork/base44/e8816a7abca15028f34735fa.jpg"
+    },
+    {
+      "id": "base44-background-39",
+      "originType": "Dream",
+      "image": "/Artwork/base44/a772bcf8a9bfd53634aecbfd.jpg"
+    },
+    {
+      "id": "base44-background-40",
+      "originType": "Dream",
+      "image": "/Artwork/base44/2f659883c43e83977c71c60d.jpg"
+    },
+    {
+      "id": "base44-background-41",
+      "originType": "Void",
+      "image": "/Artwork/base44/652755814daceb39934cb845.jpg"
+    },
+    {
+      "id": "base44-background-42",
+      "originType": "Void",
+      "image": "/Artwork/base44/3a42a54d411606abaa7ffe06.jpg"
+    },
+    {
+      "id": "base44-background-43",
+      "originType": "Void",
+      "image": "/Artwork/base44/dd6b14d1517a72f3a2d86519.jpg"
+    },
+    {
+      "id": "base44-background-44",
+      "originType": "Void",
+      "image": "/Artwork/base44/4591447c4f4b5f5454031470.jpg"
+    },
+    {
+      "id": "base44-background-45",
+      "originType": "Void",
+      "image": "/Artwork/base44/50ce408f892736badbb9133f.jpg"
+    },
+    {
+      "id": "base44-background-46",
+      "originType": "Void",
+      "image": "/Artwork/base44/6ed340bf67bfe13567e3f3ef.jpg"
+    },
+    {
+      "id": "base44-background-47",
+      "originType": "Void",
+      "image": "/Artwork/base44/66fe29001d7bf49e2af072d5.jpg"
+    },
+    {
+      "id": "base44-background-48",
+      "originType": "Void",
+      "image": "/Artwork/base44/6b1e5559251c78f1315ab86d.jpg"
+    },
+    {
+      "id": "base44-background-49",
+      "originType": "Void",
+      "image": "/Artwork/base44/91521a56664722961906ff89.jpg"
+    },
+    {
+      "id": "base44-background-50",
+      "originType": "Void",
+      "image": "/Artwork/base44/32aaaa86a9e81b845c416147.jpg"
+    }
+  ],
+  "Avatar": [
+    {
+      "id": "base44-avatar-1",
+      "url": "/Artwork/base44/a8faa40c04e44a00b9ac73d4.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-2",
+      "url": "/Artwork/base44/ec5b9ff93502792e9729eccf.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-3",
+      "url": "/Artwork/base44/f376611c74389a6f3b034046.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-4",
+      "url": "/Artwork/base44/ad13762bdbec2cef7759e370.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-5",
+      "url": "/Artwork/base44/5f6425fc7837ffacca36bde3.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-6",
+      "url": "/Artwork/base44/133cd0659705aab40b64a423.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-7",
+      "url": "/Artwork/base44/2cc69de1eaff466c70068352.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-8",
+      "url": "/Artwork/base44/867703b443f7378df46ee14d.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-9",
+      "url": "/Artwork/base44/095ff258d06784265e1b1ded.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-10",
+      "url": "/Artwork/base44/3a43a4efcc63037175388d84.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-11",
+      "url": "/Artwork/base44/f8c3f71d6dd2a75b718161b1.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-12",
+      "url": "/Artwork/base44/bc9b781f7087e59b614ece34.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-13",
+      "url": "/Artwork/base44/0873a234376f0a04b34da7e8.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-14",
+      "url": "/Artwork/base44/0fd9dcfc6a04a1280ba803c3.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-15",
+      "url": "/Artwork/base44/119a00953f398c76461c7cc4.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-16",
+      "url": "/Artwork/base44/ab4ead4b1349337373e3bab3.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-17",
+      "url": "/Artwork/base44/4b025e82e83b6d19e01b85e3.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-18",
+      "url": "/Artwork/base44/2787d18e3c4d34c5b70a01a6.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-19",
+      "url": "/Artwork/base44/ac6253e5329ee4f22448002e.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-20",
+      "url": "/Artwork/base44/42f1d4f332f921f8a7ed9fb4.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-21",
+      "url": "/Artwork/base44/67b6bf9d00f488c2cfefcafc.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-22",
+      "url": "/Artwork/base44/33a16021409925315d75a685.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-23",
+      "url": "/Artwork/base44/6379019eff5007231cdfa882.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-24",
+      "url": "/Artwork/base44/1c822110e6f5b30a8528c239.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-25",
+      "url": "/Artwork/base44/3986d5318c72cde1545b9891.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-26",
+      "url": "/Artwork/base44/dbf6cfa6fdd34f0e2eef2206.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-27",
+      "url": "/Artwork/base44/f9bb4eb172314bed97414995.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-28",
+      "url": "/Artwork/base44/8863704779f15d215b801ad8.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-29",
+      "url": "/Artwork/base44/d55ee5b65b9e04fcf761a66d.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-30",
+      "url": "/Artwork/base44/32494b492a36f23d4e4ba8e3.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-31",
+      "url": "/Artwork/base44/e15ccbb5fe943c1725becdb1.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-32",
+      "url": "/Artwork/base44/55e2680c0f962c62dd3b6315.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-33",
+      "url": "/Artwork/base44/5b46e25438394cb8b66fbb03.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-34",
+      "url": "/Artwork/base44/6cc6ec3d7841560827a23faa.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-35",
+      "url": "/Artwork/base44/9d7b5725fc9fae8d9ebd898d.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-36",
+      "url": "/Artwork/base44/da5982eddacdfe200101fcf0.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-37",
+      "url": "/Artwork/base44/d3cc94ab53a3e847072a1d58.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-38",
+      "url": "/Artwork/base44/37105e2c9095205fb3ca7c69.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-39",
+      "url": "/Artwork/base44/67b6015bc13c1574e2e6d36a.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-40",
+      "url": "/Artwork/base44/3cbbe3d2bbfdcb775d6d8006.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-41",
+      "url": "/Artwork/base44/1cf79650ae4579f8ef93ede3.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-42",
+      "url": "/Artwork/base44/dc9e9ecfe3ef42d1cbb2989e.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-43",
+      "url": "/Artwork/base44/12e9aad00515d292c52b537f.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-44",
+      "url": "/Artwork/base44/06aabbc5355c6c95d70028d6.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-45",
+      "url": "/Artwork/base44/73c24955ee192861dfee1122.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-46",
+      "url": "/Artwork/base44/b4529251cb31ce47d0e9397b.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-47",
+      "url": "/Artwork/base44/d7d3bea37fd723320b79c4f0.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-48",
+      "url": "/Artwork/base44/2cf1f0b8507057e5b8b0cc78.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-49",
+      "url": "/Artwork/base44/252257b29ccf29d6acb363c3.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-50",
+      "url": "/Artwork/base44/f3c87b0308a9a72fce029bee.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-51",
+      "url": "/Artwork/base44/51a03c9ead1e11367aad8797.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-52",
+      "url": "/Artwork/base44/8205b2ea1ac31a02cde378c5.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-53",
+      "url": "/Artwork/base44/50b5a096366e5e98a7784093.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-54",
+      "url": "/Artwork/base44/8eabfd321718294702c66676.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-55",
+      "url": "/Artwork/base44/0fadc39d60740a4635f6e36c.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-56",
+      "url": "/Artwork/base44/a912ea17a6a053723dd7b1c2.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-57",
+      "url": "/Artwork/base44/065c1a87fbf8127a6ca78f7c.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-58",
+      "url": "/Artwork/base44/c5c711ef7eeb3091330dd83a.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-59",
+      "url": "/Artwork/base44/daadb8e81eee394b1bc41fa5.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-60",
+      "url": "/Artwork/base44/58704116e80cd9f2ca13146f.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-61",
+      "url": "/Artwork/base44/5c2c26926eac80bad85884fb.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-62",
+      "url": "/Artwork/base44/42887f022fda73321261c0a1.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-63",
+      "url": "/Artwork/base44/2fa0cec5fe28dbd7d40c0521.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-64",
+      "url": "/Artwork/base44/2588a59d9cb28195c97d46ba.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-65",
+      "url": "/Artwork/base44/7d52f143e8de6c0932907c7f.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-66",
+      "url": "/Artwork/base44/527b6751d9af999f1ad6130c.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-67",
+      "url": "/Artwork/base44/66fb09551ae94843ab8b19eb.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-68",
+      "url": "/Artwork/base44/fdd2b5e2f3eec8ac3f03c55a.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-69",
+      "url": "/Artwork/base44/72a1b114f618d79ee4210ac7.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-70",
+      "url": "/Artwork/base44/4ac5136e5fb99acd73212a39.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-71",
+      "url": "/Artwork/base44/29ded0aab2ac479f1cc69355.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-72",
+      "url": "/Artwork/base44/979e1a7cd74a91cd7720f650.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-73",
+      "url": "/Artwork/base44/58ce60ea4bb5c68191741b50.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-74",
+      "url": "/Artwork/base44/620bc2b56076952cf1f99f9b.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-75",
+      "url": "/Artwork/base44/057f156ee0cd5c3a1239b429.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-76",
+      "url": "/Artwork/base44/3beb69aaef8b32b936223c65.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-77",
+      "url": "/Artwork/base44/1ea03a2824ddbe338a2b3363.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-78",
+      "url": "/Artwork/base44/6d3e5ccb757b58c4d4da391b.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-79",
+      "url": "/Artwork/base44/cb161d5012b2aed53e3d6fb5.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-80",
+      "url": "/Artwork/base44/19a4eb6241ba8120e2382d54.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-81",
+      "url": "/Artwork/base44/e77ad8fe84f6f51f9e492991.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-82",
+      "url": "/Artwork/base44/2eb0d6a4238fd8ec47acd69e.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-83",
+      "url": "/Artwork/base44/21235a017e0672aae0f4d089.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-84",
+      "url": "/Artwork/base44/7ae232bec34a270eb5df9cee.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-85",
+      "url": "/Artwork/base44/f55fd6639a4265d654a72974.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-86",
+      "url": "/Artwork/base44/f8bb4e2aa0a8fe98ae078f55.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-87",
+      "url": "/Artwork/base44/9d54f34aa34dcc3024fdf4f3.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-88",
+      "url": "/Artwork/base44/7ccbd74f04899ee08fdb4923.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-89",
+      "url": "/Artwork/base44/00b9d11020ae76e3c0ce9cb8.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-90",
+      "url": "/Artwork/base44/9c72d73819e1d06c0009682c.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-91",
+      "url": "/Artwork/base44/edb302a80c6489bb0df06ffb.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-92",
+      "url": "/Artwork/base44/7854aaee9c1185be0d16a4d2.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-93",
+      "url": "/Artwork/base44/a916383eb19afc602c529f9c.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-94",
+      "url": "/Artwork/base44/09b98d1a2675401fab6be61c.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-95",
+      "url": "/Artwork/base44/a6cb0fa7e2dbf03dfef55d15.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-96",
+      "url": "/Artwork/base44/4e00172f8b1158bed3214188.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-97",
+      "url": "/Artwork/base44/4a93ee1a35efe4a088f19707.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-98",
+      "url": "/Artwork/base44/c5254d24f2c5a9ca1e230d5e.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-99",
+      "url": "/Artwork/base44/f6eba7cf05a4c0ee534a4b1a.jpg",
+      "category": "Cultist"
+    },
+    {
+      "id": "base44-avatar-100",
+      "url": "/Artwork/base44/52bf739da8407e7d9951b3f8.jpg",
+      "category": "Cultist"
+    }
+  ],
+  "Assets": [
+    {
+      "id": "base44-art-1",
+      "fileName": "orb_icon_2.png",
+      "assetUrl": "/Artwork/base44/7de64792149f7eff3022c2ff.png",
+      "description": "orb icons",
+      "category": "ui"
+    },
+    {
+      "id": "base44-art-2",
+      "fileName": "orb_icon_4.png",
+      "assetUrl": "/Artwork/base44/646a075c537b4e0daa049363.png",
+      "description": "orb icons",
+      "category": "ui"
+    },
+    {
+      "id": "base44-art-3",
+      "fileName": "orb_icon_3.png",
+      "assetUrl": "/Artwork/base44/3c6f9d6ee15a1ebcf171629d.png",
+      "description": "orb icons",
+      "category": "ui"
+    },
+    {
+      "id": "base44-art-4",
+      "fileName": "orb_icon.png",
+      "assetUrl": "/Artwork/base44/34165aa6d6bd95d077f26d36.png",
+      "description": "orb icons",
+      "category": "ui"
+    },
+    {
+      "id": "base44-art-5",
+      "fileName": "icon_Speed.png",
+      "assetUrl": "/Artwork/base44/65fac4ea559735d45677c63e.png",
+      "category": "icons"
+    },
+    {
+      "id": "base44-art-6",
+      "fileName": "cardBack_Lovecraftian_v2.png",
+      "assetUrl": "/Artwork/base44/8cc9a2d8749ff02939f0cb4e.png",
+      "description": "fusion card back",
+      "category": "ui"
+    },
+    {
+      "id": "base44-art-7",
+      "fileName": "icon_Defense.png",
+      "assetUrl": "/Artwork/base44/54563613ab9c837f57171e5a.png",
+      "category": "icons"
+    },
+    {
+      "id": "base44-art-8",
+      "fileName": "icon_Attack.png",
+      "assetUrl": "/Artwork/base44/2c00a43c779eec70c4f9429d.png",
+      "category": "icons"
+    },
+    {
+      "id": "base44-art-9",
+      "fileName": "icon_Health.png",
+      "assetUrl": "/Artwork/base44/e9e095db51c83494358b44e2.png",
+      "category": "icons"
+    }
+  ],
+  "Horror": [
+    {
+      "name": "Veil Serpent",
+      "origin": "Fomalhaut",
+      "description": "A serpentine abomination woven from shadows and echoes of forgotten screams.",
+      "baseStats": {
+        "hp": 55,
+        "attack": 45,
+        "defense": 40,
+        "speed": 25
+      },
+      "image": "/Artwork/base44/2a183637cd641a89d79dfe13.jpg"
+    },
+    {
+      "name": "Gibbering Shambler",
+      "origin": "Flesh Pits",
+      "description": "An amorphous mass of flesh and mouths that constantly whispers maddening secrets.",
+      "baseStats": {
+        "hp": 80,
+        "attack": 20,
+        "defense": 40,
+        "speed": 10
+      },
+      "image": "/Artwork/base44/349f0bf620bf9a8dd77367d5.jpg"
+    },
+    {
+      "name": "Dream-Eater",
+      "origin": "Dreamlands",
+      "description": "A being of living nightmare that feeds on the sanity of sleeping minds.",
+      "baseStats": {
+        "hp": 55,
+        "attack": 35,
+        "defense": 15,
+        "speed": 50
+      },
+      "image": "/Artwork/base44/1fff16141e11260314d0fa12.jpg"
+    },
+    {
+      "name": "Deep Lurker",
+      "origin": "Sunken City",
+      "description": "An amphibious terror from a forgotten city beneath the waves, covered in phosphorescent eyes.",
+      "baseStats": {
+        "hp": 75,
+        "attack": 30,
+        "defense": 35,
+        "speed": 15
+      },
+      "image": "/Artwork/base44/53a0e42a6fd68219dd3448be.jpg"
+    },
+    {
+      "name": "Faceless Watcher",
+      "origin": "The Void",
+      "description": "A silent observer from the spaces between stars, its presence instills a creeping dread.",
+      "baseStats": {
+        "hp": 60,
+        "attack": 25,
+        "defense": 20,
+        "speed": 40
+      },
+      "image": "/Artwork/base44/76f0fffc25fbc8d920c3fe18.jpg"
+    }
+  ]
+}

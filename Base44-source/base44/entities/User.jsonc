@@ -1,0 +1,151 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "description": "The user's chosen in-game display name."
+    },
+    "wins": {
+      "type": "number",
+      "default": 0,
+      "description": "Total number of matches won"
+    },
+    "losses": {
+      "type": "number",
+      "default": 0,
+      "description": "Total number of matches lost"
+    },
+    "casualWins": {
+      "type": "number",
+      "default": 0,
+      "description": "Total casual matches won"
+    },
+    "casualLosses": {
+      "type": "number",
+      "default": 0,
+      "description": "Total casual matches lost"
+    },
+    "rankedWins": {
+      "type": "number",
+      "default": 0,
+      "description": "Total ranked matches won"
+    },
+    "rankedLosses": {
+      "type": "number",
+      "default": 0,
+      "description": "Total ranked matches lost"
+    },
+    "rankingPoints": {
+      "type": "number",
+      "default": 1000,
+      "description": "Current ranking points for matchmaking"
+    },
+    "rank": {
+      "type": "string",
+      "enum": [
+        "Initiate",
+        "Cultist",
+        "Acolyte",
+        "Occultist",
+        "Herald",
+        "Elder"
+      ],
+      "default": "Initiate",
+      "description": "Current rank tier"
+    },
+    "currency": {
+      "type": "number",
+      "default": 150,
+      "description": "Echoes of Madness, used for profane enhancements."
+    },
+    "voidFragments": {
+      "type": "number",
+      "default": 0,
+      "description": "Fragments of the void, a rare and powerful currency."
+    },
+    "lastQuestGenerationDate": {
+      "type": "string",
+      "description": "The date (YYYY-MM-DD) when the last daily quests were generated."
+    },
+    "campaignProgress": {
+      "type": "number",
+      "default": 0,
+      "description": "The highest campaign stage number the user has completed."
+    },
+    "learnedTalents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "An array of Talent names that the user has learned."
+    },
+    "avatar": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the user's avatar image."
+    },
+    "bio": {
+      "type": "string",
+      "description": "A short user biography."
+    },
+    "hasSeenTutorial": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the user has seen the beginner's guide tooltip."
+    },
+    "economySettings": {
+      "type": "object",
+      "properties": {
+        "talentRefundPercentage": {
+          "type": "number",
+          "default": 0.5,
+          "description": "Percentage of talent cost refunded when unlearning (0.5 = 50%)"
+        },
+        "fusionRefundAmount": {
+          "type": "number",
+          "default": 25,
+          "description": "Base amount refunded when deleting fusions"
+        },
+        "dailyQuestMultiplier": {
+          "type": "number",
+          "default": 1,
+          "description": "Multiplier for daily quest rewards"
+        },
+        "fusionCost": {
+          "type": "number",
+          "default": 50,
+          "description": "Cost in Echoes to create a fusion"
+        },
+        "fusionLevelingRefundRate": {
+          "type": "number",
+          "default": 0.5,
+          "description": "Percentage of leveling cost refunded when deleting fusion (0.5 = 50%)"
+        },
+        "casualWinReward": {
+          "type": "number",
+          "default": 5,
+          "description": "Echoes awarded for winning casual battles"
+        },
+        "casualLossReward": {
+          "type": "number",
+          "default": 2,
+          "description": "Echoes awarded for losing casual battles"
+        },
+        "rankedWinReward": {
+          "type": "number",
+          "default": 15,
+          "description": "Echoes awarded for winning ranked battles"
+        },
+        "rankedLossReward": {
+          "type": "number",
+          "default": 5,
+          "description": "Echoes awarded for losing ranked battles"
+        }
+      },
+      "description": "Economy settings - only accessible to admins"
+    }
+  },
+  "required": []
+}

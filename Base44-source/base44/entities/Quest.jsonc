@@ -1,0 +1,68 @@
+{
+  "name": "Quest",
+  "type": "object",
+  "properties": {
+    "user": {
+      "type": "string",
+      "description": "The User ID this quest belongs to."
+    },
+    "description": {
+      "type": "string",
+      "description": "A user-friendly description of the quest."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly"
+      ],
+      "default": "daily",
+      "description": "The type of quest (daily or weekly)."
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "The conditions to complete the quest, e.g. {\"casualWins\": 3}"
+    },
+    "progress": {
+      "type": "object",
+      "additionalProperties": true,
+      "default": {},
+      "description": "The current progress towards the requirement, e.g. {\"casualWins\": 1}"
+    },
+    "baseReward": {
+      "type": "number",
+      "description": "The base amount of currency awarded before multipliers."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "completed",
+        "claimed"
+      ],
+      "default": "active",
+      "description": "The current status of the quest."
+    }
+  },
+  "required": [
+    "user",
+    "description",
+    "requirement",
+    "baseReward"
+  ],
+  "rls": {
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

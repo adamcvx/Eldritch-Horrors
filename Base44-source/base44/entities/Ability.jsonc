@@ -1,0 +1,70 @@
+{
+  "name": "Ability",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the ability"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "attack",
+        "defense",
+        "buff",
+        "debuff"
+      ],
+      "description": "The type/category of the ability"
+    },
+    "power": {
+      "type": "number",
+      "description": "The power level of the ability"
+    },
+    "cooldown": {
+      "type": "number",
+      "description": "Number of turns before ability can be used again"
+    },
+    "turnLength": {
+      "type": "number",
+      "description": "Duration of the ability effect in turns"
+    },
+    "statEffect": {
+      "type": "array",
+      "description": "The specific stat effects this ability applies",
+      "items": {
+        "type": "string",
+        "enum": [
+          "heal_over_time",
+          "damage_over_time",
+          "attack_up",
+          "defense_up",
+          "attack_down",
+          "defense_down"
+        ]
+      }
+    },
+    "statEffectName": {
+      "type": "string",
+      "description": "Custom display name for the status effect (optional, falls back to statEffect if not provided)"
+    },
+    "effect": {
+      "type": "string",
+      "description": "Description of what the ability does"
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "power",
+    "cooldown",
+    "turnLength",
+    "effect"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

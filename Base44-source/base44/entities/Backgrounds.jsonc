@@ -1,0 +1,32 @@
+{
+  "name": "Backgrounds",
+  "type": "object",
+  "properties": {
+    "originType": {
+      "type": "string",
+      "enum": [
+        "Void",
+        "Dream",
+        "Flesh",
+        "Sunken",
+        "Dimension"
+      ],
+      "description": "The origin type this background represents"
+    },
+    "image": {
+      "type": "string",
+      "description": "URL to the background image"
+    }
+  },
+  "required": [
+    "originType",
+    "image"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

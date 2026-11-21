@@ -1,0 +1,57 @@
+{
+  "name": "Horror",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "origin": {
+      "type": "string",
+      "description": "Where the horror hails from (e.g., The Void, Sunken City, Dreamlands)"
+    },
+    "description": {
+      "type": "string"
+    },
+    "baseStats": {
+      "type": "object",
+      "properties": {
+        "hp": {
+          "type": "number"
+        },
+        "attack": {
+          "type": "number"
+        },
+        "defense": {
+          "type": "number"
+        },
+        "speed": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "hp",
+        "attack",
+        "defense",
+        "speed"
+      ]
+    },
+    "image": {
+      "type": "string",
+      "description": "URL to the horror's image"
+    }
+  },
+  "required": [
+    "name",
+    "origin",
+    "description",
+    "baseStats",
+    "image"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

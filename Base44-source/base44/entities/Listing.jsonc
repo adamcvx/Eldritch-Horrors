@@ -1,0 +1,98 @@
+{
+  "name": "Listing",
+  "type": "object",
+  "properties": {
+    "sellerId": {
+      "type": "string",
+      "description": "The User ID of the player selling the item"
+    },
+    "itemType": {
+      "type": "string",
+      "enum": [
+        "fusion",
+        "orb"
+      ],
+      "description": "The type of item being sold"
+    },
+    "itemId": {
+      "type": "string",
+      "description": "The ID of the Fusion or PlayerOrb being sold"
+    },
+    "listingType": {
+      "type": "string",
+      "enum": [
+        "fixed",
+        "auction"
+      ],
+      "description": "Whether this is a fixed price sale or auction"
+    },
+    "startingPrice": {
+      "type": "number",
+      "description": "Starting price for auctions or fixed price for sales"
+    },
+    "currentBid": {
+      "type": "number",
+      "description": "Current highest bid amount"
+    },
+    "currentBidderId": {
+      "type": "string",
+      "description": "User ID of current highest bidder"
+    },
+    "buyoutPrice": {
+      "type": "number",
+      "description": "Optional buyout price for auctions"
+    },
+    "duration": {
+      "type": "number",
+      "default": 24,
+      "description": "Duration of the listing in hours"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this listing expires"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "sold",
+        "expired",
+        "cancelled"
+      ],
+      "default": "active",
+      "description": "Current status of the listing"
+    },
+    "title": {
+      "type": "string",
+      "description": "Custom title for the listing"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description from the seller"
+    }
+  },
+  "required": [
+    "sellerId",
+    "itemType",
+    "itemId",
+    "listingType",
+    "startingPrice",
+    "expiresAt",
+    "title"
+  ],
+  "rls": {
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

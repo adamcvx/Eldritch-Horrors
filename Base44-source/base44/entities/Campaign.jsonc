@@ -1,0 +1,67 @@
+{
+  "name": "Campaign",
+  "type": "object",
+  "properties": {
+    "chapter": {
+      "type": "number",
+      "description": "The chapter number this stage belongs to."
+    },
+    "chapterTitle": {
+      "type": "string",
+      "description": "The title/name of the chapter this stage belongs to."
+    },
+    "stageNumber": {
+      "type": "number",
+      "description": "The sequential order of the stage."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the campaign stage."
+    },
+    "description": {
+      "type": "string",
+      "description": "Flavor text or description for the stage."
+    },
+    "story": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Flavor text or story for the stage."
+    },
+    "enemyFusionId": {
+      "type": "string",
+      "description": "The ID of the enemy fusion to battle against."
+    },
+    "rewardShards": {
+      "type": "number",
+      "description": "Number of shards awarded for the first-time victory."
+    },
+    "rewardFragments": {
+      "type": "number",
+      "description": "Number of fragments awarded for final boss victory."
+    },
+    "isBoss": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indicates if this stage is a boss battle."
+    },
+    "isFinalBoss": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indicates if this stage is the final boss of the entire campaign."
+    }
+  },
+  "required": [
+    "chapter",
+    "stageNumber",
+    "name",
+    "enemyFusionId",
+    "rewardShards"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Avatar",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of the avatar image."
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Cultist",
+        "Monster",
+        "Symbol"
+      ],
+      "default": "Cultist",
+      "description": "A category for organizing avatars."
+    }
+  },
+  "required": [
+    "url"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {}
+    },
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

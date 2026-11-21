@@ -1,0 +1,71 @@
+{
+  "name": "EconomySettings",
+  "type": "object",
+  "properties": {
+    "settingName": {
+      "type": "string",
+      "default": "global",
+      "description": "The name identifier for this settings record (typically 'global')"
+    },
+    "talentRefundPercentage": {
+      "type": "number",
+      "default": 0.5,
+      "description": "Percentage of talent cost refunded when unlearning (0.5 = 50%)"
+    },
+    "fusionRefundAmount": {
+      "type": "number",
+      "default": 25,
+      "description": "Base amount refunded when deleting fusions"
+    },
+    "dailyQuestMultiplier": {
+      "type": "number",
+      "default": 1,
+      "description": "Multiplier for daily quest rewards"
+    },
+    "fusionCost": {
+      "type": "number",
+      "default": 50,
+      "description": "Cost in Echoes to create a fusion"
+    },
+    "fusionLevelingRefundRate": {
+      "type": "number",
+      "default": 0.5,
+      "description": "Percentage of leveling cost refunded when deleting fusion (0.5 = 50%)"
+    },
+    "casualWinReward": {
+      "type": "number",
+      "default": 5,
+      "description": "Echoes awarded for winning casual battles"
+    },
+    "casualLossReward": {
+      "type": "number",
+      "default": 2,
+      "description": "Echoes awarded for losing casual battles"
+    },
+    "rankedWinReward": {
+      "type": "number",
+      "default": 15,
+      "description": "Echoes awarded for winning ranked battles"
+    },
+    "rankedLossReward": {
+      "type": "number",
+      "default": 5,
+      "description": "Echoes awarded for losing ranked battles"
+    },
+    "campaignBossRewardFragments": {
+      "type": "number",
+      "default": 5,
+      "description": "Void Fragments awarded for defeating a campaign boss."
+    }
+  },
+  "required": [
+    "settingName"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

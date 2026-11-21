@@ -1,0 +1,111 @@
+{
+  "name": "Orb",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the orb (e.g., Unstable, Parasitic)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Flavor text and gameplay description of the orb's effects"
+    },
+    "rarity": {
+      "type": "string",
+      "enum": [
+        "Ephemeral",
+        "Uncanny",
+        "Abyssal",
+        "Cosmic",
+        "Outer"
+      ],
+      "default": "Ephemeral",
+      "description": "The rarity tier of the orb, affecting its power"
+    },
+    "orbType": {
+      "type": "string",
+      "enum": [
+        "Unstable",
+        "Chaos",
+        "Parasitic"
+      ],
+      "description": "The category/type of the orb's primary effect"
+    },
+    "orbStatBenefit": {
+      "type": "string",
+      "enum": [
+        "attack",
+        "defense",
+        "hp",
+        "speed"
+      ],
+      "description": "The category/type of the orb's primary stat benefitted"
+    },
+    "orbStatDrawback": {
+      "type": "string",
+      "enum": [
+        "attack",
+        "defense",
+        "hp",
+        "speed"
+      ],
+      "description": "The category/type of the orb's primary stat drawn back"
+    },
+    "orbBenefitValue": {
+      "type": "number",
+      "description": "The positive modifier value (e.g., 20 for +20% damage)"
+    },
+    "orbDrawbackValue": {
+      "type": "number",
+      "default": 0,
+      "description": "The negative modifier value (e.g., 10 for 10% chance to hurt self)"
+    },
+    "originSynergy": {
+      "type": "string",
+      "enum": [
+        "Void",
+        "Dream",
+        "Flesh",
+        "Sunken",
+        "Dimension"
+      ],
+      "description": "Optional origin type that this orb synergizes with"
+    },
+    "orbTrigger": {
+      "type": "string",
+      "enum": [
+        "OnStart",
+        "OnAttack",
+        "OnHit",
+        "OnTurnEnd",
+        "Passive"
+      ],
+      "description": "When the orb's effects activate during battle"
+    },
+    "costToEquip": {
+      "type": "number",
+      "default": 10,
+      "description": "Cost in Echoes to equip/unequip this orb"
+    },
+    "iconUrl": {
+      "type": "string",
+      "description": "The url of the orb icon."
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "rarity",
+    "orbType",
+    "orbBenefitValue",
+    "orbTrigger",
+    "costToEquip"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

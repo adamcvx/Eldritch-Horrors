@@ -1,0 +1,56 @@
+{
+  "name": "Talent",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the talent."
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the talent's effect."
+    },
+    "cost": {
+      "type": "number",
+      "description": "The cost in Echoes to learn this talent."
+    },
+    "icon": {
+      "type": "string",
+      "description": "The name of the Lucide icon to display."
+    },
+    "tier": {
+      "type": "number",
+      "description": "The tier of the talent in the tree (1, 2, 3, etc.)."
+    },
+    "tree": {
+      "type": "string",
+      "description": "The tree the talent belongs to."
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "An array of Talent names that are prerequisites for learning this talent."
+    },
+    "statBonus": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "The stat bonuses this talent provides, e.g., {\"all_hp_boost\": 0.05} for a 5% HP boost to all fusions."
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "cost",
+    "icon",
+    "tier"
+  ],
+  "rls": {
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

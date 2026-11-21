@@ -1,0 +1,138 @@
+{
+  "name": "Match",
+  "type": "object",
+  "properties": {
+    "players": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of User IDs participating in the match"
+    },
+    "fusionMonsters": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Mapping of player ID to Fusion ID they're using in this match"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "waiting",
+        "in_progress",
+        "finished",
+        "abandoned",
+        "canceled"
+      ],
+      "description": "Current state of the match"
+    },
+    "winner": {
+      "type": "string",
+      "description": "User ID of the winner, set when match is finished or abandoned"
+    },
+    "matchType": {
+      "type": "string",
+      "enum": [
+        "casual",
+        "ranked"
+      ],
+      "default": "casual",
+      "description": "Type of match - casual or ranked"
+    },
+    "hp": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      },
+      "description": "Current HP mapping for each fusion monster by fusion ID"
+    },
+    "cooldowns": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "number"
+        }
+      },
+      "description": "Nested mapping of player ID to ability ID to remaining cooldown turns"
+    },
+    "statusEffects": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "buffs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "turnsLeft": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "debuffs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "turnsLeft": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "description": "Status effects active on each fusion monster by fusion ID"
+    },
+    "log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "turn": {
+            "type": "number",
+            "description": "Turn number when this action occurred"
+          },
+          "actor": {
+            "type": "string",
+            "description": "Player ID who performed the action"
+          },
+          "action": {
+            "type": "string",
+            "description": "Description of the action taken"
+          },
+          "result": {
+            "type": "string",
+            "description": "Result or outcome of the action"
+          }
+        },
+        "required": [
+          "turn",
+          "actor",
+          "action",
+          "result"
+        ]
+      },
+      "description": "Battle log tracking all actions and results"
+    },
+    "turnNumber": {
+      "type": "number",
+      "default": 1,
+      "description": "The current turn number of the match."
+    }
+  },
+  "required": [
+    "players",
+    "state"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "Bid",
+  "type": "object",
+  "properties": {
+    "listingId": {
+      "type": "string",
+      "description": "The ID of the Listing this bid is for"
+    },
+    "bidderId": {
+      "type": "string",
+      "description": "The User ID of the bidder"
+    },
+    "amount": {
+      "type": "number",
+      "description": "The bid amount in Echoes"
+    },
+    "isWinning": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is currently the winning bid"
+    }
+  },
+  "required": [
+    "listingId",
+    "bidderId",
+    "amount"
+  ],
+  "rls": {
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { useAccountEmail } from '@/components/user/IdentityGate';
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -116,6 +117,7 @@ const CategorySection = ({ category, isExpanded, onToggle, currentPath, onItemCl
 
 // Main Layout Content Component
 function LayoutContent({ children, currentPageName }) {
+  const accountEmail = useAccountEmail();
   const location = useLocation();
   const { currentUser, loading } = useAppContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -445,7 +447,7 @@ function LayoutContent({ children, currentPageName }) {
                   </Avatar>
                   <div className="overflow-hidden">
                     <p className="font-semibold text-sm truncate text-foreground">{currentUser.displayName || currentUser.full_name || 'Nameless Cultist'}</p>
-                    <p className="text-xs truncate text-muted-foreground">{currentUser.email}</p>
+                    <p className="text-xs truncate text-muted-foreground" title={accountEmail ?? currentUser.email}>{accountEmail ?? currentUser.email}</p>
                   </div>
                 </div>
               </Link>

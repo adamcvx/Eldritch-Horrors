@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import {
   acceptInvite, getUser, handleAuthCallback, login, logout, recoverPassword,
   requestPasswordRecovery, signup,
@@ -13,6 +13,9 @@ const titles = {
   reset: 'Set a new password',
   invite: 'Accept invitation',
 };
+const AccountEmailContext = createContext(null);
+export const useAccountEmail = () => useContext(AccountEmailContext);
+
 let startup;
 
 function openSession() {
@@ -133,7 +136,9 @@ export default function IdentityGate({ children }) {
     }
   }
 
-  if (ready && user && !link) return children;
+  if (ready && user && !link) {
+    return <AccountEmailContext.Provider value={user.email}>{children}</AccountEmailContext.Provider>;
+  }
 
   return <main className="grid min-h-screen place-items-center bg-background px-4 py-10 text-foreground">
     <section className="w-full max-w-md space-y-5 rounded-xl border border-border bg-card p-6 shadow-lg sm:p-8">

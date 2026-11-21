@@ -1,4 +1,4 @@
-import { SignOut } from '@/components/user/IdentityGate';
+import { SignOut, useAccountEmail } from '@/components/user/IdentityGate';
 import { cloudEnabled } from '@/api/cloudSave';
 import SaveTransfer from '@/components/user/SaveTransfer';
 import { isLocalPreview } from '@/api/base44Client';
@@ -11,6 +11,7 @@ import { Loader2, CheckCircle } from 'lucide-react';
 import ProfileForm from '../components/user/ProfileForm';
 
 export default function ProfilePage() {
+  const accountEmail = useAccountEmail();
   const { currentUser, loading, refreshUserData } = useAppContext();
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -45,10 +46,14 @@ export default function ProfilePage() {
         <CardHeader>
           <CardTitle className="text-3xl font-title">Your Profile</CardTitle>
           <CardDescription>
-            Update your cultist identity. This information is visible to others in the crucible.
+            Update the cultist profile other players see in the crucible.
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {accountEmail && <dl className="mb-6">
+            <dt className="text-sm text-muted-foreground">Signed in as</dt>
+            <dd className="break-all">{accountEmail}</dd>
+          </dl>}
           {currentUser && (
             <ProfileForm 
               user={currentUser} 
@@ -62,7 +67,10 @@ export default function ProfilePage() {
                 <span>Profile updated successfully!</span>
             </div>
           )}
-          {isLocalPreview && <SaveTransfer />}
+          {isLocalPreview && !cloudEnabled && <SaveTransfer />}
+          {cloudEnabled && <p className="mt-6 text-sm text-muted-foreground">
+            Game progress saves automatically to your account.
+          </p>}
           {cloudEnabled && <SignOut />}
         </CardContent>
       </Card>

@@ -4,7 +4,7 @@ export const cloudEnabled = import.meta.env.VITE_CLOUD_SAVES === 'true' && impor
 
 let revision = 0;
 
-function saveKey() {
+export function saveKey() {
   const stored = localStorage.getItem('eldritch-cloud-key-v1');
   if (stored) return stored;
   const key = Array.from(crypto.getRandomValues(new Uint8Array(32)), byte => byte.toString(16).padStart(2, '0')).join('');

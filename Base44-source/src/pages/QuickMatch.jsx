@@ -1,3 +1,5 @@
+import OnlineMatch from './OnlineMatch';
+import { cloudEnabled } from '@/api/cloudSave';
 
 import React, { useState, useEffect } from 'react';
 import { Match } from '@/entities/Match';
@@ -17,6 +19,10 @@ import { getCurrentUserWithDefaults } from '../components/user/UserService';
 import { playButtonClick, playBattleStart, playAmbientMaw } from '../components/sounds/SoundService';
 
 export default function QuickMatch() {
+  return cloudEnabled ? <OnlineMatch /> : <LegacyQuickMatch />;
+}
+
+function LegacyQuickMatch() {
   const [fusions, setFusions] = useState([]);
   const [selectedFusion, setSelectedFusion] = useState('');
   const [matches, setMatches] = useState([]);

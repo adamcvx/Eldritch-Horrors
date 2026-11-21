@@ -1,3 +1,5 @@
+import OnlineLeaderboard from './OnlineLeaderboard';
+import { cloudEnabled } from '@/api/cloudSave';
 
 import React, { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
@@ -8,6 +10,10 @@ import { motion } from 'framer-motion';
 import RankBadge from '../components/RankBadge';
 
 export default function Leaderboard() {
+  return cloudEnabled ? <OnlineLeaderboard /> : <LegacyLeaderboard />;
+}
+
+function LegacyLeaderboard() {
   const [topPlayers, setTopPlayers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);

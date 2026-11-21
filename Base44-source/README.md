@@ -28,3 +28,7 @@ The Base44 dashboard supplied 10 abilities, 4 orbs, 13 talents, 5 stages and the
 Netlify builds this directory using the repository’s netlify.toml. Set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN in Netlify’s Functions environment before publishing. The first save request initializes the single_player_saves table.
 
 On the old localhost build, open Profile → Game save → Export save. On the deployed build, open the same section and import that file. This copies the wallet, collection, orbs, talents and campaign progress. The hosted build keeps its private save key in the browser and stores progress in Turso. No account or cross-device login is required. export a backup before clearing browser storage or moving devices.
+
+## Online multiplayer
+
+The deployed Abyssal Crucible supports casual and ranked matchmaking, private room codes, server-checked turns, and shared ranked standings. Players need an independently saved Abomination with an imported ability equipped. Two tabs of the same browser profile share a save and cannot play against each other. Match results and ranked standings are stored separately from single-player campaign progress. Rankings use 25 points per win or loss, starting from 1,000. Multiplayer does not award the original currency or marketplace rewards.

@@ -50,9 +50,11 @@ function takeTurn(state, abilityId) {
   // On-going effects tick once at the end of the affected fighter's turn.
   const existing = [...a.effects];
   const log = [];
+  state.lastAction = null;
   if (abilityId) {
     if (!a.glyphs.includes(abilityId) || a.cooldowns[abilityId]) return false;
     const ability = abilities.get(abilityId);
+    state.lastAction = { actor: state.turn, type: ability.type };
     const power = ability.effect?.includes('{power}%') ? ability.power / 100 : ability.power;
     const effects = ability.statEffect ?? [];
     const abilityCooldown = Math.ceil(ability.cooldown / 2);

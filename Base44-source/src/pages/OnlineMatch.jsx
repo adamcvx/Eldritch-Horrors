@@ -1,3 +1,4 @@
+import BattleEffect, { battleEffectFor } from '@/components/battle/BattleEffect';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Fusion } from '@/entities/Fusion';
@@ -112,11 +113,12 @@ export default function OnlineMatch() {
       <h2 className="capitalize">{room.mode} battle</h2>
       <p role="status">{myTurn ? 'Your turn' : 'Opponent’s turn'}</p>
       <div className="grid gap-3 sm:grid-cols-2">
-        {room.fighters.map((fighter, side) => <div key={side} className="rounded border border-purple-900 p-3">
+        {room.fighters.map((fighter, side) => <div key={side} className="relative rounded border border-purple-900 p-3">
           {fighter.image && <img src={fighter.image} alt="" className="mb-3 h-32 w-full rounded object-contain" />}
           <h3>{fighter.name} {side === room.side && '(You)'}</h3><p>{fighter.player} · {fighter.type}</p>
           <progress className="w-full" aria-label={fighter.name + ' HP'} value={fighter.hp} max={fighter.stats.hp} />
           <p>{fighter.hp} / {fighter.stats.hp} HP</p>
+          <BattleEffect key={room.round} effect={battleEffectFor(room.lastAction, side)} />
         </div>)}
       </div>
       <div className="flex flex-wrap gap-2">

@@ -843,6 +843,7 @@ export default function Battle() {
         turn: match.turnNumber || 1, // Use global turn number
         actor: actorId,
         action: ability.name,
+        abilityType: ability.type,
         result: logResult
       };
 
@@ -1695,7 +1696,7 @@ export default function Battle() {
       }
       <div className="absolute inset-0 bg-black/30" />
 
-      <div className="relative z-10 h-screen flex flex-col overflow-hidden">
+      <div className="absolute inset-0 z-10 overflow-y-auto overscroll-contain">
         <BattleUI
           match={match}
           playerFusion={playerFusion}

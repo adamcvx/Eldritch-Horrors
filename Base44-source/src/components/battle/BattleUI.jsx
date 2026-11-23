@@ -16,6 +16,7 @@ import {
   Info
 } from 'lucide-react';
 import FusionCard from '../cards/FusionCard';
+import BattleEffect, { battleEffectFor } from './BattleEffect';
 import ParticleSystem from './ParticleSystem';
 import { createPageUrl } from '@/utils';
 import { getGlobalEconomySettings } from '../user/UserService';
@@ -314,8 +315,7 @@ export default function BattleUI({
   const logContainerRef = useRef(null);
   const [showAbilityInfo, setShowAbilityInfo] = useState(null); // Added this state
   const [economySettings, setEconomySettings] = useState(null);
-  const [playerAttacking, setPlayerAttacking] = useState(false);
-  const [opponentAttacking, setOpponentAttacking] = useState(false);
+  const [combatAction, setCombatAction] = useState(null);
 
   // Ensure battleLog is always an array for safety
   const safeBattleLog = Array.isArray(battleLog) ? battleLog : [];
@@ -342,26 +342,23 @@ export default function BattleUI({
     }
   }, [battleLog]);
 
-  const lastProcessedLog = useRef(null);
+  const logCursor = useRef({ matchId: match?.id, length: safeBattleLog.length });
 
   useEffect(() => {
-    if (battleLog.length > 0) {
-      const lastLogEntry = battleLog[battleLog.length - 1];
-      const entryKey = `${lastLogEntry.turn}-${lastLogEntry.actor}-${lastLogEntry.action}-${lastLogEntry.result || ''}`;
-      if (lastProcessedLog.current === entryKey) return;
-      lastProcessedLog.current = entryKey;
-
-      if (lastLogEntry.action !== 'End Turn') {
-        if (lastLogEntry.actor === currentUser?.id) {
-          setPlayerAttacking(true);
-          setTimeout(() => setPlayerAttacking(false), 800);
-        } else {
-          setOpponentAttacking(true);
-          setTimeout(() => setOpponentAttacking(false), 800);
-        }
-      }
+    const previous = logCursor.current;
+    logCursor.current = { matchId: match?.id, length: safeBattleLog.length };
+    if (previous.matchId !== match?.id || previous.length > safeBattleLog.length) {
+      setCombatAction(null);
+      return;
     }
-  }, [battleLog, currentUser?.id]);
+    for (let index = safeBattleLog.length - 1; index >= previous.length; index--) {
+      const entry = safeBattleLog[index];
+      const type = entry.abilityType ?? allAbilities?.find(ability => ability.name === entry.action)?.type;
+      if (!entry.actor || entry.actor === 'system' || !['attack', 'buff', 'debuff'].includes(type)) continue;
+      setCombatAction({ key: index, type, actor: entry.actor === currentUser?.id ? 'player' : 'opponent' });
+      break;
+    }
+  }, [safeBattleLog, match?.id, currentUser?.id, allAbilities]);
 
   useEffect(() => {
     const loadEconomySettings = async () => {
@@ -515,20 +512,7 @@ export default function BattleUI({
         <div className="w-full flex-1 flex items-center justify-center max-w-7xl mx-auto z-10">
           <div className="grid w-full min-w-0 grid-cols-1 justify-items-center items-center gap-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-4">
             {/* Player Fusion */}
-            <motion.div
-              initial={{ x: -100, opacity: 0 }}
-              animate={{
-                x: playerAttacking ? 100 : 0,
-                opacity: 1,
-                scale: playerAttacking ? 1.1 : 1
-              }}
-              transition={{
-                duration: playerAttacking ? 0.4 : 0.5,
-                type: 'spring',
-                stiffness: playerAttacking ? 200 : 100,
-                damping: playerAttacking ? 10 : 20
-              }}
-              >
+            <div className="relative w-full max-w-[365px] rounded-lg">
               {renderFusionCard(
                 playerFusion,
                 playerHp,
@@ -536,7 +520,8 @@ export default function BattleUI({
                 statusEffects.player,
                 playerOrbs
               )}
-            </motion.div>
+              <BattleEffect key={combatAction?.key} effect={battleEffectFor(combatAction, "player")} />
+            </div>
 
             {/* VS Circle */}
             <motion.div
@@ -566,20 +551,7 @@ export default function BattleUI({
             </motion.div>
 
             {/* Opponent Fusion */}
-			      <motion.div
-              initial={{ x: 100, opacity: 0 }}
-              animate={{
-                x: opponentAttacking ? -100 : 0,
-                opacity: 1,
-                scale: opponentAttacking ? 1.1 : 1
-              }}
-              transition={{
-                duration: opponentAttacking ? 0.4 : 0.5,
-                type: 'spring',
-                stiffness: opponentAttacking ? 200 : 100,
-                damping: opponentAttacking ? 10 : 20
-              }}
-              >
+			      <div className="relative w-full max-w-[365px] rounded-lg">
               {renderFusionCard(
                 opponentFusion,
                 opponentHp,
@@ -587,7 +559,8 @@ export default function BattleUI({
                 statusEffects.opponent,
                 opponentOrbs
               )}
-            </motion.div>
+              <BattleEffect key={combatAction?.key} effect={battleEffectFor(combatAction, "opponent")} />
+            </div>
             
           </div>
         </div>
@@ -686,7 +659,7 @@ export default function BattleUI({
                     <h3 className="font-bold text-lg text-center mb-2 font-title">
                       Choose Your Action
                     </h3>
-                    <div className="grid grid-cols-2 gap-3 mb-3 flex-grow">
+                    <div className="grid grid-cols-1 gap-3 mb-3 flex-grow sm:grid-cols-2">
                       {playerAbilities.map((ability) => (
                         <AbilityCard
                           key={ability.id}

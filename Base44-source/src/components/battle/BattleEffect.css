@@ -1,0 +1,53 @@
+.battle-effect {
+  --effect-color: #fbd38d;
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  border-radius: inherit;
+  color: var(--effect-color);
+  animation: battle-effect-fade 950ms ease-out forwards;
+}
+.battle-effect--attack { --effect-color: #ff987b; }
+.battle-effect--buff { --effect-color: #86efac; }
+.battle-effect--debuff { --effect-color: #d8b4fe; }
+.battle-effect__ring {
+  position: absolute;
+  inset: 8%;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  box-shadow: 0 0 20px currentColor, inset 0 0 16px currentColor;
+  animation: battle-effect-ring 950ms ease-out forwards;
+}
+.battle-effect--attack .battle-effect__ring {
+  inset: 44% 5%;
+  transform: rotate(-24deg);
+  animation: none;
+}
+.battle-effect--debuff .battle-effect__ring { border-style: dashed; }
+.battle-effect__label {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .55rem;
+  border: 1px solid currentColor;
+  border-radius: .4rem;
+  background: #10131e;
+  font-weight: 700;
+}
+@keyframes battle-effect-fade {
+  0%, 65% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes battle-effect-ring {
+  from { transform: scale(.55); }
+  to { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .battle-effect { animation-timing-function: steps(1, end); }
+  .battle-effect__ring { animation: none; }
+}

@@ -589,7 +589,7 @@ export default function MyFusions() {
           </Link>
         </div> :
 
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,17rem),1fr))] gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(0,min(100%,20rem)))] gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
           <AnimatePresence>
             {fusions.map((fusion) => {
             const isMaxLevel = fusion.level >= 25;
@@ -603,11 +603,12 @@ export default function MyFusions() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.2 }} className="min-w-0 w-full max-w-[365px] justify-self-center flex flex-col">
+                transition={{ duration: 0.2 }} className="min-w-0 w-full flex flex-col">
 
 
                   <FusionCard
                   fusion={fusion}
+                  fixedSize
                   equippedOrbs={fusion.loadedEquippedOrbs}
                   headerContent={
                   <Button
@@ -627,7 +628,7 @@ export default function MyFusions() {
 
                   
                   {/* Empower Controls Card */}
-                  <Card className="bg-gray-800/60 text-card-foreground mt-4 mr-6 shadow-sm backdrop-blur-sm border border-gray-600/50 rounded-lg">
+                  <Card className="bg-gray-800/60 text-card-foreground mt-4 w-full shadow-sm backdrop-blur-sm border border-gray-600/50 rounded-lg">
                     <CardContent className="p-6 pt-2 pr-2 pb-2 pl-2">
                       <div className="flex flex-col gap-3">
                         {/* Empower Button */}

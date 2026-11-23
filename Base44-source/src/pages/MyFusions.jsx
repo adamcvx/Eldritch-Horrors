@@ -101,9 +101,9 @@ const LevelUpDialog = ({ fusion, currentUser, effectiveCost, onLevelUp, onClose 
       {/* Fusion Preview */}
       <PopupPreview>
         <img src={fusion.generatedImage} alt={fusion.fusedName}
-          className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-purple-500/30" />
+          className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-border" />
 
-        <div className="text-4xl font-bold text-purple-400 mb-2">
+        <div className="font-title text-4xl font-bold text-primary mb-2">
           Level {fusion.level} → {fusion.level + 1}
         </div>
         <p className="text-gray-400">Channel forbidden energies into your abomination.</p>

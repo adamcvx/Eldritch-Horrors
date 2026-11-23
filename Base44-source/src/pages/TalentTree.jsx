@@ -1,6 +1,6 @@
 import WalletBadge from '@/components/user/WalletBadge';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Talent } from '@/entities/Talent';
 import { User } from '@/entities/User';
 import { Loader2, Gem, Check, Lock, X, BookOpen, HelpCircle, Heart, Zap, Shield, Wind, Trash2, AlertCircle, Star } from 'lucide-react';
@@ -9,7 +9,7 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import PopupDialog, { PopupSection, PopupPreview, PopupCostBreakdown, PopupWarning } from '@/components/ui/PopupDialog';
 import { getEffectiveCost } from '../components/talents/TalentService';
-import TalentNode from '../components/talents/TalentNode'; // New import for the refactored component
+import TalentMap from '@/components/talents/TalentMap';
 
 const LearnTalentDialog = ({ talent, currentUser, onConfirm, onCancel, dependenciesMet, isLearned }) => {
   const [learning, setLearning] = useState(false);
@@ -73,8 +73,8 @@ const LearnTalentDialog = ({ talent, currentUser, onConfirm, onCancel, dependenc
       
             {/* Talent Preview */}
             <PopupPreview>
-                <div className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-border bg-gray-800 flex items-center justify-center">
-                    <BookOpen className="w-12 h-12 text-purple-400" />
+                <div className="w-20 h-20 rounded-lg mx-auto mb-3 border border-primary/40 bg-muted flex items-center justify-center">
+                    <BookOpen className="w-12 h-12 text-primary" />
                 </div>
                 <h3 className="font-bold text-lg mb-1">{talent.name}</h3>
                 <p className="text-gray-400 text-sm">{talent.description}</p>
@@ -114,7 +114,7 @@ const LearnTalentDialog = ({ talent, currentUser, onConfirm, onCancel, dependenc
         titleColor="text-yellow-300">
         
                     <div className="text-sm text-gray-400">
-                        Requires {talent.dependencies.length} talent{talent.dependencies.length > 1 ? 's' : ''} from previous tier
+                        {talent.dependencies.join(", ")}
                     </div>
                 </PopupSection>
       }
@@ -256,20 +256,6 @@ export default function TalentTreePage() {
     loadData();
   }, []);
 
-  const talentsByTree = useMemo(() => {
-    return talents.reduce((acc, talent) => {
-      const treeName = talent.tree || 'General';
-      if (!acc[treeName]) {
-        acc[treeName] = {};
-      }
-      const tier = talent.tier || 1;
-      if (!acc[treeName][tier]) {
-        acc[treeName][tier] = [];
-      }
-      acc[treeName][tier].push(talent);
-      return acc;
-    }, {});
-  }, [talents]);
 
   const handleSelectTalent = (talent) => {
     setSelectedTalent(talent);
@@ -340,7 +326,7 @@ export default function TalentTreePage() {
                     <p className="text-gray-400 mt-2">Unlock permanent power by studying the maddening tomes.</p>
                   </div>
                   {currentUser &&
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-2">
                       <WalletBadge amount={currentUser.currency} />
                       <WalletBadge amount={currentUser.voidFragments} fragments />
                     </div>
@@ -349,45 +335,11 @@ export default function TalentTreePage() {
               </CardHeader>
             </Card>
 
-            {/* Side by Side Trees */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {Object.keys(talentsByTree).sort().map((treeName) =>
-        <div key={treeName} className="game-gallery rounded-2xl border border-border">
-                        <div className="p-6 border-b border-border">
-                            <h2 className="text-3xl font-title text-center">{treeName} Tree</h2>
-                        </div>
-                        <div className="max-h-[800px] overflow-y-auto p-6">
-                            <div className="space-y-8">
-                                {Object.keys(talentsByTree[treeName]).sort((a, b) => a - b).map((tier) =>
-              <div key={tier}>
-                                        <h3 className="text-lg font-bold text-center mb-4 border-b border-border pb-2 text-primary">Tier {tier}</h3>
-                                        <div className="flex flex-col items-center gap-4">
-                                            {talentsByTree[treeName][tier].map((talent) => {
-                    const isLearned = (currentUser.learnedTalents || []).includes(talent.name);
-                    const dependenciesMet = (talent.dependencies || []).every((depName) => (currentUser.learnedTalents || []).includes(depName));
-                    const isLocked = !dependenciesMet;
-
-                    const refundAmount = Math.round(talent.cost * (currentUser?.economySettings?.talentRefundPercentage || 0.5));
-
-                    return (
-                      <TalentNode
-                        key={talent.id}
-                        talent={talent}
-                        isLearned={isLearned}
-                        isLocked={isLocked}
-                        onSelect={handleSelectTalent}
-                        onUnlearn={() => handleUnlearnTalent(talent, refundAmount)} />);
-
-
-                  })}
-                                        </div>
-                                    </div>
-              )}
-                            </div>
-                        </div>
-                    </div>
-        )}
-            </div>
+            <TalentMap talents={talents} learned={new Set(currentUser?.learnedTalents ?? [])}
+              onSelect={handleSelectTalent}
+              onUnlearn={talent => handleUnlearnTalent(talent, Math.round(
+                talent.cost * (currentUser?.economySettings?.talentRefundPercentage || 0.5)
+              ))} />
 
             {selectedTalent &&
       <LearnTalentDialog

@@ -9,7 +9,7 @@ const PopupDialog = ({
   onClose,
   title,
   titleIcon: TitleIcon,
-  titleColor = "text-purple-400",
+  titleColor = "text-primary",
   children,
   actions = [],
   loading = false,
@@ -17,10 +17,10 @@ const PopupDialog = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={(openState) => !openState && !loading && onClose()}>
-      <DialogContent className={`bg-gray-900 border-purple-500/50 text-white ${maxWidth}`}>
+      <DialogContent className={maxWidth}>
         <DialogHeader>
-          <DialogTitle className={`text-center text-xl flex items-center justify-center gap-3 ${titleColor}`}>
-            {TitleIcon && <TitleIcon className="w-6 h-6" />}
+          <DialogTitle className={`font-title text-center text-2xl flex items-center justify-center gap-3 px-4 ${titleColor}`}>
+            {TitleIcon && <TitleIcon className="w-6 h-6 shrink-0" />}
             {title}
           </DialogTitle>
         </DialogHeader>
@@ -30,7 +30,7 @@ const PopupDialog = ({
 
           {/* Action Buttons */}
           {actions.length > 0 && (
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               {actions.map((action, index) => (
                 <Button
                   key={index}
@@ -64,12 +64,12 @@ const PopupDialog = ({
 export const PopupSection = ({ 
   title, 
   titleIcon: TitleIcon, 
-  titleColor = "text-purple-300", 
-  bgColor = "bg-purple-500/10", 
-  borderColor = "border-purple-500/50",
+  titleColor = "text-primary",
+  bgColor = "bg-muted/60",
+  borderColor = "border-border",
   children 
 }) => (
-  <div className={`${bgColor} border ${borderColor} rounded-lg p-4`}>
+  <div className={`${bgColor} border ${borderColor} ritual-dialog__section rounded-lg p-4`}>
     {title && (
       <h4 className={`font-semibold ${titleColor} mb-3 flex items-center gap-2`}>
         {TitleIcon && <TitleIcon className="w-4 h-4" />}
@@ -93,7 +93,7 @@ export const PopupGrid = ({ columns = 2, gap = "gap-3", children }) => (
 );
 
 export const PopupPreviewItem = ({ image, title, subtitle, stats, className = "" }) => (
-  <div className={`bg-gray-800/50 rounded-lg p-3 border border-gray-600 ${className}`}>
+  <div className={`bg-muted/60 rounded-lg p-3 border border-border ${className}`}>
     {image && (
       <img 
         src={image} 
@@ -102,7 +102,7 @@ export const PopupPreviewItem = ({ image, title, subtitle, stats, className = ""
       />
     )}
     {title && <h4 className="text-sm font-semibold text-white truncate">{title}</h4>}
-    {subtitle && <p className="text-xs text-gray-400">{subtitle}</p>}
+    {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
     {stats && (
       <div className="grid grid-cols-2 gap-1 text-xs mt-2">
         {stats.map((stat, index) => (
@@ -120,13 +120,13 @@ export const PopupCostBreakdown = ({ items, totalLabel = "Total", totalValue, to
   <div className="space-y-2 text-sm">
     {items.map((item, index) => (
       <div key={index} className="flex justify-between">
-        <span className="text-gray-400">{item.label}:</span>
-        <span className={`font-bold ${item.color || 'text-purple-300'}`}>
+        <span className="text-muted-foreground">{item.label}:</span>
+        <span className={`font-bold ${item.color || 'text-primary'}`}>
           {item.value}
         </span>
       </div>
     ))}
-    <div className="border-t border-gray-600 pt-2 flex justify-between font-semibold">
+    <div className="border-t border-border pt-2 flex justify-between font-semibold">
       <span className="text-white">{totalLabel}:</span>
       <span className={`font-bold ${totalColor}`}>
         {totalValue}

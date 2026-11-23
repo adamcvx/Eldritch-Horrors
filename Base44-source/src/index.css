@@ -315,3 +315,101 @@ h1 { text-wrap: balance; }
   border-color: #b4945f;
   color: #f3d5a7;
 }
+
+/* Shared parchment-black dialog frame. */
+.ritual-dialog {
+  background: linear-gradient(160deg, #21302b, #111b1a 58%);
+  border-color: var(--brass-edge);
+  color: hsl(var(--foreground));
+  padding-top: 1.75rem;
+  box-shadow: inset 0 0 0 4px #121b19, inset 0 0 0 5px #b3905545, 0 20px 70px #000a;
+}
+.ritual-dialog__close { color: #ead4ac; }
+.ritual-dialog__section { box-shadow: inset 0 1px #e9c58c15; }
+
+.talent-atlas {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(.65rem, 2vw, 1.5rem);
+  border: 1px solid var(--brass-edge);
+  border-radius: .5rem;
+  background: linear-gradient(110deg, #101917f5, #1c1514ed),
+    url('/Artwork/The%20Void.png') right top / auto 100% no-repeat;
+  box-shadow: inset 0 0 0 3px #0b1414, inset 0 0 0 4px #a7894b33;
+}
+@media (min-width: 640px) {
+  .talent-atlas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.talent-branch {
+  min-width: 0;
+  border: 1px solid #b2925b4d;
+  border-radius: .35rem;
+  background: #101a18b8;
+}
+.talent-branch h2 {
+  padding: .6rem;
+  text-align: center;
+  color: #e8cc97;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  border-bottom: 1px solid #b2925b4d;
+}
+.talent-branch__map {
+  position: relative;
+  background: repeating-linear-gradient(0deg, transparent 0 102px, #b2925b19 102px 103px);
+}
+.talent-path {
+  position: absolute;
+  inset: 0;
+  background: #9a815f;
+  pointer-events: none;
+}
+.talent-path--lit { background: #eacf99; }
+.talent-placement {
+  position: absolute;
+  transform: translate(-50%, -1.35rem);
+  width: min(8rem, 72%);
+}
+.talent-node {
+  --node-color: #e4c48a;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+  color: var(--node-color);
+  border-radius: .25rem;
+  text-align: center;
+}
+.talent-node:focus-visible { outline: 2px solid #efd2a1; outline-offset: 3px; }
+.talent-node[data-state="locked"] { --node-color: #a8b4ab; }
+.talent-node[data-state="learned"] { --node-color: #a7dfcd; }
+.talent-node__sigil {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 25%, #3e3a2d, #101a18);
+  box-shadow: 0 0 0 3px #0d1515, 0 0 0 4px #88734d;
+}
+.talent-node[data-state="available"] .talent-node__sigil { border-radius: .35rem; }
+.talent-node[data-state="learned"] .talent-node__sigil { background: #21423b; }
+.talent-node:hover .talent-node__sigil { background: #35392e; }
+.talent-node__status {
+  position: absolute;
+  right: -.27rem;
+  bottom: -.15rem;
+  background: #101917;
+  border-radius: 50%;
+}
+.talent-node__name {
+  max-width: 100%;
+  padding: .1rem .28rem;
+  background: #111a18;
+  border-radius: .2rem;
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1.15;
+}

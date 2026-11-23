@@ -134,7 +134,7 @@ export default function CampaignPage() {
     return (
       <div className="container mx-auto flex items-center justify-center h-64">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-purple-400 mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
           <p className="text-gray-300">Loading the Forbidden Path...</p>
         </div>
       </div>);

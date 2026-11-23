@@ -30,7 +30,7 @@ export default function Codex() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 1 }}>
 
-        <Card className="relative game-gallery rounded-2xl border border-purple-500/30 shadow-2xl">
+        <Card className="relative game-gallery rounded-2xl border border-border shadow-2xl">
           {/* Decorative Elements */}
           <div className="absolute top-4 left-4">
             <Eye className="w-6 h-6 text-purple-400/50" />
@@ -50,7 +50,7 @@ export default function Codex() {
             {[...Array(20)].map((_, i) =>
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-purple-400 rounded-full"
+              className="absolute w-1 h-1 bg-primary rounded-full"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`
@@ -73,7 +73,7 @@ export default function Codex() {
             <div className="prose prose-invert prose-purple max-w-none">
               <div className="text-gray-300 leading-relaxed space-y-6 text-justify font-serif">
                 <motion.p
-                  className="text-lg italic text-purple-300 border-l-4 border-purple-500/50 pl-4 bg-purple-900/20 p-4 rounded-r-lg"
+                  className="text-lg italic text-primary border-l-4 border-primary/45 pl-4 bg-muted/60 p-4 rounded-r-lg"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 1, duration: 0.8 }}>
@@ -115,7 +115,7 @@ export default function Codex() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.8, duration: 0.8 }}>
 
-                  By rites etched in blood and whispers, mortals learned to merge Horrors into <span className="text-purple-300 font-semibold">Abominations</span> — creatures neither of the original spawn nor wholly new, but fused chimeras whose bodies screamed with paradox. Each fusion carried traits of its progenitors: eyes that saw too much, mouths that never ceased, serpentine shadows that slithered across stars.
+                  By rites etched in blood and whispers, mortals learned to merge Horrors into <span className="text-primary font-semibold">Abominations</span> — creatures neither of the original spawn nor wholly new, but fused chimeras whose bodies screamed with paradox. Each fusion carried traits of its progenitors: eyes that saw too much, mouths that never ceased, serpentine shadows that slithered across stars.
                 </motion.p>
 
                 <motion.p

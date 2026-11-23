@@ -121,7 +121,7 @@ export default function QuestsPage() {
             <div className="text-right">
               <div className="flex items-center gap-2 mb-2 rounded-lg border text-card-foreground shadow-sm bg-card border-border p-3">
                 <RefreshCw className="w-4 h-4 text-purple-400" />
-                <span className="text-purple-300 text-sm font-bold">Resets in: {timeToReset}</span>
+                <span className="text-primary text-sm font-bold">Resets in: {timeToReset}</span>
               </div>
               {currentUser && (
                 <p className="text-sm text-gray-400">
@@ -165,7 +165,7 @@ export default function QuestsPage() {
                         <div className="flex items-center gap-4 mt-2">
                           <div className="w-full bg-gray-700 rounded-full h-2.5">
                             <motion.div
-                              className={`h-2.5 rounded-full ${isCompleted ? 'bg-green-500' : 'bg-purple-500'}`}
+                              className={`h-2.5 rounded-full ${isCompleted ? 'bg-green-500' : 'bg-primary'}`}
                               initial={{ width: 0 }}
                               animate={{ width: `${progress / required * 100}%` }} />
                           </div>

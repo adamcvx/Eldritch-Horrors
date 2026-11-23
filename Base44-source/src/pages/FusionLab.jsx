@@ -1,3 +1,4 @@
+import WalletBadge from '@/components/user/WalletBadge';
 import { isLocalPreview } from '@/api/base44Client';
 import { cloudEnabled } from '@/api/cloudSave';
 
@@ -61,31 +62,23 @@ const HorrorCard = ({ horror, onSelect, isSelected, isDisabled }) => {
         
 
         {/* Origin badge */}
-        <div className="absolute top-2 right-2 bg-cyan-600/20 text-cyan-300 px-2 py-1 rounded-full text-xs font-semibold z-20">
+        <div className="absolute top-2 right-2 monster-card__origin px-2 py-1 rounded-full text-xs font-semibold z-20">
           {getOriginType(horror.origin)}
         </div>
 
-        {/* Tome button */}
-        <Link
-          to={createPageUrl(`HorrorTome?horrorId=${horror.id}`)}
-          onClick={(e) => e.stopPropagation()}
-          className="absolute bottom-2 left-2 z-20">
-
-          <Button
-            size="sm"
-            variant="outline" className="bg-purple-600 text-primary-foreground px-2 py-2 text-sm font-medium border border-input hover:text-accent-foreground inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 hover:bg-purple-700 w-full"
-
+        <Button asChild size="sm" className="absolute bottom-2 left-2 z-20">
+          <Link
+            to={createPageUrl(`HorrorTome?horrorId=${horror.id}`)}
             onMouseEnter={playMenuHover}
-            onClick={playMenuClick}>
-
-            <BookOpen className="w-3 h-3 mr-1" />
+            onClick={event => { event.stopPropagation(); playMenuClick(); }}>
+            <BookOpen aria-hidden="true" />
             Tome
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
 
       {/* Card body */}
-      <div className="p-4 bg-gray-900 backdrop-blur-sm">
+      <div className="p-4 bg-card">
         <h3 className="font-bold text-lg text-white">{horror.name}</h3>
         <p className="text-xs text-gray-400 mb-3 min-h-8">{horror.description}</p>
 
@@ -305,7 +298,7 @@ const FusionLoadingOverlay = ({ isVisible, fusionStep }) => {
             rotate: { duration: 2, repeat: Infinity, ease: "linear" },
             scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
           }}
-          className="w-20 h-20 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-purple-500/50">
+          className="w-20 h-20 bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-6 border border-primary/40">
 
           <CurrentIcon className="w-10 h-10 text-purple-400" />
         </motion.div>
@@ -592,7 +585,7 @@ export default function FusionLabPage() {
 
                   {/* Action Button */}
                   <Button
-                  onClick={resetFusion} className="bg-purple-600 text-primary-foreground px-2 py-2 text-sm font-medium border border-input hover:text-accent-foreground inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 hover:bg-purple-700 w-full">
+                  onClick={resetFusion} className="w-full">
 
 
                     <GitMerge className="w-5 h-5 mr-2" />
@@ -622,16 +615,8 @@ export default function FusionLabPage() {
                   </div>
                   {currentUser &&
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                      <div className="flex items-center gap-2 bg-purple-500/20 px-4 py-2 rounded-lg border border-purple-500/50">
-                        <Gem className="w-5 h-5 text-purple-400" />
-                        <span className="font-bold text-purple-300">{currentUser.currency || 0}</span>
-                        <span className="text-gray-400 text-sm">Echoes</span>
-                      </div>
-                      <div className="flex items-center gap-2 bg-indigo-500/20 px-4 py-2 rounded-lg border border-indigo-500/50">
-                        <Star className="w-5 h-5 text-indigo-400" />
-                        <span className="font-bold text-indigo-300">{currentUser.voidFragments || 0}</span>
-                        <span className="text-gray-400 text-sm">Fragments</span>
-                      </div>
+                      <WalletBadge amount={currentUser.currency} />
+                      <WalletBadge amount={currentUser.voidFragments} fragments />
                     </div>
                 }
                 </div>

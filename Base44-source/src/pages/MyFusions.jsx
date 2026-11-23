@@ -1,3 +1,4 @@
+import WalletBadge from '@/components/user/WalletBadge';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Fusion } from '@/entities/Fusion';
@@ -565,16 +566,8 @@ export default function MyFusions() {
             </div>
             {currentUser &&
             <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 bg-purple-500/20 px-4 py-2 rounded-lg border border-purple-500/50">
-                  <Gem className="w-5 h-5 text-purple-400" />
-                  <span className="font-bold text-purple-300">{currentUser.currency || 0}</span>
-                  <span className="text-gray-400 text-sm">Echoes</span>
-                </div>
-                <div className="flex items-center gap-2 bg-indigo-500/20 px-4 py-2 rounded-lg border border-indigo-500/50">
-                  <Star className="w-5 h-5 text-indigo-400" />
-                  <span className="font-bold text-indigo-300">{currentUser.voidFragments || 0}</span>
-                  <span className="text-gray-400 text-sm">Fragments</span>
-                </div>
+                <WalletBadge amount={currentUser.currency} />
+                <WalletBadge amount={currentUser.voidFragments} fragments />
               </div>
             }
           </div>

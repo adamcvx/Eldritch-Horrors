@@ -1,3 +1,4 @@
+import WalletBadge from '@/components/user/WalletBadge';
 
 import React, { useState, useEffect } from 'react';
 import { Fusion } from '@/entities/Fusion';
@@ -160,11 +161,7 @@ export default function VoidAltar() {
               <p className="text-gray-400 mt-2">Offer Void Fragments to ascend your abominations, granting them permanent power.</p>
             </div>
             {currentUser &&
-          <div className="flex items-center gap-2 bg-indigo-500/20 px-4 py-2 rounded-lg border border-indigo-500/50">
-                <Star className="w-5 h-5 text-indigo-400" />
-                <span className="font-bold text-indigo-300">{currentUser.voidFragments || 0}</span>
-                <span className="text-gray-400 text-sm">Fragments</span>
-              </div>
+          <WalletBadge amount={currentUser.voidFragments} fragments />
           }
           </div>
         </CardHeader>
@@ -178,7 +175,7 @@ export default function VoidAltar() {
         </div>
     }
 
-      <div className="game-card-grid gap-4 xl:gap-6 relative game-gallery rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
+      <div className="game-card-grid gap-4 xl:gap-6 relative game-gallery rounded-2xl p-3 sm:p-5 xl:p-8 border border-border">
         {fusions.map((fusion) =>
       <motion.div key={fusion.id} layout className="min-w-0 flex flex-col items-center gap-3">
             <FusionCard fusion={fusion} />
@@ -212,7 +209,7 @@ export default function VoidAltar() {
           </motion.div>
           <Card className="bg-gray-800/80 border-gray-700 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-purple-300 text-2xl flex items-center gap-2">
+              <CardTitle className="text-primary text-2xl flex items-center gap-2">
                 Ascend 
                 <div className="flex items-center gap-1">
                   {[...Array(currentLevel)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />)}
@@ -269,7 +266,7 @@ export default function VoidAltar() {
 
   const renderSuccessState = () =>
   <div className="max-w-md mx-auto text-center">
-      <h2 className="text-3xl font-bold text-purple-300 mb-4">Ascension Complete!</h2>
+      <h2 className="text-3xl font-bold text-primary mb-4">Ascension Complete!</h2>
       <p className="text-gray-400 mb-6">{selectedFusion.fusedName} has reached a new level of power!</p>
       <motion.div layoutId={`fusion-card-${selectedFusion.id}`} className="max-w-md mx-auto text-center flex-shrink-0 flex flex-col p-8 space-y-6">
         <FusionCard fusion={selectedFusion} />

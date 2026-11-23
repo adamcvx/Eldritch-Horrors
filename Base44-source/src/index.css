@@ -291,3 +291,27 @@ h1 { text-wrap: balance; }
 @media (max-width: 639px) {
   .eldritch-entry { background-image: linear-gradient(#0a1415a8, #0a1415ed), url('/Artwork/base44/d3fc2e0bb2ac22538011877a.jpg'); }
 }
+
+.wallet-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .42rem .7rem;
+  border: 1px solid #93754b;
+  border-radius: .375rem;
+  background: linear-gradient(#382d20, #221e17);
+  color: #edcea0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.wallet-badge--fragments {
+  border-color: #548275;
+  background: linear-gradient(#203d37, #152925);
+  color: #b0ded0;
+}
+.wallet-badge > span { color: hsl(var(--foreground)); }
+.level-badge {
+  background: #2f271d;
+  border-color: #b4945f;
+  color: #f3d5a7;
+}

@@ -425,7 +425,7 @@ export default function FusionCard({
 
             {/* Level Badge */}
             <div className="absolute top-2 right-2 flex gap-2">
-              <Badge className="bg-purple-600/90 text-white text-xs font-bold inline-flex items-center rounded-md border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80 backdrop-blur-sm">
+              <Badge className="level-badge text-xs font-bold inline-flex items-center rounded-md border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 backdrop-blur-sm">
                 <Star className="w-3 h-3 mr-1" />
                 Level {fusion.level || 1}
               </Badge>
@@ -484,7 +484,7 @@ export default function FusionCard({
             <div className="mb-2">
               <div className={`p-3 rounded-lg border flex items-center justify-between ${
                 fusion.rarity === 'Outer' ? 'bg-orange-500/20 border-orange-500 text-orange-300' :
-                  fusion.rarity === 'Cosmic' ? 'bg-purple-500/20 border-purple-500 text-purple-300' :
+                  fusion.rarity === 'Cosmic' ? 'bg-[#3b2929] border-[#996b61] text-[#f1c9b1]' :
                     fusion.rarity === 'Abyssal' ? 'bg-blue-500/20 border-blue-500 text-blue-300' :
                       fusion.rarity === 'Uncanny' ? 'bg-green-500/20 border-green-500 text-green-300' :
                         'bg-gray-700/30 border-gray-600 text-gray-300'}`

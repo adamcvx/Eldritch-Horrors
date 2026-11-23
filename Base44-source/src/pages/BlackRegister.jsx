@@ -1,3 +1,4 @@
+import WalletBadge from '@/components/user/WalletBadge';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Listing } from '@/entities/Listing';
@@ -487,11 +488,7 @@ export default function BlackRegister() {
         
         {currentUser && (
           <div className="flex items-center gap-4 mt-4">
-            <div className="flex items-center gap-2 bg-purple-500/20 px-4 py-2 rounded-lg border border-purple-500/50">
-              <Gem className="w-5 h-5 text-purple-400" />
-              <span className="font-bold text-purple-300">{currentUser.currency || 0}</span>
-              <span className="text-gray-400 text-sm">Echoes</span>
-            </div>
+            <WalletBadge amount={currentUser.currency} />
           </div>
         )}
       </div>

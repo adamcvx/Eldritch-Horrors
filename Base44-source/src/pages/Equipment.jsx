@@ -586,7 +586,7 @@ export default function Equipment() {
 
           <PopupSection title="Orb Details" titleIcon={Eye}>
             <div className="flex items-center gap-4 p-4 bg-gray-700/30 rounded-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center border-2 border-purple-500/30">
+              <div className="w-16 h-16 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center border-2 border-border">
                 <Eye className="w-8 h-8 text-purple-400" />
               </div>
               <div className="flex-1">
@@ -609,7 +609,7 @@ export default function Equipment() {
             ...(orbEquipCost.effective < orbEquipCost.base ? [
             { label: "Base cost", value: `${orbEquipCost.base} Echoes` },
             { label: "Talent reduction", value: `-${orbEquipCost.base - orbEquipCost.effective} Echoes`, color: "text-green-300" },
-            { label: "Effective cost", value: `${orbEquipCost.effective} Echoes`, color: "text-purple-300" }] :
+            { label: "Effective cost", value: `${orbEquipCost.effective} Echoes`, color: "text-primary" }] :
             [
             { label: "Required Echoes", value: `${orbEquipCost.effective} Echoes` }]),
 

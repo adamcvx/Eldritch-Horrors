@@ -70,7 +70,7 @@ export default function OnlineMatch() {
   const waiting = room?.state === 'waiting';
   const myTurn = active && room.turn === room.side;
   const mine = room?.fighters[room.side];
-  const panel = 'space-y-4 rounded-xl border border-purple-800 bg-gray-900 p-5';
+  const panel = 'game-panel space-y-4 rounded-lg border p-4 sm:p-5';
   const input = 'rounded border bg-gray-800 p-2';
 
   return <div className="mx-auto max-w-4xl space-y-5 p-4 text-gray-100">
@@ -113,7 +113,7 @@ export default function OnlineMatch() {
       <h2 className="capitalize">{room.mode} battle</h2>
       <p role="status">{myTurn ? 'Your turn' : 'Opponent’s turn'}</p>
       <div className="game-card-grid gap-3">
-        {room.fighters.map((fighter, side) => <div key={side} className="game-card relative rounded border border-purple-900 p-3">
+        {room.fighters.map((fighter, side) => <div key={side} className="game-card relative rounded border border-border p-3">
           {fighter.image && <img src={fighter.image} alt="" className="mb-3 h-48 w-full rounded object-contain" />}
           <h3>{fighter.name} {side === room.side && '(You)'}</h3><p>{fighter.player} · {fighter.type}</p>
           <progress className="w-full" aria-label={fighter.name + ' HP'} value={fighter.hp} max={fighter.stats.hp} />

@@ -168,7 +168,7 @@ export default function CampaignPage() {
               <div className="text-right">
                 <div className="flex items-center gap-2 mb-2 rounded-lg border text-card-foreground shadow-sm bg-card border-border p-3">
                   <RefreshCw className="w-4 h-4 text-purple-400" />
-                  <span className="text-purple-300 text-sm font-bold">Resets in: {timeToReset}</span>
+                  <span className="text-primary text-sm font-bold">Resets in: {timeToReset}</span>
                 </div>
                 {currentUser &&
                   <p className="text-sm text-gray-400">
@@ -310,9 +310,9 @@ export default function CampaignPage() {
                                   <div className="mb-3 flex justify-center items-center gap-2">
                                     <button
                                       onClick={() => handleOpenStory(stage)}
-                                      className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors cursor-pointer group">
+                                      className="flex items-center gap-2 text-primary hover:text-primary transition-colors cursor-pointer group">
 
-                                      <BookOpen className="w-4 h-4 text-purple-400 group-hover:text-purple-300 transition-colors" />
+                                      <BookOpen className="w-4 h-4 text-purple-400 group-hover:text-primary transition-colors" />
                                       <p className="text-xs italic">The void calls to you...</p>
                                     </button>
                                   </div>
@@ -321,7 +321,7 @@ export default function CampaignPage() {
                                 <div className="flex items-center justify-center gap-1">
                                   <Gem className="w-3 h-3 text-purple-400" />
                                   <span
-                                    className={`text-xs font-semibold ${stage.isFinalBoss ? 'text-red-300' : 'text-purple-300'}`
+                                    className={`text-xs font-semibold ${stage.isFinalBoss ? 'text-red-300' : 'text-primary'}`
                                     }>
                                     {stage.rewardShards} Echoes
                                   </span>
@@ -345,7 +345,7 @@ export default function CampaignPage() {
                           <motion.div
                             animate={{ rotate: 360 }}
                             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                            className="w-8 h-8 border-2 border-purple-500/50 border-dashed rounded-full flex items-center justify-center">
+                            className="w-8 h-8 border-2 border-primary/45 border-dashed rounded-full flex items-center justify-center">
                             <Eye className="w-4 h-4 text-purple-400" />
                           </motion.div>
                           <div className="h-px bg-gradient-to-l from-transparent via-gray-600 to-purple-500/50 w-32"></div>
@@ -357,7 +357,7 @@ export default function CampaignPage() {
           </div>
         }
 
-        <Card className="mt-8 game-gallery border-purple-500/30 shadow-2xl">
+        <Card className="mt-8 game-gallery border-border shadow-2xl">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-3 text-2xl">
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }}>
@@ -377,7 +377,7 @@ export default function CampaignPage() {
                     </span>
                   }
                 </p>
-                <div className="relative w-full bg-gray-800 rounded-full h-4 overflow-visible border border-purple-500/30">
+                <div className="relative w-full bg-gray-800 rounded-full h-4 overflow-visible border border-border">
                   <motion.div
                     className="h-full bg-gradient-to-r from-green-500 via-yellow-500 to-purple-500 relative"
                     initial={{ width: 0 }}
@@ -398,7 +398,7 @@ export default function CampaignPage() {
           onClose={handleCloseStory}
           title={selectedStoryStage.name}
           titleIcon={BookOpen}
-          titleColor="text-purple-300"
+          titleColor="text-primary"
           maxWidth="max-w-2xl"
           actions={[{
             text: "Close",
@@ -415,7 +415,7 @@ export default function CampaignPage() {
             <div className="text-sm text-gray-400 mb-4">
               {selectedStoryStage.isBoss ? 'Boss Battle' : `Stage ${selectedStoryStage.stageNumber}`}
             </div>
-            <div className="bg-gray-900/50 border border-purple-500/30 rounded-lg p-6 game-gallery">
+            <div className="bg-gray-900/50 border border-border rounded-lg p-6 game-gallery">
               <p className="text-gray-300 leading-relaxed italic text-center text-sm">
                 {selectedStoryStage.story}
               </p>

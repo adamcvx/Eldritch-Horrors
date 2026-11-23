@@ -1,3 +1,4 @@
+import WalletBadge from '@/components/user/WalletBadge';
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { Talent } from '@/entities/Talent';
@@ -72,7 +73,7 @@ const LearnTalentDialog = ({ talent, currentUser, onConfirm, onCancel, dependenc
       
             {/* Talent Preview */}
             <PopupPreview>
-                <div className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-purple-500/30 bg-gray-800 flex items-center justify-center">
+                <div className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-border bg-gray-800 flex items-center justify-center">
                     <BookOpen className="w-12 h-12 text-purple-400" />
                 </div>
                 <h3 className="font-bold text-lg mb-1">{talent.name}</h3>
@@ -126,7 +127,7 @@ const LearnTalentDialog = ({ talent, currentUser, onConfirm, onCancel, dependenc
           ...(effectiveCost < talent.cost ? [
           { label: "Base cost", value: `${talent.cost} Echoes` },
           { label: "Talent reduction", value: `${talent.cost - effectiveCost} Echoes`, color: "text-green-300" },
-          { label: "Effective cost", value: `${effectiveCost} Echoes`, color: "text-purple-300" }] :
+          { label: "Effective cost", value: `${effectiveCost} Echoes`, color: "text-primary" }] :
           [
           { label: "Required Echoes", value: `${effectiveCost} Echoes` }]),
 
@@ -340,16 +341,8 @@ export default function TalentTreePage() {
                   </div>
                   {currentUser &&
             <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 bg-purple-500/20 px-4 py-2 rounded-lg border border-purple-500/50">
-                          <Gem className="w-5 h-5 text-purple-400" />
-                          <span className="font-bold text-purple-300">{currentUser.currency || 0}</span>
-                          <span className="text-gray-400 text-sm">Echoes</span>
-                      </div>
-                      <div className="flex items-center gap-2 bg-indigo-500/20 px-4 py-2 rounded-lg border border-indigo-500/50">
-                          <Star className="w-5 h-5 text-indigo-400" />
-                          <span className="font-bold text-indigo-300">{currentUser.voidFragments || 0}</span>
-                          <span className="text-gray-400 text-sm">Fragments</span>
-                      </div>
+                      <WalletBadge amount={currentUser.currency} />
+                      <WalletBadge amount={currentUser.voidFragments} fragments />
                     </div>
             }
                 </div>
@@ -359,15 +352,15 @@ export default function TalentTreePage() {
             {/* Side by Side Trees */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {Object.keys(talentsByTree).sort().map((treeName) =>
-        <div key={treeName} className="game-gallery rounded-2xl border border-purple-500/30">
-                        <div className="p-6 border-b border-purple-500/30">
+        <div key={treeName} className="game-gallery rounded-2xl border border-border">
+                        <div className="p-6 border-b border-border">
                             <h2 className="text-3xl font-title text-center">{treeName} Tree</h2>
                         </div>
                         <div className="max-h-[800px] overflow-y-auto p-6">
                             <div className="space-y-8">
                                 {Object.keys(talentsByTree[treeName]).sort((a, b) => a - b).map((tier) =>
               <div key={tier}>
-                                        <h3 className="text-lg font-bold text-center mb-4 border-b border-purple-500/30 pb-2 text-purple-200">Tier {tier}</h3>
+                                        <h3 className="text-lg font-bold text-center mb-4 border-b border-border pb-2 text-primary">Tier {tier}</h3>
                                         <div className="flex flex-col items-center gap-4">
                                             {talentsByTree[treeName][tier].map((talent) => {
                     const isLearned = (currentUser.learnedTalents || []).includes(talent.name);

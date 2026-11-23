@@ -244,7 +244,7 @@ export default function CampaignPage() {
                         )}
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30" style={{ zIndex: 2 }}>
+                      <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30" style={{ zIndex: 2 }}>
                         {chapterStages.map((stage, stageIndex) => {
                           const globalStageNumber = stage.stageNumber;
                           const isUnlocked = globalStageNumber <= campaignProgress + 1;
@@ -267,7 +267,7 @@ export default function CampaignPage() {
                           }
 
                           return (
-                            <div key={stage.id} className="flex-shrink-0 flex flex-col p-6">
+                            <div key={stage.id} className="min-w-0 flex flex-col">
                               <Link
                                 aria-label={isCompleted ? 'Replay ' + stage.name : undefined}
                                 to={isClickable ? createPageUrl(`Battle?campaignId=${stage.id}`) : '#'}

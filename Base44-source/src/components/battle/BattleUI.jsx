@@ -373,7 +373,7 @@ export default function BattleUI({
   }, []);
 
   const renderFusionCard = (fusion, hp, maxHp, statusEffects, orbs) => {
-    if (!fusion) return <div className="w-full max-w-[365px] aspect-[2/3] bg-gray-800/50 rounded-lg animate-pulse" />;
+    if (!fusion) return <div className="game-card bg-gray-800/50 rounded-lg animate-pulse" />;
     
     return (
       <FusionCard
@@ -510,9 +510,9 @@ export default function BattleUI({
 
         {/* Center Area: Fusions and VS */}
         <div className="w-full flex-1 flex items-center justify-center max-w-7xl mx-auto z-10">
-          <div className="grid w-full min-w-0 grid-cols-1 justify-items-center items-center gap-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-4">
+          <div className="grid w-full min-w-0 grid-cols-1 justify-items-center items-center gap-3 lg:grid-cols-[minmax(0,var(--game-card-width))_auto_minmax(0,var(--game-card-width))] lg:justify-center sm:gap-4">
             {/* Player Fusion */}
-            <div className="relative w-full max-w-[365px] rounded-lg">
+            <div className="relative w-full max-w-[var(--game-card-width)] rounded-lg">
               {renderFusionCard(
                 playerFusion,
                 playerHp,
@@ -551,7 +551,7 @@ export default function BattleUI({
             </motion.div>
 
             {/* Opponent Fusion */}
-			      <div className="relative w-full max-w-[365px] rounded-lg">
+			      <div className="relative w-full max-w-[var(--game-card-width)] rounded-lg">
               {renderFusionCard(
                 opponentFusion,
                 opponentHp,

@@ -178,9 +178,9 @@ export default function VoidAltar() {
         </div>
     }
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+      <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
         {fusions.map((fusion) =>
-      <motion.div key={fusion.id} layout className="flex-shrink-0 flex flex-col items-center gap-3 p-8">
+      <motion.div key={fusion.id} layout className="min-w-0 flex flex-col items-center gap-3">
             <FusionCard fusion={fusion} />
             <Button onClick={() => handleSelectFusion(fusion)} aria-label={'Ascend ' + fusion.fusedName}>Ascend</Button>
           </motion.div>

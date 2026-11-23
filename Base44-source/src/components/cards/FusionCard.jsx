@@ -96,7 +96,6 @@ export default function FusionCard({
   children,
   className,
   mode = 'default',
-  fixedSize = false,
   hp,
   maxHp,
   statusEffects,
@@ -327,7 +326,7 @@ export default function FusionCard({
         }
       `}</style>
 
-      <Card className={`rounded-lg border text-card-foreground shadow-sm relative overflow-hidden border-yellow-500/60 shadow-yellow-500/20 hover:border-slate-200 transition-all group bg-gray-900 w-full max-w-[365px] p-2 sm:p-4 ${fixedSize ? 'h-[32rem] shrink-0' : 'min-h-[26rem]'}`}>
+      <Card className="game-card rounded-lg border text-card-foreground shadow-sm relative border-yellow-500/60 shadow-yellow-500/20 hover:border-slate-200 transition-colors group bg-gray-900 p-2 sm:p-4">
         {/* Eldritchborn Glow & Particles */}
         {fusion.ascensionLevel > 0 &&
           <>
@@ -361,7 +360,7 @@ export default function FusionCard({
         }
 
         {/* Content */}
-        <CardContent className={`relative z-10 w-full h-full ${fixedSize ? 'overflow-y-auto px-3 sm:px-4' : 'px-6'}`}>
+        <CardContent className="relative z-10 w-full px-3 sm:px-4">
           <div className="relative h-48">
             {/* Background fill */}
             <img src={fusion.generatedImage} alt="" className="my-2 absolute inset-0 w-full h-[90%] object-cover blur-sm scale-110 opacity-60" />
@@ -440,9 +439,7 @@ export default function FusionCard({
 
           <div className="py-2">
             {/* Name + Origin */}
-            <div className={fixedSize
-              ? "grid min-h-12 grid-cols-[minmax(0,1fr)_auto] items-start gap-x-2"
-              : "flex flex-wrap justify-between items-start gap-x-2"}>
+            <div className="grid min-h-12 grid-cols-[minmax(0,1fr)_auto] items-start gap-x-2">
               <h3
                 style={{ fontSize: getFontSize(fusion.fusedName) }}
                 className={`font-bold mb-3 relative z-20 break-words min-w-0 ${isHolographic ? 'holographic-text' : 'text-white'}`}>

@@ -61,7 +61,8 @@ export default function AbilityCard({
   }
 
   const cardClasses = [
-    'bg-gray-900/50 border-2 border-gray-700 transition-all h-full flex flex-col',
+    'bg-gray-900/50 border-2 border-gray-700 transition-all flex flex-col',
+    isBattleMode ? 'h-full' : 'game-card',
     isBattleMode && isActionable && 'cursor-pointer hover:border-purple-400',
     isBattleMode && !isActionable && 'cursor-not-allowed opacity-60',
     !isBattleMode && disabled && !isEquipped && 'opacity-50'
@@ -69,7 +70,7 @@ export default function AbilityCard({
 
   return (
     <div
-      className="relative h-full"
+      className={isBattleMode ? "relative h-full" : "relative w-full"}
       onClick={() => isBattleMode && isActionable && onAction(ability)}
     >
       <Card className={cardClasses}>

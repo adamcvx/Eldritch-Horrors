@@ -533,7 +533,7 @@ export default function BlackRegister() {
           </Card>
 
           {/* Listings Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="game-card-grid [--game-card-track:23.125rem] gap-6">
             <AnimatePresence>
               {filteredListings.map((listing) => (
                 <motion.div
@@ -685,7 +685,7 @@ export default function BlackRegister() {
         </TabsContent>
 
         <TabsContent value="my-listings">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="game-card-grid [--game-card-track:23.125rem] gap-6">
             {myListings.map((listing) => (
               <Card key={listing.id} className="bg-gray-800/50 border-gray-700">
                 <CardHeader>

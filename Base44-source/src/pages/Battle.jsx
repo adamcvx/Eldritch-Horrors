@@ -1652,11 +1652,11 @@ export default function Battle() {
             </div>
           </div> :
 
-          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+          <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
             {selectableFusions.map((fusion) =>
               <motion.div
                 key={fusion.id}
-                onClick={() => handleSelectFusionForCampaign(fusion.id)} className="flex-shrink-0 flex flex-col p-6">
+                onClick={() => handleSelectFusionForCampaign(fusion.id)} className="min-w-0 flex flex-col">
 
                 <FusionCard
                   fusion={fusion}

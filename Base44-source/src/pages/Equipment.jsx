@@ -402,8 +402,8 @@ export default function Equipment() {
         <p className="text-gray-400 mt-2">Enhance your abominations with eldritch orbs and forbidden abilities.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-        <div className="lg:col-span-2 space-y-6 p-16">
+      <div className="grid grid-cols-1 lg:grid-cols-[var(--game-card-width)_minmax(0,1fr)] gap-4 xl:gap-8 items-start">
+        <div className="min-w-0 space-y-6">
           <Card className="bg-gray-800/50 text-card-foreground rounded-lg border shadow-sm border-gray-700">
             <CardHeader><CardTitle>Select Abomination</CardTitle></CardHeader>
             <CardContent>
@@ -426,7 +426,7 @@ export default function Equipment() {
           {selectedFusion && <FusionCard fusion={selectedFusion} equippedOrbs={equippedOrbs} />}
         </div>
 
-        <div className="lg:col-span-3">
+        <div className="min-w-0">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="orbs" className="flex items-center gap-2">
@@ -484,7 +484,7 @@ export default function Equipment() {
                 <CardContent className="pt-6 pr-6 pb-6 pl-6 lg:grid-cols-2 gap-4">
                   {(equippedOrbs || []).length === 0 ?
                   <p className="text-gray-400 text-center py-4">No orbs equipped</p> :
-                  <div className="pt-8 pr-8 pb-8 pl-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                  <div className="p-2 sm:p-4 game-card-grid gap-4">
                       {equippedOrbs.map((orb) =>
                     <OrbCard
                       key={orb.playerOrbId}
@@ -504,7 +504,7 @@ export default function Equipment() {
                   <CardTitle>Available Orbs ({filteredAvailableOrbs.length})</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 pt-8 pr-16 pb-8 pl-16">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                  <div className="game-card-grid gap-4">
                     {filteredAvailableOrbs.map((orb) =>
                     <OrbCard
                       key={orb.playerOrbId}
@@ -527,7 +527,7 @@ export default function Equipment() {
             <TabsContent value="abilities" className="space-y-6">
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader><CardTitle>Equipped Abilities ({(equippedAbilities || []).length}/4)</CardTitle></CardHeader>
-                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <CardContent className="game-card-grid gap-4">
                   {(equippedAbilities || []).length > 0 ?
                   equippedAbilities.map((ability) =>
                   <AbilityCard
@@ -545,7 +545,7 @@ export default function Equipment() {
 
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader><CardTitle>Available Abilities</CardTitle></CardHeader>
-                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <CardContent className="game-card-grid gap-4">
                   {availableAbilities.map((ability) =>
                   <AbilityCard
                     key={ability.id}

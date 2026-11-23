@@ -108,7 +108,7 @@ export default function OrbCard({
         }
       `}</style>
 
-      <Card className="rounded-lg bg-card text-card-foreground shadow-sm w-full h-full relative overflow-hidden border-2 transition-all duration-300 hover:shadow-lg group border-gray-700 hover:border-gray-600 ring-2 ring-yellow-400/50 shadow-yellow-400/20 flex flex-col">
+      <Card className="rounded-lg bg-card text-card-foreground shadow-sm game-card relative border-2 transition-all duration-300 hover:shadow-lg group border-gray-700 hover:border-gray-600 ring-2 ring-yellow-400/50 shadow-yellow-400/20 flex flex-col">
         
         {/* Background Gradient */}
         <div className={`absolute inset-0 bg-gradient-to-br ${getOrbTypeColor(orb.orbType)} opacity-50`} />
@@ -118,7 +118,7 @@ export default function OrbCard({
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/10 animate-pulse" />
         }
 
-        <CardContent className="p-0 relative z-10 h-full flex flex-col">
+        <CardContent className="p-0 relative z-10 min-h-full flex flex-col">
           {/* Orb Visual - Reduced height */}
           <div className="relative h-40 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center border-b border-gray-700/50">
             {/* Destroy Button - Top Left */}

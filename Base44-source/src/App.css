@@ -1,1 +1,21 @@
 
+
+/* Collectible card dimensions follow the Abominations collection. */
+:root {
+  --game-card-width: 20rem;
+  --game-card-height: 32rem;
+}
+
+.game-card {
+  box-sizing: border-box;
+  inline-size: min(100%, var(--game-card-width));
+  block-size: var(--game-card-height);
+  min-inline-size: 0;
+  overflow: auto;
+  flex-shrink: 0;
+}
+
+.game-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(0, min(100%, var(--game-card-track, var(--game-card-width)))));
+}

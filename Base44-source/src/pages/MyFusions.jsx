@@ -589,7 +589,7 @@ export default function MyFusions() {
           </Link>
         </div> :
 
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(0,min(100%,20rem)))] gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
+      <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
           <AnimatePresence>
             {fusions.map((fusion) => {
             const isMaxLevel = fusion.level >= 25;
@@ -608,7 +608,6 @@ export default function MyFusions() {
 
                   <FusionCard
                   fusion={fusion}
-                  fixedSize
                   equippedOrbs={fusion.loadedEquippedOrbs}
                   headerContent={
                   <Button

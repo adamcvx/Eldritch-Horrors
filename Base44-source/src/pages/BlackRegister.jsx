@@ -1,3 +1,5 @@
+import { cloudEnabled } from '@/api/cloudSave';
+import { initializeMarketSave, refreshCloudPlayerSave } from '@/api/localBase44';
 import WalletBadge from '@/components/user/WalletBadge';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -27,6 +29,18 @@ import { purchaseListing } from '@/functions/purchaseListing';
 import { createListing } from '@/functions/createListing';
 import { cancelListing } from '@/functions/cancelListing';
 
+async function marketRequest(input) {
+  if (input) await initializeMarketSave();
+  const response = await fetch('/api/market', {
+    method: input ? 'POST' : 'GET', cache: 'no-store',
+    headers: input ? { 'Content-Type': 'application/json' } : undefined,
+    body: input ? JSON.stringify(input) : undefined,
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || 'The Black Register is unavailable.');
+  return { data };
+}
+
 export default function BlackRegister() {
   const { currentUser, updateUserData } = useAppContext();
   const [activeTab, setActiveTab] = useState('browse');
@@ -34,6 +48,7 @@ export default function BlackRegister() {
   const [myListings, setMyListings] = useState([]);
   const [myItems, setMyItems] = useState({ fusions: [], orbs: [] });
   const [loading, setLoading] = useState(true);
+  const [marketError, setMarketError] = useState("");
   const [filterType, setFilterType] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
@@ -62,6 +77,24 @@ export default function BlackRegister() {
     try {
       setLoading(true);
       
+      setMarketError('');
+      if (cloudEnabled) {
+        const { data } = await marketRequest();
+        const player = await refreshCloudPlayerSave();
+        if (player.currency !== currentUser.currency) updateUserData({ currency: player.currency });
+        const [fusions, ownedOrbs] = await Promise.all([
+          Fusion.filter({ playerOwner: player.id }),
+          PlayerOrb.filter({ playerId: player.id }),
+        ]);
+        const available = ownedOrbs.filter(orb => !orb.equippedToFusion);
+        const details = await lookupOrbsById([...new Set(available.map(orb => orb.orbId))]);
+        setMyItems({ fusions, orbs: available.filter(orb => details[orb.orbId])
+          .map(orb => ({ ...details[orb.orbId], playerOrbId: orb.id })) });
+        setListings(data.listings);
+        setMyListings(data.mine);
+        return;
+      }
+
       // Load active listings
       const activeListings = await Listing.filter({ 
         status: 'active',
@@ -145,7 +178,7 @@ export default function BlackRegister() {
       }
       
     } catch (error) {
-      console.error('Error loading Black Register data:', error);
+      setMarketError(error.message || 'The Black Register could not be loaded.');
     } finally {
       setLoading(false);
     }
@@ -169,7 +202,7 @@ export default function BlackRegister() {
       // The backend function 'createListing' will handle the escrow transfer and listing creation.
       const buyoutPrice = newListing.listingType === 'auction' && newListing.buyoutPrice ? newListing.buyoutPrice : null;
 
-      const result = await createListing({
+      const result = await (cloudEnabled ? input => marketRequest({ ...input, action: "create" }) : createListing)({
         itemId: newListing.itemId,
         itemType: newListing.itemType,
         listingType: newListing.listingType,
@@ -217,7 +250,7 @@ export default function BlackRegister() {
       return;
     }
 
-    if ((currentUser.currency || 0) < parseInt(bidAmount)) {
+    if (!cloudEnabled && (currentUser.currency || 0) < parseInt(bidAmount)) {
       alert('Insufficient Echoes for this bid.');
       return;
     }
@@ -225,7 +258,8 @@ export default function BlackRegister() {
     setIsSubmitting(true);
 
     try {
-      // Create bid
+      if (cloudEnabled) await marketRequest({ action: "bid", listingId: listing.id, amount: Number(bidAmount) });
+      else {
       await Bid.create({
         listingId: listing.id,
         bidderId: currentUser.id,
@@ -239,6 +273,7 @@ export default function BlackRegister() {
         currentBidderId: currentUser.id
       });
       
+      }
       setBidAmount('');
       setShowBidDialog(null);
       await loadData();
@@ -246,7 +281,7 @@ export default function BlackRegister() {
       
     } catch (error) {
       console.error('Error placing bid:', error);
-      alert('Failed to place bid. Please try again.');
+      alert(error.message || 'Failed to place bid. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -263,23 +298,23 @@ export default function BlackRegister() {
           return;
       }
       
-      if (!currentUser || (currentUser.currency || 0) < price) {
+      if (!currentUser || (!cloudEnabled && (currentUser.currency || 0) < price)) {
         alert('You do not have enough Echoes to purchase this item.');
         setIsSubmitting(false);
         return;
       }
 
       // Call the secure backend function
-      const result = await purchaseListing({ listingId: listing.id });
+      const result = await (cloudEnabled ? marketRequest({ action: "buy", listingId: listing.id }) : purchaseListing({ listingId: listing.id }));
       
       const responseData = result.data;
 
       if (responseData.success) {
         alert('Purchase successful!');
         // Optimistically update currency in context
-        updateUserData({ currency: (currentUser.currency || 0) - price });
+        if (!cloudEnabled) updateUserData({ currency: (currentUser.currency || 0) - price });
         // Refresh all data to show changes
-        loadData();
+        await loadData();
         playCurrencyGain(); // Play sound for currency change (purchase confirmation)
       } else {
         throw new Error(responseData.error || 'Failed to complete purchase.');
@@ -303,7 +338,7 @@ export default function BlackRegister() {
     setIsSubmitting(true);
     
     try {
-        const result = await cancelListing({ listingId: listing.id });
+        const result = await (cloudEnabled ? marketRequest({ action: "cancel", listingId: listing.id }) : cancelListing({ listingId: listing.id }));
         const responseData = result.data;
 
         if (responseData.success) {
@@ -482,6 +517,7 @@ export default function BlackRegister() {
 
   return (
     <div className="container mx-auto max-w-7xl">
+      {marketError && <p role="alert" className="mb-4 text-red-300">{marketError}</p>}
       <div className="text-left mb-8">
         <h1 className="text-4xl font-bold">The Black Register</h1>
         <p className="text-gray-400 mt-2">Trade your abominations and relics in the shadowy marketplace.</p>
@@ -724,7 +760,7 @@ export default function BlackRegister() {
                       </span>
                     </div>
                   </div>
-                   {listing.status === 'active' && (
+                   {listing.status === 'active' && !listing.hasBid && (
                         <Button 
                             variant="destructive" 
                             size="sm" 

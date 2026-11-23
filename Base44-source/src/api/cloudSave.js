@@ -17,6 +17,7 @@ async function request(method, body) {
   return result.save;
 }
 
+export const hasCloudSave = () => revision > 0;
 export const loadCloudSave = () => request('GET');
 export const storeCloudSave = save => request('PUT', { revision, save });
 

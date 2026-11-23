@@ -571,3 +571,23 @@ h1 { text-wrap: balance; }
 @media (min-width: 1100px) {
   .campaign-atlas__hint { display: none; }
 }
+
+.combat-summary {
+  position: relative;
+  display: grid;
+  gap: .3rem;
+  min-width: 0;
+  padding: .55rem;
+  border: 1px solid #946f46;
+  border-radius: .35rem;
+  background: #101b1bf5;
+}
+.combat-summary__fighter { display: flex; align-items: center; gap: .45rem; text-align: left; }
+.combat-summary__fighter img { width: 2.45rem; height: 2.45rem; flex: 0 0 auto; border-radius: .23rem; object-fit: cover; }
+.combat-summary progress { width: 100%; height: .55rem; accent-color: #8ad7b3; }
+@media (max-width: 767px) {
+  .battle-field { gap: .55rem; }
+  .battle-action-grid .ability-card-content { padding: .45rem; }
+  .battle-action-grid .ability-card-description { font-size: .7rem; line-height: 1.2; margin-bottom: .3rem; }
+  .battle-action-grid .ability-card-content > div { flex-wrap: wrap; row-gap: .2rem; }
+}

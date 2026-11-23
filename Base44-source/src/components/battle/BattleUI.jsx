@@ -284,6 +284,24 @@ const BattleEndModal = ({
   );
 };
 
+function CombatSummary({ fusion, hp, maxHp, label, onInspect, effect, effectKey }) {
+  if (!fusion) return null;
+  const currentHp = Math.max(0, hp ?? maxHp ?? 0);
+  return <div className="combat-summary">
+    <button type="button" className="combat-summary__fighter" onClick={onInspect}
+      aria-label={'Inspect ' + fusion.fusedName}>
+      {fusion.generatedImage && <img src={fusion.generatedImage} alt="" />}
+      <span className="min-w-0">
+        <span className="block text-xs text-primary">{label} · Lv. {fusion.level}</span>
+        <strong className="block break-words leading-tight">{fusion.fusedName}</strong>
+      </span>
+    </button>
+    <progress aria-label={label + ' health'} value={currentHp} max={Math.max(1, maxHp ?? 1)} />
+    <span className="text-xs tabular-nums">{currentHp} / {maxHp ?? '—'} HP</span>
+    <BattleEffect key={effectKey} effect={effect} />
+  </div>;
+}
+
 export default function BattleUI({
   match,
   playerFusion,
@@ -311,9 +329,9 @@ export default function BattleUI({
   playerOrbs = [],
   opponentOrbs = []
 }) {
-  const [showLog, setShowLog] = useState(true);
+  const [showLog, setShowLog] = useState(() => window.matchMedia("(min-width: 768px)").matches);
   const logContainerRef = useRef(null);
-  const [showAbilityInfo, setShowAbilityInfo] = useState(null); // Added this state
+  const [inspectSide, setInspectSide] = useState(null);
   const [economySettings, setEconomySettings] = useState(null);
   const [combatAction, setCombatAction] = useState(null);
 
@@ -455,11 +473,11 @@ export default function BattleUI({
 
   return (
     <>
-      <div className="relative min-h-dvh w-full flex flex-col items-center gap-4 text-white p-2 sm:p-4">
+      <div className="battle-field relative min-h-dvh w-full flex flex-col items-center gap-4 text-white p-2 sm:p-4">
         <ParticleSystem />
 
         {/* Top Bar Info */}
-        <div className="w-full p-2 sm:p-4 z-20 bg-black/30 backdrop-blur-sm">
+        <div className="hidden lg:block w-full p-2 sm:p-4 z-20 bg-black/30 backdrop-blur-sm">
           <div className="flex flex-wrap justify-between items-center gap-3 w-full max-w-7xl mx-auto">
 
             {/* Player Profile (Left) */}
@@ -509,7 +527,7 @@ export default function BattleUI({
         </div>
 
         {/* Center Area: Fusions and VS */}
-        <div className="w-full flex-1 flex items-center justify-center max-w-7xl mx-auto z-10">
+        <div className="hidden lg:flex w-full flex-1 items-center justify-center max-w-7xl mx-auto z-10">
           <div className="grid w-full min-w-0 grid-cols-1 justify-items-center items-center gap-3 lg:grid-cols-[minmax(0,var(--game-card-width))_auto_minmax(0,var(--game-card-width))] lg:justify-center sm:gap-4">
             {/* Player Fusion */}
             <div className="relative w-full max-w-[var(--game-card-width)] rounded-lg">
@@ -565,11 +583,35 @@ export default function BattleUI({
           </div>
         </div>
 
+        <div className="w-full space-y-2 lg:hidden">
+          <div className="rounded border border-border bg-background/95 px-3 py-2">
+            <h2 className="text-xl font-bold">{campaignStage?.name || 'Eldritch Combat'}</h2>
+            <p role="status" className="text-sm font-semibold text-primary">
+              {match?.state === 'finished' ? 'Battle ended' : isPlayerTurn ? 'Your turn' : 'Opponent’s turn'}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <CombatSummary fusion={playerFusion} hp={playerHp} maxHp={maxPlayerHp} label="You"
+              onInspect={() => setInspectSide('player')} effectKey={combatAction?.key}
+              effect={battleEffectFor(combatAction, 'player')} />
+            <CombatSummary fusion={opponentFusion} hp={opponentHp} maxHp={maxOpponentHp} label="Opponent"
+              onInspect={() => setInspectSide('opponent')} effectKey={combatAction?.key}
+              effect={battleEffectFor(combatAction, 'opponent')} />
+          </div>
+        </div>
+
+        {inspectSide && <PopupDialog open onClose={() => setInspectSide(null)} maxWidth="max-w-sm"
+          title={inspectSide === 'player' ? 'Your abomination' : 'Opponent'}>
+          {inspectSide === 'player'
+            ? renderFusionCard(playerFusion, playerHp, maxPlayerHp, statusEffects.player, playerOrbs)
+            : renderFusionCard(opponentFusion, opponentHp, maxOpponentHp, statusEffects.opponent, opponentOrbs)}
+        </PopupDialog>}
+
         {/* Bottom Area: Actions and Log */}
         <div className="w-full z-20">
           <div className="w-full max-w-7xl mx-auto grid grid-cols-1 gap-4 md:grid-cols-2">
             {/* Battle Log */}
-            <div className="min-w-0 flex flex-col">
+            <div className="order-2 min-w-0 flex flex-col md:order-none">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="font-bold text-lg font-title">Battle Log</h3>
                 <Button
@@ -659,12 +701,13 @@ export default function BattleUI({
                     <h3 className="font-bold text-lg text-center mb-2 font-title">
                       Choose Your Action
                     </h3>
-                    <div className="grid grid-cols-1 gap-3 mb-3 flex-grow sm:grid-cols-2">
+                    <div className="battle-action-grid grid grid-cols-2 gap-2 mb-2 flex-grow">
                       {playerAbilities.map((ability) => (
                         <AbilityCard
                           key={ability.id}
                           ability={ability}
                           mode="battle"
+                          disabled={!isPlayerTurn}
                           onAction={onUseAbility}
                           activeCooldown={activeCooldowns[ability.id] || 0}
                         />

@@ -3,7 +3,7 @@ import { horrors, relics } from '../../../game.mjs';
 import { chooseFusionArtwork, conjureName, upgradeFusionIdentity } from './fusionIdentity.js';
 import { campaignWeek, createWeeklyCampaign } from './weeklyCampaign.js';
 import catalog from './base44Catalog.json';
-import { cloudEnabled, loadCloudSave, storeCloudSave, packSave } from './cloudSave.js';
+import { cloudEnabled, hasCloudSave, loadCloudSave, storeCloudSave, packSave } from './cloudSave.js';
 import { validSave, playerCollections } from './saveFormat.js';
 
 const saveKey = 'eldritch-base44-preview-v1';
@@ -168,6 +168,22 @@ function write(change) {
 
 export async function ascendFusion(fusionId) {
   return write(data => applyAscension(data, fusionId));
+}
+
+export async function initializeMarketSave() {
+  await ensureCloudSave();
+  await pendingWrite;
+  if (!hasCloudSave()) await write(() => {});
+}
+
+export async function refreshCloudPlayerSave() {
+  const result = pendingWrite.then(async () => {
+    const save = await loadCloudSave();
+    cloudData = save ? unpackSave(save) : upgradeCatalog(initialData(false));
+    return read().User[0];
+  });
+  pendingWrite = result.catch(() => {});
+  return result;
 }
 
 export async function exportPlayerSave() {

@@ -296,16 +296,17 @@ export default function CampaignPage() {
           }]}>
 
           <div className="text-center">
-            <div className="text-lg font-bold text-purple-400 mb-2">
+            <div className="font-title text-xl font-bold text-primary mb-2">
               Chapter {selectedStoryStage.chapter}: {selectedStoryStage.chapterTitle}
             </div>
             <div className="text-sm text-gray-400 mb-4">
               {selectedStoryStage.isBoss ? 'Boss Battle' : `Stage ${selectedStoryStage.stageNumber}`}
             </div>
             <div className="bg-gray-900/50 border border-border rounded-lg p-6 game-gallery">
-              <p className="text-gray-300 leading-relaxed italic text-center text-sm">
-                {selectedStoryStage.story}
-              </p>
+              <div className="space-y-4 text-left text-base leading-relaxed text-foreground">
+                {selectedStoryStage.story.split(/\n{2,}/).map((paragraph, index) =>
+                  <p key={index}>{paragraph}</p>)}
+              </div>
             </div>
             <div className="text-center text-xs text-gray-500 mt-4">
               The whispers of the void echo through time...

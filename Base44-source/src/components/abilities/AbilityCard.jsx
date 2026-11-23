@@ -37,7 +37,7 @@ export default function AbilityCard({
 
   const isBattleMode = mode === 'battle';
   const isDisabledInBattle = isBattleMode && activeCooldown > 0;
-  const isActionable = !isDisabledInBattle && (!disabled || isEquipped);
+  const isActionable = !isDisabledInBattle && !disabled;
 
   let description = ability.effect || '';
 
@@ -71,6 +71,15 @@ export default function AbilityCard({
   return (
     <div
       className={isBattleMode ? "relative h-full" : "relative w-full"}
+      role={isBattleMode ? 'button' : undefined}
+      tabIndex={isBattleMode && isActionable ? 0 : undefined}
+      aria-disabled={isBattleMode ? !isActionable : undefined}
+      onKeyDown={event => {
+        if (isBattleMode && isActionable && ['Enter', ' '].includes(event.key)) {
+          event.preventDefault();
+          onAction(ability);
+        }
+      }}
       onClick={() => isBattleMode && isActionable && onAction(ability)}
     >
       <Card className={cardClasses}>

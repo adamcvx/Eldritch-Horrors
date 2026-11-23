@@ -1,3 +1,4 @@
+import { campaignStory } from './campaignStory.js';
 import { chooseFusionArtwork, conjureName } from './fusionIdentity.js';
 
 const day = 86_400_000;
@@ -56,8 +57,8 @@ export function createWeeklyCampaign(catalog, horrors, week) {
     stages.push({
       ...template, id, campaignWeek: week, chapterTitle, name, enemyFusionId: id + '-enemy',
       description: 'A trial in the ' + name + '.',
-      story: 'The way into the ' + name + ' seals behind you. From the dark comes ' + fusedName +
-        ', bearing traces of both ' + first.name + ' and ' + second.name + '. Defeat it to advance down the Forbidden Path.',
+      story: campaignStory({ week, chapterTitle, stageNumber: template.stageNumber, name,
+        previous: stages.at(-1)?.name, enemy: fusedName, parents: [first.name, second.name] }),
     });
   }
   return { stages, enemies };

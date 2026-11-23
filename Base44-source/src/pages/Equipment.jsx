@@ -53,6 +53,7 @@ export default function Equipment() {
   const [filterType, setFilterType] = useState('all');
   const [equipAction, setEquipAction] = useState(null);
   const [activeTab, setActiveTab] = useState('orbs');
+  const [equipmentView, setEquipmentView] = useState('equipped');
   const [orbToEquip, setOrbToEquip] = useState(null); // New state for orb confirmation
   const [orbEquipCost, setOrbEquipCost] = useState(null); // New state for calculated cost
   const [orbToDestroy, setOrbToDestroy] = useState(null);
@@ -441,20 +442,28 @@ export default function Equipment() {
         </aside>
 
         <Tabs value={activeTab} onValueChange={tab => { setActiveTab(tab); setSearch(''); }} className="min-w-0">
+          <div className="equipment-toolbar">
           <TabsList className="equipment-tabs grid h-auto w-full grid-cols-2 gap-2">
             <TabsTrigger value="orbs"><Eye className="size-4" /> Eldritch Orbs</TabsTrigger>
             <TabsTrigger value="abilities"><Zap className="size-4" /> Ability Glyphs</TabsTrigger>
           </TabsList>
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Equipment view">
+            <Button type="button" size="sm" variant={equipmentView === 'equipped' ? 'default' : 'outline'}
+              aria-pressed={equipmentView === 'equipped'} onClick={() => setEquipmentView('equipped')}>Equipped</Button>
+            <Button type="button" size="sm" variant={equipmentView === 'inventory' ? 'default' : 'outline'}
+              aria-pressed={equipmentView === 'inventory'} onClick={() => setEquipmentView('inventory')}>Inventory</Button>
+          </div>
+          </div>
 
           <TabsContent value="orbs" className="space-y-4">
-            <section className="equipment-station" aria-labelledby="equipped-orbs">
+            {equipmentView === 'equipped' && <section className="equipment-station" aria-labelledby="equipped-orbs">
               <h2 id="equipped-orbs" className="text-2xl font-bold">Equipped orbs <span>{equippedOrbs.length}/{orbSlots}</span></h2>
-              {equippedOrbs.length ? <div className="equipment-items">{equippedOrbs.map(orb => <OrbCard
+              {equippedOrbs.length ? <div className="game-card-grid gap-5">{equippedOrbs.map(orb => <OrbCard
                 key={orb.playerOrbId} orb={orb} fusionOriginType={selectedFusion?.originType}
                 onUnequip={handleUnequipOrb} isEquipped />)}</div>
-                : <p className="text-sm text-muted-foreground">No orbs equipped. Choose an orb from your inventory below.</p>}
-            </section>
-            <section className="equipment-station" aria-labelledby="orb-inventory">
+                : <p className="text-sm text-muted-foreground">No orbs equipped. Open Inventory to choose an orb.</p>}
+            </section>}
+            {equipmentView === 'inventory' && <section className="equipment-station" aria-labelledby="orb-inventory">
               <h2 id="orb-inventory" className="text-2xl font-bold">Orb inventory <span>{filteredAvailableOrbs.length}</span></h2>
               <div className="equipment-filters">
                 <Input aria-label="Search orbs" placeholder="Search orbs" value={search} onChange={event => setSearch(event.target.value)} />
@@ -475,31 +484,31 @@ export default function Equipment() {
                 </Select>
               </div>
               {equippedOrbs.length >= orbSlots && <p className="text-sm text-muted-foreground">Orb slots are full. Unequip an orb to make room.</p>}
-              {filteredAvailableOrbs.length ? <div className="equipment-items">{filteredAvailableOrbs.map(orb => <OrbCard
+              {filteredAvailableOrbs.length ? <div className="game-card-grid gap-5">{filteredAvailableOrbs.map(orb => <OrbCard
                 key={orb.playerOrbId} orb={orb} fusionOriginType={selectedFusion?.originType}
                 onEquip={handleEquipOrbRequest} onDestroy={handleDestroyOrbRequest}
                 canEquip={Boolean(selectedFusion) && equippedOrbs.length < orbSlots && !equipAction} />)}</div>
                 : <p className="text-sm text-muted-foreground">No unequipped orbs match this view.</p>}
-            </section>
+            </section>}
           </TabsContent>
 
           <TabsContent value="abilities" className="space-y-4">
-            <section className="equipment-station" aria-labelledby="equipped-glyphs">
+            {equipmentView === 'equipped' && <section className="equipment-station" aria-labelledby="equipped-glyphs">
               <h2 id="equipped-glyphs" className="text-2xl font-bold">Equipped glyphs <span>{equippedAbilities.length}/4</span></h2>
-              {equippedAbilities.length ? <div className="equipment-items">{equippedAbilities.map(ability => <AbilityCard
+              {equippedAbilities.length ? <div className="game-card-grid gap-5">{equippedAbilities.map(ability => <AbilityCard
                 key={ability.id} ability={ability} fusion={selectedFusion} onAction={handleUnequipAbility}
                 isEquipped disabled={Boolean(equipAction)} />)}</div>
-                : <p className="text-sm text-muted-foreground">Equip at least one glyph to use this abomination in battle.</p>}
-            </section>
-            <section className="equipment-station" aria-labelledby="glyph-library">
+                : <p className="text-sm text-muted-foreground">Open Inventory to equip a glyph for battle.</p>}
+            </section>}
+            {equipmentView === 'inventory' && <section className="equipment-station" aria-labelledby="glyph-library">
               <h2 id="glyph-library" className="text-2xl font-bold">Glyph library <span>{availableAbilities.length}</span></h2>
               <Input aria-label="Search glyphs" placeholder="Search glyphs" value={search} onChange={event => setSearch(event.target.value)} />
               {equippedAbilities.length >= 4 && <p className="text-sm text-muted-foreground">Glyph slots are full. Unequip a glyph to make room.</p>}
-              {availableAbilities.length ? <div className="equipment-items">{availableAbilities.map(ability => <AbilityCard
+              {availableAbilities.length ? <div className="game-card-grid gap-5">{availableAbilities.map(ability => <AbilityCard
                 key={ability.id} ability={ability} fusion={selectedFusion} onAction={handleEquipAbility}
                 disabled={!selectedFusion || equippedAbilities.length >= 4 || Boolean(equipAction)} />)}</div>
                 : <p className="text-sm text-muted-foreground">No available glyphs match this view.</p>}
-            </section>
+            </section>}
           </TabsContent>
         </Tabs>
       </div>

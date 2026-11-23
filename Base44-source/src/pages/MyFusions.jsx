@@ -631,7 +631,7 @@ export default function MyFusions() {
                         <Button
                         onClick={() => isMaxLevel ? setFusionToAscend(fusion) : handleLevelUpClick(fusion)}
                         className={`game-button-primary text-sm w-full ${(isMaxLevel && !canAscend) || isEmpowering || isBanishing ? 'opacity-50' : ''}`}
-                        disabled={isMaxLevel || isEmpowering || isBanishing}>
+                        disabled={(isMaxLevel && !canAscend) || isEmpowering || isBanishing}>
 
                           {isEmpowering ?
                         <>

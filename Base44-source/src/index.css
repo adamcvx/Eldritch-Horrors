@@ -463,3 +463,111 @@ h1 { text-wrap: balance; }
 .equipment-glyphs .ability-card-content > :not(.ability-card-description) { flex-shrink: 0; }
 .equipment-glyphs .ability-card-description { min-block-size: 0; overflow-y: auto; margin-bottom: .4rem; }
 .equipment-glyphs .ability-card-action { margin-top: .4rem; }
+
+/* Orb inventories use a shorter frame while keeping the full illustrated orb. */
+.equipment-orbs .game-card { block-size: 19rem; }
+.equipment-orbs .orb-card-content { block-size: 100%; min-block-size: 0; }
+.equipment-orbs .orb-card-art { block-size: 6.6rem; flex-shrink: 0; }
+.equipment-orbs .orb-card-image { inline-size: 5.5rem; block-size: 5.5rem; }
+.equipment-orbs .orb-card-art > div:has(.orb-card-image) { inline-size: 6rem; block-size: 6rem; }
+.equipment-orbs .orb-card-body { min-block-size: 0; padding: .65rem .85rem; }
+.equipment-orbs .orb-card-body > :not(.orb-card-description) { flex-shrink: 0; }
+.equipment-orbs .orb-card-body h3 { margin-bottom: .3rem; }
+.equipment-orbs .orb-card-body h3 + div { margin-bottom: .25rem; }
+.equipment-orbs .orb-card-description { min-block-size: 0; overflow-y: auto; margin-bottom: .25rem; font-size: .8rem; line-height: 1.35; }
+.equipment-orbs .orb-card-meta { margin-bottom: .25rem; }
+.equipment-orbs .orb-card-body button { margin-top: .25rem; }
+.equipment-orbs .orb-card-synergy { display: none; }
+
+.campaign-atlas {
+  overflow: hidden;
+  border: 1px solid #a88a58;
+  border-radius: .5rem;
+  background: #101c1b;
+  box-shadow: 0 12px 30px #0006;
+}
+.campaign-atlas__hint { padding: .45rem .75rem; color: #dfc99f; font-size: .85rem; }
+.campaign-atlas__scroll { overflow-x: auto; overscroll-behavior-inline: contain; }
+.campaign-atlas__scroll:focus-visible { outline: 2px solid #eac88d; outline-offset: -3px; }
+.campaign-atlas__chart {
+  position: relative;
+  min-inline-size: 46rem;
+  min-block-size: 23rem;
+  aspect-ratio: 2;
+  isolation: isolate;
+  background:
+    linear-gradient(0deg, #15211d66, transparent 45%, #15211d22),
+    url('/Artwork/forbidden-path-atlas.jpg') center / cover no-repeat,
+    #35483a;
+}
+.campaign-atlas__route {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, #ffe6aa 0 7px, #372b16 7px 12px);
+  pointer-events: none;
+}
+.campaign-marker {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  gap: .4rem;
+  inline-size: clamp(7rem, 13vw, 10rem);
+  transform: translate(-50%, -42%);
+  z-index: 1;
+  color: #fff0cb;
+}
+.campaign-marker[aria-pressed="true"] { z-index: 2; }
+.campaign-marker__portrait {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  inline-size: clamp(3.5rem, 7vw, 6rem);
+  aspect-ratio: 4/5;
+  border: 3px double #eac487;
+  border-radius: .25rem .25rem .85rem .85rem;
+  background: #152322;
+  box-shadow: 0 6px 10px #000a;
+}
+.campaign-marker__portrait img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.campaign-marker__portrait svg {
+  position: relative;
+  translate: 0 30%;
+  border-radius: 50%;
+  background: #102522;
+  box-shadow: 0 0 0 3px #102522, 0 0 0 4px #a98d61;
+}
+.campaign-marker[data-status="locked"] img { filter: saturate(.35) brightness(.75); }
+.campaign-marker[data-status="complete"] svg { color: #b5efcd; }
+.campaign-marker[aria-pressed="true"] .campaign-marker__portrait,
+.campaign-marker:hover .campaign-marker__portrait { box-shadow: 0 0 0 2px #f4d295, 0 7px 15px #000b; }
+.campaign-marker:focus-visible { outline: 2px solid #ffe4a8; outline-offset: 3px; }
+.campaign-marker__label {
+  padding: .25rem .45rem;
+  border: 1px solid #ba995e;
+  border-radius: .2rem;
+  background: #142320f5;
+  font-size: .8rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.campaign-atlas__details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(.75rem, 2vw, 1.25rem);
+  border-top: 1px solid #a88a58;
+}
+.campaign-atlas__details > div:nth-last-child(2) { flex: 1 1 13rem; }
+.campaign-atlas__preview { width: 4rem; height: 4rem; object-fit: cover; border: 1px solid #a88a58; border-radius: .3rem; }
+@media (min-width: 1100px) {
+  .campaign-atlas__hint { display: none; }
+}

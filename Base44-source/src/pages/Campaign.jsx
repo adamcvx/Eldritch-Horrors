@@ -1,4 +1,3 @@
-import { getCampaignReplayFragments } from '../components/loot/LootService';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Fusion } from '@/entities/Fusion';
@@ -9,11 +8,9 @@ import { loadCampaign } from '../components/campaign/CampaignService';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
 import { Star, ShieldCheck, Gem, Lock, CheckCircle2, Play, Crown, MapPin, Loader2, BookOpen, Eye, Skull, RefreshCw, X, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import FusionCard from '../components/cards/FusionCard';
+import CampaignAtlas from '@/components/campaign/CampaignAtlas';
 import { calculateTalentBonuses } from '../components/talents/TalentService';
 import { Talent } from '@/entities/Talent';
 import PopupDialog from '../components/ui/PopupDialog';
@@ -225,118 +222,8 @@ export default function CampaignPage() {
                       <div className="absolute left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-primary to-transparent mb-6"></div>
                     </div>
 
-                    <div className="relative">
-                      <div className="game-card-grid gap-4 xl:gap-6 game-gallery relative rounded-lg p-3 sm:p-5 xl:p-8 border" style={{ zIndex: 2 }}>
-                        {chapterStages.map((stage, stageIndex) => {
-                          const globalStageNumber = stage.stageNumber;
-                          const isUnlocked = globalStageNumber <= campaignProgress + 1;
-                          const isCompleted = globalStageNumber <= campaignProgress;
-                          const isCurrent = globalStageNumber === campaignProgress + 1;
-                          const enemyFusion = enemyFusions[stage.id];
-                          const isClickable = isUnlocked;
-
-                          let statusIcon;
-                          if (isCompleted) {
-                            statusIcon = <CheckCircle2 className="w-6 h-6 text-green-300" />;
-                          } else if (isCurrent) {
-                            statusIcon = <Play className="w-6 h-6 text-yellow-300" />;
-                          } else {
-                            statusIcon = <Lock className="w-6 h-6 text-gray-400" />;
-                          }
-
-                          if (!enemyFusion) {
-                            return null;
-                          }
-
-                          return (
-                            <div key={stage.id} className="min-w-0 flex flex-col">
-                              <Link
-                                aria-label={isCompleted ? 'Replay ' + stage.name : undefined}
-                                to={isClickable ? createPageUrl(`Battle?campaignId=${stage.id}`) : '#'}
-                                className={`${!isClickable ? 'pointer-events-none' : ''}`}>
-
-                                <motion.div
-                                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                                  transition={{
-                                    delay: chapterIndex * 0.3 + stageIndex * 0.1,
-                                    duration: 0.5
-                                  }} className="w-full rounded-lg relative transition-shadow hover:shadow-lg">
-                                  <div className="relative">
-                                    <FusionCard
-                                      fusion={enemyFusion}
-                                      equippedOrbs={enemyFusion.loadedEquippedOrbs}
-                                      headerContent={
-                                        stage.isBoss &&
-                                        <motion.div className="absolute top-2 left-2">
-                                          <Crown className={`w-6 h-6 ${stage.isFinalBoss ? 'text-red-400' : 'text-orange-400'} drop-shadow-lg filter ${stage.isFinalBoss ? 'drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]' : 'drop-shadow-[0_0_8px_rgba(251,146,60,0.6)]'}`} />
-                                          {stage.isFinalBoss &&
-                                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                                          }
-                                        </motion.div>
-                                      } />
-
-                                    <div className="mx-5 my-4 absolute top-[148px] right-2 z-20">
-                                      <div className={`
-                                      w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-sm border-2
-                                      ${isCompleted ? 'bg-green-500/30 border-green-400' :
-                                          isCurrent ? 'bg-yellow-500/30 border-yellow-400' :
-                                            'bg-gray-600/30 border-gray-500'}`
-                                      }>
-                                        {statusIcon}
-                                      </div>
-                                    </div>
-                                  </div>
-                                </motion.div>
-                              </Link>
-
-                              <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{
-                                  delay: chapterIndex * 0.3 + stageIndex * 0.1 + 0.2,
-                                  duration: 0.3
-                                }}
-                                className="mt-4 p-4 bg-gray-800/60 backdrop-blur-sm border border-gray-600/50 rounded-lg">
-
-                                <div className="text-center mb-3">
-                                  <p className="text-sm text-purple-400 font-bold">
-                                    {stage.isBoss ? stage.isFinalBoss ? 'FINAL BOSS' : 'BOSS' : `Stage ${stage.stageNumber}`}
-                                  </p>
-                                  <p className="text-xs text-gray-400 truncate">{stage.name}</p>
-                                </div>
-
-                                {stage.story && (isCompleted || isCurrent) &&
-                                  <div className="mb-3 flex justify-center items-center gap-2">
-                                    <button
-                                      onClick={() => handleOpenStory(stage)}
-                                      className="flex items-center gap-2 text-primary hover:text-primary transition-colors cursor-pointer group">
-
-                                      <BookOpen className="w-4 h-4 text-purple-400 group-hover:text-primary transition-colors" />
-                                      <p className="text-xs italic">The void calls to you...</p>
-                                    </button>
-                                  </div>
-                                }
-
-                                <div className="flex items-center justify-center gap-1">
-                                  <Gem className="w-3 h-3 text-purple-400" />
-                                  <span
-                                    className={`text-xs font-semibold ${stage.isFinalBoss ? 'text-red-300' : 'text-primary'}`
-                                    }>
-                                    {stage.rewardShards} Echoes
-                                  </span>
-
-                                  <Star className="w-3 h-3 text-blue-400" />
-                                  <span className="text-blue-300 text-xs font-bold ml-1">
-                                    {isCompleted ? getCampaignReplayFragments(stage) : stage.rewardFragments} Fragments
-                                  </span>
-                                </div>
-
-                              </motion.div>
-                            </div>);
-                        })}
-                      </div>
-                    </div>
+                    <CampaignAtlas key={week + ':' + chapterNum} stages={chapterStages}
+                      enemies={enemyFusions} progress={campaignProgress} onReadStory={handleOpenStory} />
 
                     {chapterIndex < totalChapters - 1 &&
                       <div className="flex items-center justify-center">

@@ -118,9 +118,9 @@ export default function OrbCard({
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/10 animate-pulse" />
         }
 
-        <CardContent className="p-0 relative z-10 min-h-full flex flex-col">
+        <CardContent className="orb-card-content p-0 relative z-10 min-h-full flex flex-col">
           {/* Orb Visual - Reduced height */}
-          <div className="relative h-40 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center border-b border-gray-700/50">
+          <div className="orb-card-art relative h-40 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center border-b border-gray-700/50">
             {/* Destroy Button - Top Left */}
             {!isEquipped && onDestroy && (
                 <div className="absolute top-3 left-3 z-20">
@@ -155,7 +155,7 @@ export default function OrbCard({
               <img
                 src={orb.iconUrl}
                 alt={orb.name}
-                className="w-32 h-32 object-contain"
+                className="orb-card-image w-32 h-32 object-contain"
               /> :
                 getOrbTypeIcon(orb.orbType)
               }
@@ -185,7 +185,7 @@ export default function OrbCard({
           </div>
 
           {/* Content - flex-1 allows this part to grow and push actions to bottom */}
-          <div className="p-4 flex flex-col flex-1">
+          <div className="orb-card-body p-4 flex flex-col flex-1">
             {/* Name */}
             <h3 className={`font-bold text-xl mb-2 ${isHolographic ? 'holographic-text' : 'text-white'} ${
             synergyActive ? 'text-yellow-300' : ''}`
@@ -201,12 +201,12 @@ export default function OrbCard({
             </div>
 
             {/* Description */}
-            <p className="text-sm text-gray-300 mb-3 leading-relaxed flex-1">
+            <p className="orb-card-description text-sm text-gray-300 mb-3 leading-relaxed flex-1">
               {formattedDescription}
             </p>
 
             {/* Cost and Synergy Info */}
-            <div className="space-y-2 mb-4">
+            <div className="orb-card-meta space-y-2 mb-4">
               <div className="flex justify-between items-center text-xs">
                 <span className="text-gray-400">Equip Cost:</span>
                 <div className="flex items-center gap-1">
@@ -246,7 +246,7 @@ export default function OrbCard({
               <Button
                 onClick={() => onEquip(orb)}
                 disabled={!canEquip}
-                size="sm" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground h-9 rounded-md px-3 w-full mt-4 bg-purple-600 hover:bg-purple-700">
+                size="sm" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 rounded-md px-3 w-full mt-4">
 
 
 
@@ -264,7 +264,7 @@ export default function OrbCard({
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-2 text-center">
+              className="orb-card-synergy mt-2 text-center">
 
                 <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/50 text-xs">
                   <Sparkles className="w-3 h-3 mr-1" />

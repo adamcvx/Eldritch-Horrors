@@ -458,7 +458,7 @@ export default function Equipment() {
           <TabsContent value="orbs" className="space-y-4">
             {equipmentView === 'equipped' && <section className="equipment-station" aria-labelledby="equipped-orbs">
               <h2 id="equipped-orbs" className="text-2xl font-bold">Equipped orbs <span>{equippedOrbs.length}/{orbSlots}</span></h2>
-              {equippedOrbs.length ? <div className="game-card-grid gap-5">{equippedOrbs.map(orb => <OrbCard
+              {equippedOrbs.length ? <div className="game-card-grid equipment-orbs gap-4">{equippedOrbs.map(orb => <OrbCard
                 key={orb.playerOrbId} orb={orb} fusionOriginType={selectedFusion?.originType}
                 onUnequip={handleUnequipOrb} isEquipped />)}</div>
                 : <p className="text-sm text-muted-foreground">No orbs equipped. Open Inventory to choose an orb.</p>}
@@ -484,7 +484,7 @@ export default function Equipment() {
                 </Select>
               </div>
               {equippedOrbs.length >= orbSlots && <p className="text-sm text-muted-foreground">Orb slots are full. Unequip an orb to make room.</p>}
-              {filteredAvailableOrbs.length ? <div className="game-card-grid gap-5">{filteredAvailableOrbs.map(orb => <OrbCard
+              {filteredAvailableOrbs.length ? <div className="game-card-grid equipment-orbs gap-4">{filteredAvailableOrbs.map(orb => <OrbCard
                 key={orb.playerOrbId} orb={orb} fusionOriginType={selectedFusion?.originType}
                 onEquip={handleEquipOrbRequest} onDestroy={handleDestroyOrbRequest}
                 canEquip={Boolean(selectedFusion) && equippedOrbs.length < orbSlots && !equipAction} />)}</div>

@@ -149,9 +149,9 @@ export default function VoidAltar() {
 
   const renderSelectionState = () =>
   <>
-      <Card className="bg-gray-800/50 border-gray-700 mb-8">
+      <Card className="bg-card border-border mb-8">
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center gap-2">
             <div>
               <CardTitle className="flex items-center gap-3">
                 <Aperture className="w-8 h-8 text-purple-400" />
@@ -178,7 +178,7 @@ export default function VoidAltar() {
         </div>
     }
 
-      <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
+      <div className="game-card-grid gap-4 xl:gap-6 relative game-gallery rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
         {fusions.map((fusion) =>
       <motion.div key={fusion.id} layout className="min-w-0 flex flex-col items-center gap-3">
             <FusionCard fusion={fusion} />
@@ -253,7 +253,7 @@ export default function VoidAltar() {
               <div className="flex gap-4">
                 <Button variant="outline" onClick={resetAltar} className="w-full">Back</Button>
                 <Button
-                  className="w-full bg-purple-600 hover:bg-purple-700"
+                  className="w-full game-button-primary"
                   disabled={!canAfford || isAscending}
                   onClick={handleAscension}>
                   {isAscending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Aperture className="w-4 h-4 mr-2" />}
@@ -274,7 +274,7 @@ export default function VoidAltar() {
       <motion.div layoutId={`fusion-card-${selectedFusion.id}`} className="max-w-md mx-auto text-center flex-shrink-0 flex flex-col p-8 space-y-6">
         <FusionCard fusion={selectedFusion} />
       </motion.div>
-      <Button onClick={resetAltar} className="mt-8 w-full bg-purple-600 hover:bg-purple-700">
+      <Button onClick={resetAltar} className="mt-8 w-full game-button-primary">
         Return to the Altar
       </Button>
     </div>;

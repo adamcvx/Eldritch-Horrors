@@ -101,9 +101,9 @@ export default function QuestsPage() {
   return (
     <div className="container mx-auto max-w-7xl"> {/* Changed max-w-4xl to max-w-7xl */}
       {/* Header */}
-      <Card className="bg-gray-800/50 border-gray-700 mb-8">
+      <Card className="bg-card border-border mb-8">
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center gap-2">
             <div>
               <CardTitle className="flex items-center gap-3">
                 <ClipboardList className="w-8 h-8 text-purple-400" />
@@ -119,7 +119,7 @@ export default function QuestsPage() {
               )}
             </div>
             <div className="text-right">
-              <div className="flex items-center gap-2 mb-2 rounded-lg border text-card-foreground shadow-sm bg-gray-800/50 border-gray-700 p-3">
+              <div className="flex items-center gap-2 mb-2 rounded-lg border text-card-foreground shadow-sm bg-card border-border p-3">
                 <RefreshCw className="w-4 h-4 text-purple-400" />
                 <span className="text-purple-300 text-sm font-bold">Resets in: {timeToReset}</span>
               </div>
@@ -138,7 +138,7 @@ export default function QuestsPage() {
           <Loader2 className="w-12 h-12 animate-spin text-purple-500 mx-auto" />
         </div> :
 
-        <div className="relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+        <div className="relative game-gallery rounded-lg p-3 sm:p-5 lg:p-8 border">
           <AnimatePresence>
             {quests.map((quest, index) => {
               const progress = quest.progress.count || 0;

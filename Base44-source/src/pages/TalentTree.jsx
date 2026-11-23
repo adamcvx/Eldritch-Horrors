@@ -56,7 +56,7 @@ const LearnTalentDialog = ({ talent, currentUser, onConfirm, onCancel, dependenc
     onClick: handleConfirm,
     disabled: !canAfford || !dependenciesMet || isLearned || effectiveCost === null, // Disable if cost not yet calculated
     loading: learning,
-    className: "bg-purple-600 hover:bg-purple-700"
+    className: "game-button-primary"
   }];
 
 
@@ -328,9 +328,9 @@ export default function TalentTreePage() {
 
   return (
     <div className="container mx-auto max-w-7xl">
-            <Card className="bg-gray-800/50 border-gray-700 mb-8">
+            <Card className="bg-card border-border mb-8">
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex flex-wrap justify-between items-center gap-2">
                   <div>
                     <CardTitle className="flex items-center gap-3">
                       <BookOpen className="w-8 h-8 text-purple-400" />
@@ -359,7 +359,7 @@ export default function TalentTreePage() {
             {/* Side by Side Trees */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {Object.keys(talentsByTree).sort().map((treeName) =>
-        <div key={treeName} className="bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl border border-purple-500/30">
+        <div key={treeName} className="game-gallery rounded-2xl border border-purple-500/30">
                         <div className="p-6 border-b border-purple-500/30">
                             <h2 className="text-3xl font-title text-center">{treeName} Tree</h2>
                         </div>

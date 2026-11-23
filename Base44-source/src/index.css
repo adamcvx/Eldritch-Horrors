@@ -274,3 +274,20 @@ h1 { text-wrap: balance; }
   background: #163b35;
   border: 1px solid #47796a;
 }
+
+.eldritch-entry {
+  background: linear-gradient(90deg, #0a1415e8, #0a141580 45%, #0a1415e8),
+    url('/Artwork/base44/d3fc2e0bb2ac22538011877a.jpg') center / cover no-repeat, #0a1415;
+}
+.eldritch-entry__panel {
+  background-color: #111e1df5;
+  border-color: var(--brass-edge);
+  box-shadow: inset 0 0 0 4px #121b1a, inset 0 0 0 5px #c5a57042, 0 18px 60px #0008;
+}
+.eldritch-entry__panel .eldritch-brand { padding: 0; margin-bottom: .55rem; }
+.eldritch-entry__panel h1 { color: #f3dfb5; }
+.eldritch-mobile-bar { border-bottom-color: var(--brass-edge); }
+.game-gallery .game-panel { background-color: #172220; }
+@media (max-width: 639px) {
+  .eldritch-entry { background-image: linear-gradient(#0a1415a8, #0a1415ed), url('/Artwork/base44/d3fc2e0bb2ac22538011877a.jpg'); }
+}

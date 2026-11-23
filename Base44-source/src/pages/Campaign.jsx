@@ -157,7 +157,7 @@ export default function CampaignPage() {
       <div className="container mx-auto max-w-7xl">
         <Card className="game-hero game-hero--campaign mb-8">
           <CardHeader>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-wrap justify-between items-center gap-2">
               <div>
                 <CardTitle className="flex items-center gap-3">
                   <ShieldCheck className="w-8 h-8 text-purple-400" />
@@ -166,7 +166,7 @@ export default function CampaignPage() {
                 <p className="text-gray-400 mt-2">Descend through chapters of unspeakable trials.</p>
               </div>
               <div className="text-right">
-                <div className="flex items-center gap-2 mb-2 rounded-lg border text-card-foreground shadow-sm bg-gray-800/50 border-gray-700 p-3">
+                <div className="flex items-center gap-2 mb-2 rounded-lg border text-card-foreground shadow-sm bg-card border-border p-3">
                   <RefreshCw className="w-4 h-4 text-purple-400" />
                   <span className="text-purple-300 text-sm font-bold">Resets in: {timeToReset}</span>
                 </div>
@@ -206,7 +206,7 @@ export default function CampaignPage() {
                         transition={{ delay: chapterIndex * 0.1 }}
                         className="text-center">
 
-                        <h2 className="text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-red-400">
+                        <h2 className="text-3xl sm:text-4xl font-bold mb-2 text-primary">
                           {fullChapterTitle}
                         </h2>
                         <div className="flex items-center justify-center gap-2 mb-4">
@@ -216,34 +216,16 @@ export default function CampaignPage() {
                               Final Chapter
                             </Badge>
                           }
-                          <Badge variant="outline" className="text-purple-300 border-purple-500/50">
+                          <Badge variant="outline" className="text-primary border-border">
                             {chapterStages.length} {chapterStages.length === 1 ? 'Trial' : 'Trials'}
                           </Badge>
                         </div>
                       </motion.div>
 
-                      <div className="absolute left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent mb-6"></div>
+                      <div className="absolute left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-primary to-transparent mb-6"></div>
                     </div>
 
-                    <div className="relative overflow-hidden p-4">
-                      <div className="absolute inset-0 opacity-20">
-                        {[...Array(40)].map((_, i) =>
-                          <motion.div
-                            key={i}
-                            className="absolute w-1 h-1 bg-purple-400 rounded-full"
-                            style={{
-                              left: `${Math.random() * 100}%`,
-                              top: `${Math.random() * 100}%`
-                            }}
-                            animate={{ y: [-10, 10, -10], opacity: [0.3, 1, 0.3] }}
-                            transition={{
-                              duration: 3 + Math.random() * 2,
-                              repeat: Infinity,
-                              delay: Math.random() * 2 + chapterIndex
-                            }} />
-                        )}
-                      </div>
-
+                    <div className="relative">
                       <div className="game-card-grid gap-4 xl:gap-6 game-gallery relative rounded-lg p-3 sm:p-5 xl:p-8 border" style={{ zIndex: 2 }}>
                         {chapterStages.map((stage, stageIndex) => {
                           const globalStageNumber = stage.stageNumber;
@@ -279,12 +261,11 @@ export default function CampaignPage() {
                                   transition={{
                                     delay: chapterIndex * 0.3 + stageIndex * 0.1,
                                     duration: 0.5
-                                  }} className="w-full rounded-lg border-2 transition-all duration-300 relative hover:scale-105 hover:shadow-xl border-yellow-500/60 shadow-yellow-500/20 overflow-visible">
+                                  }} className="w-full rounded-lg relative transition-shadow hover:shadow-lg">
                                   <div className="relative">
                                     <FusionCard
                                       fusion={enemyFusion}
                                       equippedOrbs={enemyFusion.loadedEquippedOrbs}
-                                      className="!overflow-visible !border-none"
                                       headerContent={
                                         stage.isBoss &&
                                         <motion.div className="absolute top-2 left-2">
@@ -376,7 +357,7 @@ export default function CampaignPage() {
           </div>
         }
 
-        <Card className="mt-8 bg-gradient-to-r from-gray-900 via-purple-900/30 to-gray-900 border-purple-500/30 shadow-2xl">
+        <Card className="mt-8 game-gallery border-purple-500/30 shadow-2xl">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-3 text-2xl">
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }}>
@@ -434,7 +415,7 @@ export default function CampaignPage() {
             <div className="text-sm text-gray-400 mb-4">
               {selectedStoryStage.isBoss ? 'Boss Battle' : `Stage ${selectedStoryStage.stageNumber}`}
             </div>
-            <div className="bg-gray-900/50 border border-purple-500/30 rounded-lg p-6 bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900">
+            <div className="bg-gray-900/50 border border-purple-500/30 rounded-lg p-6 game-gallery">
               <p className="text-gray-300 leading-relaxed italic text-center text-sm">
                 {selectedStoryStage.story}
               </p>

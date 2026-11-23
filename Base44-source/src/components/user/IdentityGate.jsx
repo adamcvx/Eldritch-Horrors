@@ -5,6 +5,7 @@ import {
 } from '@netlify/identity';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Eye } from 'lucide-react';
 
 const titles = {
   login: 'Sign in',
@@ -140,10 +141,10 @@ export default function IdentityGate({ children }) {
     return <AccountEmailContext.Provider value={user.email}>{children}</AccountEmailContext.Provider>;
   }
 
-  return <main className="grid min-h-screen place-items-center eldritch-shell px-4 py-10 text-foreground">
-    <section className="w-full max-w-md space-y-5 game-panel rounded-lg border border-border bg-card p-6 shadow-lg sm:p-8">
+  return <main className="eldritch-entry grid min-h-dvh place-items-center px-4 py-10 text-foreground">
+    <section className="w-full max-w-md space-y-5 eldritch-entry__panel game-panel rounded-lg border border-border bg-card p-5 shadow-lg sm:p-8">
       <header>
-        <p className="font-title text-lg text-primary">Eldritch Horrors</p>
+        <p className="eldritch-brand"><Eye size={23} aria-hidden="true" /> <span>Eldritch Horrors</span></p>
         <h1 className="font-title text-3xl">{ready ? titles[mode] : 'Checking your session'}</h1>
       </header>
       {message && <p role="status" className="text-sm">{message}</p>}

@@ -119,7 +119,7 @@ export default function PlayerStats() {
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Performance Stats */}
-        <Card className="bg-gray-800/50 border-gray-700">
+        <Card className="bg-card border-border">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-green-400" />
@@ -162,7 +162,7 @@ export default function PlayerStats() {
         </Card>
 
         {/* Battle Statistics */}
-        <Card className="bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+        <Card className="game-gallery rounded-lg p-3 sm:p-5 lg:p-8 border">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Trophy className="w-5 h-5 text-yellow-400" />
@@ -193,7 +193,7 @@ export default function PlayerStats() {
       </div>
 
       {/* Recent Matches - Full Width */}
-      <Card className="bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30 mt-8">
+      <Card className="game-gallery rounded-lg p-3 sm:p-5 lg:p-8 border mt-8">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="w-5 h-5 text-blue-400" />
@@ -217,7 +217,7 @@ export default function PlayerStats() {
                     transition={{ delay: index * 0.1 }}
                     className={`p-4 rounded-lg border-2 ${badgeClass.split(' ')[0]}`}
                   >
-                    <div className="flex justify-between items-center mb-3">
+                    <div className="flex flex-wrap justify-between items-center gap-2 mb-3">
                       <div className="flex items-center gap-2">
                         <Badge variant="outline" className={badgeClass}>
                           {resultText}

@@ -30,7 +30,7 @@ export default function Codex() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 1 }}>
 
-        <Card className="relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl border border-purple-500/30 shadow-2xl">
+        <Card className="relative game-gallery rounded-2xl border border-purple-500/30 shadow-2xl">
           {/* Decorative Elements */}
           <div className="absolute top-4 left-4">
             <Eye className="w-6 h-6 text-purple-400/50" />

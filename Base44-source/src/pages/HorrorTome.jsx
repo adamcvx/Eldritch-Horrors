@@ -140,7 +140,7 @@ export default function HorrorTome() {
       </div>
 
       {/* Horror Preview */}
-      <Card className="rounded-lg border text-card-foreground shadow-sm bg-gray-800/50 border-gray-700 mb-8">
+      <Card className="rounded-lg border text-card-foreground shadow-sm bg-card border-border mb-8">
         <CardContent className="p-6">
           <div className="flex gap-6">
             <div className="relative w-32 h-32 flex-shrink-0">
@@ -179,7 +179,7 @@ export default function HorrorTome() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}>
 
-              <Card className="rounded-lg border bg-card text-card-foreground shadow-sm bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 border-purple-500/30">
+              <Card className="rounded-lg border bg-card text-card-foreground shadow-sm game-gallery border-purple-500/30">
                 <CardHeader>
                   <CardTitle className="text-2xl font-semibold leading-none tracking-tight flex items-center gap-3">
                     <Scroll className="w-5 h-5" />

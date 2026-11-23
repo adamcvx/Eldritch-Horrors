@@ -440,7 +440,7 @@ export default function Equipment() {
             </TabsList>
 
             <TabsContent value="orbs" className="space-y-6">
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Filter className="w-5 h-5" />
@@ -477,7 +477,7 @@ export default function Equipment() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle>Equipped Orbs ({(equippedOrbs || []).length}/{calculateOrbSlots(selectedFusion?.level || 1)})</CardTitle>
                 </CardHeader>
@@ -499,7 +499,7 @@ export default function Equipment() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle>Available Orbs ({filteredAvailableOrbs.length})</CardTitle>
                 </CardHeader>
@@ -525,7 +525,7 @@ export default function Equipment() {
             </TabsContent>
 
             <TabsContent value="abilities" className="space-y-6">
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-card border-border">
                 <CardHeader><CardTitle>Equipped Abilities ({(equippedAbilities || []).length}/4)</CardTitle></CardHeader>
                 <CardContent className="game-card-grid gap-4">
                   {(equippedAbilities || []).length > 0 ?
@@ -543,7 +543,7 @@ export default function Equipment() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-card border-border">
                 <CardHeader><CardTitle>Available Abilities</CardTitle></CardHeader>
                 <CardContent className="game-card-grid gap-4">
                   {availableAbilities.map((ability) =>
@@ -580,7 +580,7 @@ export default function Equipment() {
           icon: Zap,
           onClick: handleConfirmEquipOrb,
           disabled: (currentUser?.currency || 0) < orbEquipCost.effective,
-          className: "bg-purple-600 hover:bg-purple-700"
+          className: "game-button-primary"
         }]
         }>
 

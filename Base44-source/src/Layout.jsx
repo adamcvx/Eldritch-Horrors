@@ -235,11 +235,12 @@ function LayoutContent({ children, currentPageName }) {
 
       <div className="eldritch-shell min-h-screen w-full text-foreground flex relative">
         {/* Mobile Header */}
-        <div className="lg:hidden fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border/50 z-40 px-4 py-3">
+        <div className="eldritch-mobile-bar lg:hidden fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border/50 z-40 px-4 py-3">
           <div className="flex items-center justify-between">
             <button
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileMenuOpen}
+              aria-controls="game-navigation"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 hover:bg-muted/30 rounded-lg transition-colors">
 
@@ -249,7 +250,7 @@ function LayoutContent({ children, currentPageName }) {
               <Menu className="w-6 h-6 text-foreground" />
               }
             </button>
-            <h1 className="text-lg font-bold text-primary font-title">
+            <h1 className="text-lg font-bold text-primary font-title text-center">
               Eldritch Horrors
             </h1>
             <div className="w-10" /> {/* Spacer for centering */}
@@ -265,12 +266,12 @@ function LayoutContent({ children, currentPageName }) {
         }
 
         {/* Sidebar */}
-        <aside className={`
+        <aside id="game-navigation" className={`
           eldritch-sidebar fixed lg:static inset-y-0 left-0 z-50 lg:z-auto
           w-80 max-w-[calc(100vw-2rem)] shrink-0 lg:w-64 bg-background/95 lg:bg-background/80 backdrop-blur-lg
           border-r border-border/50 flex flex-col p-4
           transform transition-transform duration-300 ease-in-out lg:transform-none
-          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          ${isMobileMenuOpen ? 'translate-x-0' : 'invisible -translate-x-full lg:visible lg:translate-x-0'}
         `}>
           {/* Desktop Title */}
           <div className="text-center p-4 hidden lg:block">
@@ -279,9 +280,7 @@ function LayoutContent({ children, currentPageName }) {
 
           {/* Mobile Title */}
           <div className="lg:hidden flex items-center justify-between gap-2 p-2 mb-4 border-b border-border/30">
-            <h1 className="text-xl font-bold text-primary font-title">
-              Eldritch-Horrors
-            </h1>
+            <div className="eldritch-brand"><Eye size={22} aria-hidden="true" /> <span>Eldritch Horrors</span></div>
             <button type="button" className="shrink-0 rounded p-2 hover:bg-muted/30" aria-label="Close menu" onClick={() => setIsMobileMenuOpen(false)}>
               <X className="size-5" />
             </button>

@@ -84,7 +84,7 @@ function LegacyLeaderboard() {
                 {/* Left Column: Current Player Position */}
                 <div className="space-y-6">
                     {currentUser &&
-          <Card className="rounded-lg border text-card-foreground shadow-sm bg-gray-800/50 border-gray-700">
+          <Card className="rounded-lg border text-card-foreground shadow-sm bg-card border-border">
                             <CardHeader>
                                 <CardTitle className="text-center">Your Standing</CardTitle>
                             </CardHeader>
@@ -120,7 +120,7 @@ function LegacyLeaderboard() {
           }
 
                     {/* Rank Tiers */}
-                    <Card className="\nrelative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+                    <Card className="\nrelative game-gallery rounded-lg p-3 sm:p-5 lg:p-8 border">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <TrendingUp className="w-5 h-5 text-purple-400" />
@@ -156,7 +156,7 @@ function LegacyLeaderboard() {
 
                 {/* Right Column: Top Players */}
                 <div className="lg:col-span-2">
-                    <Card className="\nrelative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+                    <Card className="\nrelative game-gallery rounded-lg p-3 sm:p-5 lg:p-8 border">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <Trophy className="w-5 h-5 text-yellow-400" />

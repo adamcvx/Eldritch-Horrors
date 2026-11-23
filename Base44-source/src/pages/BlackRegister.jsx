@@ -371,7 +371,7 @@ export default function BlackRegister() {
     const isExpiringSoon = hoursLeft < 2;
     
     return (
-      <Card key={listing.id} className="bg-gray-800/50 border-gray-700 hover:border-gray-600 transition-all">
+      <Card key={listing.id} className="bg-card border-border hover:border-gray-600 transition-all">
         <CardHeader className="pb-2">
           <div className="flex justify-between items-start">
             <div>
@@ -404,7 +404,7 @@ export default function BlackRegister() {
           <div className="space-y-2">
             {listing.listingType === 'auction' ? (
               <>
-                <div className="flex justify-between items-center">
+                <div className="flex flex-wrap justify-between items-center gap-2">
                   <span className="text-gray-400">Current Bid:</span>
                   <div className="flex items-center gap-1">
                     <Gem className="w-4 h-4 text-purple-400" />
@@ -412,7 +412,7 @@ export default function BlackRegister() {
                   </div>
                 </div>
                 {listing.buyoutPrice && (
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-wrap justify-between items-center gap-2">
                     <span className="text-gray-400">Buyout:</span>
                     <div className="flex items-center gap-1">
                       <Gem className="w-4 h-4 text-green-400" />
@@ -422,7 +422,7 @@ export default function BlackRegister() {
                 )}
               </>
             ) : (
-              <div className="flex justify-between items-center">
+              <div className="flex flex-wrap justify-between items-center gap-2">
                 <span className="text-gray-400">Price:</span>
                 <div className="flex items-center gap-1">
                   <Gem className="w-4 h-4 text-green-400" />
@@ -505,7 +505,7 @@ export default function BlackRegister() {
 
         <TabsContent value="browse" className="space-y-6">
           {/* Filters */}
-          <Card className="bg-gray-800/50 border-gray-700">
+          <Card className="bg-card border-border">
             <CardContent className="p-4">
               <div className="flex gap-4 items-center">
                 <div className="flex items-center gap-2">
@@ -557,7 +557,7 @@ export default function BlackRegister() {
         </TabsContent>
 
         <TabsContent value="sell" className="space-y-6">
-          <Card className="bg-gray-800/50 border-gray-700">
+          <Card className="bg-card border-border">
             <CardHeader>
               <CardTitle>Create New Listing</CardTitle>
             </CardHeader>
@@ -676,7 +676,7 @@ export default function BlackRegister() {
                 </Select>
               </div>
 
-              <Button onClick={handleCreateListing} disabled={isSubmitting} className="w-full bg-purple-600 hover:bg-purple-700">
+              <Button onClick={handleCreateListing} disabled={isSubmitting} className="w-full game-button-primary">
                 {isSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
                 {isSubmitting ? 'Listing...' : 'Create Listing'}
               </Button>
@@ -687,7 +687,7 @@ export default function BlackRegister() {
         <TabsContent value="my-listings">
           <div className="game-card-grid [--game-card-track:23.125rem] gap-6">
             {myListings.map((listing) => (
-              <Card key={listing.id} className="bg-gray-800/50 border-gray-700">
+              <Card key={listing.id} className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-lg">{listing.title}</CardTitle>
                   <Badge className={`w-fit ${
@@ -748,7 +748,7 @@ export default function BlackRegister() {
               <p className="text-gray-400 text-lg">You have no active listings.</p>
               <Button 
                 onClick={() => setActiveTab('sell')} 
-                className="mt-4 bg-purple-600 hover:bg-purple-700"
+                className="mt-4 game-button-primary"
               >
                 Create Your First Listing
               </Button>

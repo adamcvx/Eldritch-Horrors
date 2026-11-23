@@ -1593,7 +1593,7 @@ export default function Battle() {
           </h2>
           <p className="text-gray-300 mb-6">{error}</p>
           <Link to={createPageUrl('Campaign')}>
-            <Button className="bg-purple-600 hover:bg-purple-700">
+            <Button className="game-button-primary">
               {isCanceledError || isAuthError ? 'OK' : 'Go Back'}
             </Button>
           </Link>
@@ -1645,14 +1645,14 @@ export default function Battle() {
               <p className="text-red-400 mb-4 text-lg">You need an abomination with abilities to enter battle!</p>
               <p className="text-gray-400 mb-6">Your abominations must be equipped with abilities before they can face the cosmic trials.</p>
               <Link to={createPageUrl('MyFusions')}>
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="game-button-primary">
                   Manage Your Abominations
                 </Button>
               </Link>
             </div>
           </div> :
 
-          <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
+          <div className="game-card-grid gap-4 xl:gap-6 relative game-gallery rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
             {selectableFusions.map((fusion) =>
               <motion.div
                 key={fusion.id}

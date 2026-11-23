@@ -364,19 +364,19 @@ function LegacyQuickMatch() {
         <div className="text-center py-16">
           <p className="text-gray-400 text-lg mb-6">You must conjure an abomination to do battle.</p>
           <Link to={createPageUrl('FusionLab')}>
-            <Button className="bg-purple-600 hover:bg-purple-700">Go to the Flesh Altar</Button>
+            <Button className="game-button-primary">Go to the Flesh Altar</Button>
           </Link>
         </div> :
 
         <div className="space-y-8">
           {/* Player Stats */}
           {currentUser &&
-            <Card className="rounded-lg border text-card-foreground shadow-sm bg-gray-800/50 border-gray-700">
+            <Card className="rounded-lg border text-card-foreground shadow-sm bg-card border-border">
               <CardHeader>
                 <CardTitle>Your Battle Record</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-between items-center">
+                <div className="flex flex-wrap justify-between items-center gap-2">
                   <div className="flex items-center gap-4">
                     <RankBadge rank={currentUser.rank} points={currentUser.rankingPoints} showPoints={true} size="large" />
                   </div>
@@ -397,7 +397,7 @@ function LegacyQuickMatch() {
 
           {/* Battle Mode Selection */}
           <Card className="
-              relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+              relative game-gallery rounded-lg p-3 sm:p-5 lg:p-8 border">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Swords className="w-5 h-5" />
@@ -596,7 +596,7 @@ function LegacyQuickMatch() {
 
           {/* Available Matches */}
           <Card className="
-              relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-8 border border-purple-500/30">
+              relative game-gallery rounded-lg p-3 sm:p-5 lg:p-8 border">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="w-5 h-5" />
@@ -650,7 +650,7 @@ function LegacyQuickMatch() {
           {/* Active Matches */}
           {matches.filter((match) => match.state === 'in_progress' &&
             match.players && match.players.includes(currentUser?.id)).length > 0 &&
-            <Card className="bg-gray-800/50 border-gray-700">
+            <Card className="bg-card border-border">
               <CardHeader>
                 <CardTitle>Your Active Battles</CardTitle>
               </CardHeader>

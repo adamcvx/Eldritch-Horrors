@@ -190,7 +190,11 @@ export default function Battle() {
     let playerRewardsForDisplay = null;
 
     try {
-      const firstClear = stage.stageNumber === (currentUser.campaignProgress || 0) + 1;
+      const player = await User.me();
+      if (stage.campaignWeek && player.campaignWeek !== stage.campaignWeek) {
+        throw new Error('A new Forbidden Path chapter has begun. Return to the campaign to continue.');
+      }
+      const firstClear = stage.stageNumber === (player.campaignProgress || 0) + 1;
       // Replays award Echoes and reduced boss Fragments without repeating first-clear orb drops.
       const generatedLoot = firstClear ? await generateCampaignLoot({
         stageNumber: stage.stageNumber,
@@ -203,8 +207,9 @@ export default function Battle() {
       playerRewardsForDisplay = formattedLoot;
 
       const userUpdate = {
-        currency: (currentUser.currency || 0) + formattedLoot.totalEchoes,
-        voidFragments: (currentUser.voidFragments || 0) + formattedLoot.fragments
+        currency: (player.currency || 0) + formattedLoot.totalEchoes,
+        voidFragments: (player.voidFragments || 0) + formattedLoot.fragments,
+        ...(stage.campaignWeek && { campaignWeek: stage.campaignWeek })
       };
 
       // If an orb was dropped, add it to the player's inventory

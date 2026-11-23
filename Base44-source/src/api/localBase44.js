@@ -1,5 +1,6 @@
 import { horrors, relics } from '../../../game.mjs';
 import { chooseFusionArtwork, conjureName, upgradeFusionIdentity } from './fusionIdentity.js';
+import { campaignWeek, createWeeklyCampaign } from './weeklyCampaign.js';
 import catalog from './base44Catalog.json';
 import { cloudEnabled, loadCloudSave, storeCloudSave, packSave } from './cloudSave.js';
 import { validSave, playerCollections } from './saveFormat.js';
@@ -122,13 +123,32 @@ function ensureCloudSave() {
   return loadingCloud;
 }
 
+function resetWeeklyProgress(data) {
+  const week = campaignWeek().key;
+  const player = data.User[0];
+  if (player.campaignWeek !== week) {
+    player.campaignWeek = week;
+    player.campaignProgress = 0;
+  }
+  return data;
+}
+
+let weeklyCampaign;
+function weeklyRows() {
+  const { key } = campaignWeek();
+  if (weeklyCampaign?.key !== key) {
+    weeklyCampaign = { key, ...createWeeklyCampaign(catalog, starterRows, key) };
+  }
+  return weeklyCampaign;
+}
+
 function read() {
-  return cloudEnabled ? structuredClone(cloudData) : readBrowserSave();
+  return resetWeeklyProgress(cloudEnabled ? structuredClone(cloudData) : readBrowserSave());
 }
 
 function write(change) {
   if (!cloudEnabled) {
-    const data = readBrowserSave();
+    const data = read();
     const result = change(data);
     localStorage.setItem(saveKey, JSON.stringify(data));
     return result;
@@ -175,7 +195,10 @@ function entity(name) {
   const find = async (query, sort, limit, skip = 0) => {
     await ensureCloudSave();
     await pendingWrite;
-    const rows = (read()[name] ?? []).filter(row => matches(row, query));
+    let rows = read()[name] ?? [];
+    if (name === 'Campaign') rows = weeklyRows().stages;
+    if (name === 'Fusion') rows = [...rows, ...weeklyRows().enemies];
+    rows = rows.filter(row => matches(row, query));
     if (sort) {
       const descending = sort.startsWith('-');
       const key = descending ? sort.slice(1) : sort;
@@ -199,6 +222,9 @@ function entity(name) {
     update: async (id, change) => write(data => {
       const row = data[name]?.find(entry => entry.id === id);
       if (!row) throw new Error(name + ' record not found');
+      if (name === 'User' && change.campaignWeek && change.campaignWeek !== row.campaignWeek) {
+        throw new Error('A new Forbidden Path chapter has begun. Return to the campaign to continue.');
+      }
       return Object.assign(row, change, { id });
     }),
     delete: async id => write(data => {

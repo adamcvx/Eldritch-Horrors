@@ -3,6 +3,8 @@ import { getCampaignReplayFragments } from '../components/loot/LootService';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Fusion } from '@/entities/Fusion';
 import { Orb } from '@/entities/Orb';
+import { isLocalPreview } from '@/api/base44Client';
+import { campaignWeek } from '@/api/weeklyCampaign';
 import { loadCampaign } from '../components/campaign/CampaignService';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -25,6 +27,7 @@ export default function CampaignPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [timeToReset, setTimeToReset] = useState('');
+  const [week, setWeek] = useState(() => campaignWeek().key);
   const [selectedStoryStage, setSelectedStoryStage] = useState(null);
 
   const loadCampaignData = useCallback(async () => {
@@ -87,82 +90,18 @@ export default function CampaignPage() {
 
   useEffect(() => {
     loadCampaignData();
-  }, [loadCampaignData]);
+  }, [loadCampaignData, week]);
 
   useEffect(() => {
     const updateResetTimer = () => {
-      const now = new Date();
-      const targetTimeZone = 'America/New_York'; // Handles EST/EDT automatically
-
-      // Function to get the UTC timestamp for the upcoming reset (Sunday 23:59:59.999 in the target timezone)
-      const getNextResetTimestamp = (currentRefDate) => {
-        const resetHour = 23;
-        const resetMinute = 59;
-        const resetSecond = 59;
-        const resetMillisecond = 999;
-
-        // Step 1: Create a Date object representing 'now' but initialized with the target timezone's wall-clock time.
-        // This leverages `toLocaleString` to correctly interpret the current moment in the target timezone,
-        // effectively creating a Date object whose internal UTC value corresponds to the target timezone's current local time.
-        let nowInTargetTZ = new Date(currentRefDate.toLocaleString('en-US', { timeZone: targetTimeZone }));
-
-        // Step 2: Determine the day of the week for 'now' in the target timezone (0=Sunday, 6=Saturday).
-        const dayOfWeek = nowInTargetTZ.getDay();
-
-        let daysToAdvance = (7 - dayOfWeek) % 7; // Days until the next Sunday (0 if today is Sunday)
-
-        // Step 3: If today is Sunday in the target timezone, check if the reset time has already passed for today.
-        if (dayOfWeek === 0) {
-          const todayResetTime = new Date(nowInTargetTZ); // Copy the Date object for today in target TZ
-          todayResetTime.setHours(resetHour, resetMinute, resetSecond, resetMillisecond);
-
-          if (nowInTargetTZ.getTime() > todayResetTime.getTime()) {
-            daysToAdvance = 7; // Reset has passed for this Sunday, so target next Sunday
-          } else {
-            daysToAdvance = 0; // Reset is still today
-          }
-        }
-
-        // Step 4: Advance the date part of `nowInTargetTZ` to the correct upcoming Sunday.
-        nowInTargetTZ.setDate(nowInTargetTZ.getDate() + daysToAdvance);
-
-        // Step 5: Set the time components of `nowInTargetTZ` to the reset time (23:59:59.999).
-        // At this point, `nowInTargetTZ` is a Date object whose internal UTC timestamp correctly represents
-        // "next Sunday 23:59:59.999 in America/New_York".
-        nowInTargetTZ.setHours(resetHour, resetMinute, resetSecond, resetMillisecond);
-
-        return nowInTargetTZ.getTime(); // Return its UTC timestamp
-      };
-
-      const resetTimeUTC = getNextResetTimestamp(now);
-
-      if (resetTimeUTC === 0) {
-        setTimeToReset("Error calculating reset time.");
-        return;
-      }
-
-      const diff = resetTimeUTC - now.getTime();
-
-      if (diff > 0) {
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        // Display the countdown and the local reset time with timezone info
-        const resetLocalTime = new Date(resetTimeUTC).toLocaleString(undefined, {
-          weekday: 'long',
-          month: 'short',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          timeZoneName: 'short'
-        });
-
-        setTimeToReset(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-      } else {
-        setTimeToReset("Resetting soon...");
-      }
+      const now = Date.now();
+      const { key, resetAt } = campaignWeek(now);
+      setWeek(key);
+      const seconds = Math.max(0, Math.floor((resetAt - now) / 1000));
+      const days = Math.floor(seconds / 86400);
+      const hours = Math.floor(seconds / 3600) % 24;
+      const minutes = Math.floor(seconds / 60) % 60;
+      setTimeToReset(`${days}d ${hours}h ${minutes}m ${seconds % 60}s`);
     };
 
     updateResetTimer();
@@ -178,7 +117,8 @@ export default function CampaignPage() {
     setSelectedStoryStage(null);
   };
 
-  const campaignProgress = currentUser?.campaignProgress || 0;
+  const campaignProgress = !isLocalPreview || currentUser?.campaignWeek === week
+    ? currentUser?.campaignProgress || 0 : 0;
 
   const stagesByChapter = campaignStages.reduce((acc, stage) => {
     if (!acc[stage.chapter]) {
@@ -232,7 +172,7 @@ export default function CampaignPage() {
                 </div>
                 {currentUser &&
                   <p className="text-sm text-gray-400">
-                    Progress: Stage {currentUser.campaignProgress + 1}
+                    Progress: Stage {Math.min(campaignProgress + 1, campaignStages.length || 1)}
                   </p>
                 }
               </div>
@@ -245,7 +185,7 @@ export default function CampaignPage() {
             <Clock className="w-12 h-12 text-purple-400 mx-auto mb-4" />
             <p className="text-gray-300 text-xl font-bold mb-2">The Stars Align</p>
             <p className="text-gray-400">The Forbidden Path is being woven from the threads of madness.</p>
-            <p className="text-sm text-gray-500 mt-2">Check back soon, for the weekly trials will soon begin.</p>
+            <p className="text-sm text-gray-500 mt-2">The weekly trials are currently unavailable.</p>
           </div> :
 
           <div className="space-y-12">

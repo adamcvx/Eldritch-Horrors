@@ -326,7 +326,7 @@ export default function FusionCard({
         }
       `}</style>
 
-      <Card className="game-card rounded-lg border text-card-foreground shadow-sm relative border-yellow-500/60 shadow-yellow-500/20 hover:border-slate-200 transition-colors group bg-gray-900 p-2 sm:p-4">
+      <Card className="game-card monster-card rounded-lg text-card-foreground relative transition-colors group p-2 sm:p-4">
         {/* Eldritchborn Glow & Particles */}
         {fusion.ascensionLevel > 0 &&
           <>
@@ -447,7 +447,7 @@ export default function FusionCard({
                 {fusion.fusedName}
               </h3>
               {fusion.originType &&
-                <div className="bg-cyan-600/20 text-cyan-300 px-2 py-1 text-xs font-light rounded-full backdrop-blur-sm relative z-15">
+                <div className="monster-card__origin px-2 py-1 text-xs font-light rounded-full backdrop-blur-sm relative z-15">
                   {fusion.originType}
                 </div>
               }

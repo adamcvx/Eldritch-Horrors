@@ -84,7 +84,7 @@ const LevelUpDialog = ({ fusion, currentUser, effectiveCost, onLevelUp, onClose 
     onClick: handleLevelUp,
     disabled: !canAfford || fusion.level >= 25, // Disabled if max level reached or can't afford
     loading: leveling,
-    className: "bg-purple-600 hover:bg-purple-700"
+    className: "game-button-primary"
   }];
 
 
@@ -553,7 +553,7 @@ export default function MyFusions() {
   return (
     <div className="container mx-auto">
       {/* Header */}
-      <Card className="bg-gray-800/50 border-gray-700 mb-8">
+      <Card className="game-hero game-hero--collection mb-8">
         <CardHeader>
           <div className="flex flex-wrap justify-between items-center gap-2">
             <div>
@@ -585,11 +585,11 @@ export default function MyFusions() {
       <div className="text-center py-16">
           <p className="text-gray-400 text-lg mb-6">You have not conjured any abominations yet.</p>
           <Link to={createPageUrl('FusionLab')}>
-            <Button className="bg-purple-600 hover:bg-purple-700">Visit the Flesh Altar</Button>
+            <Button className="game-button-primary">Visit the Flesh Altar</Button>
           </Link>
         </div> :
 
-      <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
+      <div className="game-card-grid gap-4 xl:gap-6 game-gallery relative rounded-lg p-3 sm:p-5 xl:p-8 border">
           <AnimatePresence>
             {fusions.map((fusion) => {
             const isMaxLevel = fusion.level >= 25;
@@ -633,7 +633,7 @@ export default function MyFusions() {
                         {/* Empower Button */}
                         <Button
                         onClick={() => handleLevelUpClick(fusion)}
-                        className={`bg-purple-600 hover:bg-purple-700 text-sm w-full ${isMaxLevel || isEmpowering || isBanishing ? 'opacity-50' : ''}`}
+                        className={`game-button-primary text-sm w-full ${isMaxLevel || isEmpowering || isBanishing ? 'opacity-50' : ''}`}
                         disabled={isMaxLevel || isEmpowering || isBanishing}>
 
                           {isEmpowering ?

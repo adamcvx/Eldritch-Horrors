@@ -40,7 +40,7 @@ const HorrorCard = ({ horror, onSelect, isSelected, isDisabled }) => {
       layout
       whileHover={{ scale: 1.05, zIndex: 10 }}
       whileTap={{ scale: 0.95 }}
-      className={`game-card group cursor-pointer rounded-2xl overflow-hidden shadow-lg transition-all duration-300
+      className={`game-card monster-card group cursor-pointer rounded-2xl overflow-hidden shadow-lg transition-all duration-300
                 ${isSelected ? 'ring-4 ring-purple-500' : 'ring-2 ring-gray-700'}
                 ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       onClick={() => !isDisabled && onSelect(horror)}>
@@ -167,7 +167,7 @@ const FusionConfirmationModal = ({ selectedHorrors, currentUser, effectiveCost, 
     onClick: onConfirm,
     disabled: !canAfford,
     loading: loading,
-    className: "bg-purple-600 hover:bg-purple-700"
+    className: "game-button-primary"
   }];
 
 
@@ -610,7 +610,7 @@ export default function FusionLabPage() {
           exit={{ opacity: 0 }}>
 
             {/* Header */}
-            <Card className="bg-gray-800/50 border-gray-700 mb-8">
+            <Card className="game-hero game-hero--altar mb-8">
               <CardHeader>
                 <div className="flex flex-wrap justify-between items-start gap-4">
                   <div>
@@ -640,7 +640,7 @@ export default function FusionLabPage() {
                         
             {error && <div className="bg-red-500/20 border border-red-500 text-red-300 p-3 rounded-lg text-center mb-6">{error}</div>}
 
-            <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30">
+            <div className="game-card-grid gap-4 xl:gap-6 game-gallery relative rounded-lg p-3 sm:p-5 xl:p-8 border">
               {horrors.map((horror) =>
             <HorrorCard
               key={horror.id}

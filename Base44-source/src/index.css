@@ -156,3 +156,121 @@ button:focus-visible {
     @apply bg-background text-foreground;
   }
 }
+
+/* Ink, weathered brass, and the cold light of the Sunken City. */
+:root, .dark {
+  color-scheme: dark;
+  --background: 178 24% 6%;
+  --foreground: 42 30% 88%;
+  --card: 176 18% 11%;
+  --card-foreground: 42 30% 88%;
+  --popover: 174 18% 10%;
+  --popover-foreground: 42 30% 88%;
+  --primary: 39 47% 67%;
+  --primary-foreground: 176 29% 8%;
+  --secondary: 167 27% 23%;
+  --secondary-foreground: 43 28% 92%;
+  --muted: 172 14% 16%;
+  --muted-foreground: 164 12% 70%;
+  --accent: 164 22% 20%;
+  --accent-foreground: 43 30% 94%;
+  --destructive: 355 49% 38%;
+  --destructive-foreground: 34 42% 95%;
+  --border: 39 19% 28%;
+  --input: 174 12% 27%;
+  --ring: 40 57% 70%;
+  --radius: .375rem;
+  --brass: #c5a570;
+  --brass-edge: #766140;
+  --heading-font: "Cormorant Garamond", Georgia, serif;
+  --body-font: "Source Sans 3", system-ui, sans-serif;
+}
+
+body { font-family: var(--body-font); }
+h1, h2, h3, .font-title, .game-panel-title {
+  font-family: var(--heading-font);
+}
+h1 { text-wrap: balance; }
+* { scrollbar-width: thin; scrollbar-color: #766140 #0d1717; }
+
+.eldritch-shell {
+  background:
+    radial-gradient(ellipse at 85% 0%, #1c3733 0%, transparent 52rem),
+    hsl(var(--background));
+}
+.eldritch-sidebar {
+  background: linear-gradient(154deg, #1a2420, #0d1718 58%);
+  border-right-color: var(--brass-edge);
+  box-shadow: 8px 0 36px #0005;
+}
+.eldritch-brand {
+  display: flex;
+  gap: .65rem;
+  align-items: center;
+  padding: .75rem;
+  color: #e7c994;
+  font: 700 1.35rem/1 var(--heading-font);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.eldritch-brand svg { flex-shrink: 0; }
+.eldritch-nav-title {
+  font-family: var(--heading-font);
+  font-size: 1.125rem;
+  color: #dfc28c;
+}
+.eldritch-nav-link[aria-current="page"] {
+  color: #f2dfbb;
+  background: linear-gradient(90deg, #69553966, #6955391a);
+  box-shadow: inset 2px 0 var(--brass);
+}
+.mobile-menu-backdrop {
+  background: #080c0ac4;
+  backdrop-filter: blur(3px);
+}
+.game-panel {
+  background-color: hsl(var(--card));
+  border-color: hsl(var(--border));
+  box-shadow: inset 0 1px #e9c58c15, 0 7px 18px #0003;
+}
+.game-gallery {
+  background-color: #0a1314;
+  background-image:
+    linear-gradient(125deg, #18363299, transparent 48%),
+    repeating-linear-gradient(130deg, transparent 0 9px, #b99b6610 10px 11px, transparent 12px 20px);
+  border-color: #665436;
+  box-shadow: inset 0 0 0 3px #0b1414, inset 0 0 0 4px #a7894b33;
+}
+.game-hero {
+  padding: clamp(.25rem, 1.4vw, 1.5rem);
+  border-color: var(--brass-edge);
+  background:
+    linear-gradient(90deg, #101a19 18%, #101a19eb 48%, #101a1988),
+    var(--hero-art) center 44% / cover no-repeat,
+    #101a19;
+}
+.game-hero--altar { --hero-art: url('/Artwork/Fomalhaut.png'); }
+.game-hero--collection { --hero-art: url('/Artwork/The%20Void.png'); }
+.game-hero--campaign { --hero-art: url('/Artwork/base44/d3fc2e0bb2ac22538011877a.jpg'); }
+.game-hero .game-panel-title { color: #f3dfb5; font-size: clamp(1.9rem, 4vw, 3.15rem); }
+.game-hero .game-panel-title svg { color: var(--brass); flex-shrink: 0; }
+.game-button-primary {
+  background: linear-gradient(#dbc08b, #aa8955);
+  color: #171b15;
+  border: 1px solid #e0c28b;
+  font-weight: 700;
+}
+.game-button-primary:hover { background: #e7cc99; }
+.game-button-primary:focus-visible { outline: 2px solid #f7ddb0; outline-offset: 2px; }
+.monster-card {
+  background-color: #101a19;
+  border: 1px solid #8a7049;
+  box-shadow: inset 0 0 0 3px #101818, inset 0 0 0 4px #d0ae6b45, 0 7px 15px #0007;
+}
+.monster-card:hover { border-color: #d5b780; }
+.monster-card h3 { color: #f1dfba; font-size: 1.3rem; }
+.monster-card .monster-card__origin {
+  color: #b3e6da;
+  background: #163b35;
+  border: 1px solid #47796a;
+}

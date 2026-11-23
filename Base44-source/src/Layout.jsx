@@ -72,7 +72,7 @@ const CategorySection = ({ category, isExpanded, onToggle, currentPath, onItemCl
 
         <div className="flex items-center gap-3">
           <CategoryIcon className={`w-5 h-5 ${category.color}`} />
-          <span className="font-semibold text-foreground">{category.name}</span>
+          <span className="eldritch-nav-title font-semibold">{category.name}</span>
         </div>
         {isExpanded ?
         <ChevronDown className="w-4 h-4 text-muted-foreground" /> :
@@ -97,9 +97,10 @@ const CategorySection = ({ category, isExpanded, onToggle, currentPath, onItemCl
               to={item.href}
               onClick={() => {onItemClick();playMenuClick();}}
               onMouseEnter={playMenuHover}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 text-sm
+              aria-current={currentPath === item.href ? "page" : undefined}
+              className={`eldritch-nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 text-sm
                     ${currentPath === item.href ?
-              'bg-primary/20 text-primary-foreground border-l-2 border-primary' :
+              'font-semibold' :
               'text-muted-foreground hover:bg-muted/30 hover:text-foreground'}`
               }>
 
@@ -231,146 +232,8 @@ function LayoutContent({ children, currentPageName }) {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Merriweather:wght@400;700&display=swap');
-        
-        :root {
-          /* Eldritch Theme */
-          --background: 220 20% 10%;
-          --foreground: 220 10% 75%;
-          
-          --card: 220 20% 13%;
-          --card-foreground: 220 10% 85%;
-          
-          --popover: 220 20% 8%;
-          --popover-foreground: 220 10% 85%;
-          
-          --primary: 260 60% 65%; /* Purple-ish */
-          --primary-foreground: 220 10% 95%;
-          
-          --secondary: 150 40% 40%; /* Green-ish */
-          --secondary-foreground: 220 10% 95%;
-          
-          --muted: 220 20% 17%;
-          --muted-foreground: 220 10% 55%;
-          
-          --accent: 220 20% 20%;
-          --accent-foreground: 220 10% 95%;
-          
-          --destructive: 350 70% 45%;
-          --destructive-foreground: 220 10% 95%;
-          
-          --border: 220 20% 20%;
-          --input: 220 20% 20%;
-          --ring: 260 60% 70%;
-        }
 
-        .dark {
-          /* Re-apply for dark mode specificity (Tailwind uses .dark class for dark mode) */
-          --background: 220 20% 10%;
-          --foreground: 220 10% 75%;
-          --card: 220 20% 13%;
-          --card-foreground: 220 10% 85%;
-          --popover: 220 20% 8%;
-          --popover-foreground: 220 10% 85%;
-          --primary: 260 60% 65%;
-          --primary-foreground: 220 10% 95%;
-          --secondary: 150 40% 40%;
-          --secondary-foreground: 220 10% 95%;
-          --muted: 220 20% 17%;
-          --muted-foreground: 220 10% 55%;
-          --accent: 220 20% 20%;
-          --accent-foreground: 220 10% 95%;
-          --destructive: 350 70% 45%;
-          --destructive-foreground: 220 10% 95%;
-          --border: 220 20% 20%;
-          --input: 220 20% 20%;
-          --ring: 260 60% 70%;
-        }
-        
-        body {
-          font-family: 'Merriweather', serif;
-          background-color: hsl(var(--background));
-        }
-
-        h1, h2, h3, .font-title {
-          font-family: 'Uncial Antiqua', cursive;
-        }
-
-        /* Eldritch Scrollbar Styling */
-        ::-webkit-scrollbar {
-          width: 12px;
-          height: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-          background: linear-gradient(45deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
-          border-radius: 6px;
-          border: 1px solid rgba(139, 92, 246, 0.2);
-          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
-        }
-
-        ::-webkit-scrollbar-thumb {
-          background: linear-gradient(45deg, #6366f1, #8b5cf6, #a855f7);
-          border-radius: 6px;
-          border: 1px solid rgba(139, 92, 246, 0.4);
-          box-shadow: 
-            0 0 8px rgba(139, 92, 246, 0.3),
-            inset 0 0 4px rgba(255, 255, 255, 0.1);
-          position: relative;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(45deg, #7c3aed, #a855f7, #c084fc);
-          box-shadow: 
-            0 0 12px rgba(139, 92, 246, 0.5),
-            inset 0 0 6px rgba(255, 255, 255, 0.2);
-        }
-
-        ::-webkit-scrollbar-thumb:active {
-          background: linear-gradient(45deg, #5b21b6, #7c3aed, #8b5cf6);
-          box-shadow: 
-            0 0 16px rgba(139, 92, 246, 0.7),
-            inset 0 0 8px rgba(255, 255, 255, 0.1);
-        }
-
-        ::-webkit-scrollbar-corner {
-          background: #1a1a2e;
-          border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        /* For Firefox */
-        * {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(139, 92, 246, 0.8) rgba(26, 26, 46, 0.9);
-        }
-
-        /* Add subtle glow animation to scrollbars */
-        @keyframes scrollbarGlow {
-          0%, 100% { 
-            box-shadow: 
-              0 0 8px rgba(139, 92, 246, 0.3),
-              inset 0 0 4px rgba(255, 255, 255, 0.1);
-          }
-          50% { 
-            box-shadow: 
-              0 0 12px rgba(139, 92, 246, 0.5),
-              inset 0 0 6px rgba(255, 255, 255, 0.15);
-          }
-        }
-
-        ::-webkit-scrollbar-thumb {
-          animation: scrollbarGlow 3s ease-in-out infinite;
-        }
-
-        /* Mobile menu overlay */
-        .mobile-menu-backdrop {
-          background: rgba(0, 0, 0, 0.5);
-          backdrop-filter: blur(4px);
-        }
-      `}</style>
-
-      <div className="min-h-screen w-full bg-background text-foreground flex relative">
+      <div className="eldritch-shell min-h-screen w-full text-foreground flex relative">
         {/* Mobile Header */}
         <div className="lg:hidden fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border/50 z-40 px-4 py-3">
           <div className="flex items-center justify-between">
@@ -386,8 +249,8 @@ function LayoutContent({ children, currentPageName }) {
               <Menu className="w-6 h-6 text-foreground" />
               }
             </button>
-            <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary font-title">
-              Eldritch Fusion
+            <h1 className="text-lg font-bold text-primary font-title">
+              Eldritch Horrors
             </h1>
             <div className="w-10" /> {/* Spacer for centering */}
           </div>
@@ -403,7 +266,7 @@ function LayoutContent({ children, currentPageName }) {
 
         {/* Sidebar */}
         <aside className={`
-          fixed lg:static inset-y-0 left-0 z-50 lg:z-auto
+          eldritch-sidebar fixed lg:static inset-y-0 left-0 z-50 lg:z-auto
           w-80 max-w-[calc(100vw-2rem)] shrink-0 lg:w-64 bg-background/95 lg:bg-background/80 backdrop-blur-lg
           border-r border-border/50 flex flex-col p-4
           transform transition-transform duration-300 ease-in-out lg:transform-none
@@ -411,14 +274,12 @@ function LayoutContent({ children, currentPageName }) {
         `}>
           {/* Desktop Title */}
           <div className="text-center p-4 hidden lg:block">
-            <h1 className="bg-gradient-to-r text-slate-100 text-lg font-title from-primary to-secondary">Eldritch-Horrors
-
-            </h1>
+            <div className="eldritch-brand"><Eye size={27} aria-hidden="true" /> <span>Eldritch Horrors</span></div>
           </div>
 
           {/* Mobile Title */}
           <div className="lg:hidden flex items-center justify-between gap-2 p-2 mb-4 border-b border-border/30">
-            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary font-title">
+            <h1 className="text-xl font-bold text-primary font-title">
               Eldritch-Horrors
             </h1>
             <button type="button" className="shrink-0 rounded p-2 hover:bg-muted/30" aria-label="Close menu" onClick={() => setIsMobileMenuOpen(false)}>

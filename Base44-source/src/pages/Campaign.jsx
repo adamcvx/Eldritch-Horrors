@@ -155,7 +155,7 @@ export default function CampaignPage() {
   return (
     <>
       <div className="container mx-auto max-w-7xl">
-        <Card className="bg-gray-800/50 border-gray-700 mb-8">
+        <Card className="game-hero game-hero--campaign mb-8">
           <CardHeader>
             <div className="flex justify-between items-center">
               <div>
@@ -244,7 +244,7 @@ export default function CampaignPage() {
                         )}
                       </div>
 
-                      <div className="game-card-grid gap-4 xl:gap-6 relative bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-2xl p-3 sm:p-5 xl:p-8 border border-purple-500/30" style={{ zIndex: 2 }}>
+                      <div className="game-card-grid gap-4 xl:gap-6 game-gallery relative rounded-lg p-3 sm:p-5 xl:p-8 border" style={{ zIndex: 2 }}>
                         {chapterStages.map((stage, stageIndex) => {
                           const globalStageNumber = stage.stageNumber;
                           const isUnlocked = globalStageNumber <= campaignProgress + 1;

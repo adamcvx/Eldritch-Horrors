@@ -495,7 +495,7 @@ export default function Equipment() {
           <TabsContent value="abilities" className="space-y-4">
             {equipmentView === 'equipped' && <section className="equipment-station" aria-labelledby="equipped-glyphs">
               <h2 id="equipped-glyphs" className="text-2xl font-bold">Equipped glyphs <span>{equippedAbilities.length}/4</span></h2>
-              {equippedAbilities.length ? <div className="game-card-grid gap-5">{equippedAbilities.map(ability => <AbilityCard
+              {equippedAbilities.length ? <div className="game-card-grid equipment-glyphs gap-4">{equippedAbilities.map(ability => <AbilityCard
                 key={ability.id} ability={ability} fusion={selectedFusion} onAction={handleUnequipAbility}
                 isEquipped disabled={Boolean(equipAction)} />)}</div>
                 : <p className="text-sm text-muted-foreground">Open Inventory to equip a glyph for battle.</p>}
@@ -504,7 +504,7 @@ export default function Equipment() {
               <h2 id="glyph-library" className="text-2xl font-bold">Glyph library <span>{availableAbilities.length}</span></h2>
               <Input aria-label="Search glyphs" placeholder="Search glyphs" value={search} onChange={event => setSearch(event.target.value)} />
               {equippedAbilities.length >= 4 && <p className="text-sm text-muted-foreground">Glyph slots are full. Unequip a glyph to make room.</p>}
-              {availableAbilities.length ? <div className="game-card-grid gap-5">{availableAbilities.map(ability => <AbilityCard
+              {availableAbilities.length ? <div className="game-card-grid equipment-glyphs gap-4">{availableAbilities.map(ability => <AbilityCard
                 key={ability.id} ability={ability} fusion={selectedFusion} onAction={handleEquipAbility}
                 disabled={!selectedFusion || equippedAbilities.length >= 4 || Boolean(equipAction)} />)}</div>
                 : <p className="text-sm text-muted-foreground">No available glyphs match this view.</p>}

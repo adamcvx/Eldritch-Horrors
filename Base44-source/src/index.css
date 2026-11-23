@@ -456,3 +456,10 @@ h1 { text-wrap: balance; }
   .equipment-workbench { padding: .35rem; }
   .equipment-station { padding: .5rem; }
 }
+
+/* Keep equipment glyphs compact while retaining the shared card width. */
+.equipment-glyphs .game-card { block-size: 10.5rem; }
+.equipment-glyphs .ability-card-content { min-block-size: 0; }
+.equipment-glyphs .ability-card-content > :not(.ability-card-description) { flex-shrink: 0; }
+.equipment-glyphs .ability-card-description { min-block-size: 0; overflow-y: auto; margin-bottom: .4rem; }
+.equipment-glyphs .ability-card-action { margin-top: .4rem; }

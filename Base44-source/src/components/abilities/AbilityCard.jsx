@@ -74,7 +74,7 @@ export default function AbilityCard({
       onClick={() => isBattleMode && isActionable && onAction(ability)}
     >
       <Card className={cardClasses}>
-        <CardContent className="p-3 flex flex-col flex-grow">
+        <CardContent className="ability-card-content p-3 flex flex-col flex-grow">
           <div className="flex justify-between items-start mb-2">
             <h3 className="font-bold text-white flex-1 text-sm">{ability.name}</h3>
             <Badge className={`ml-2 text-xs ${getAbilityTypeColor(ability.type)}`}>
@@ -82,7 +82,7 @@ export default function AbilityCard({
               <span className="ml-1">{ability.type}</span>
             </Badge>
           </div>
-          <p className="text-xs text-gray-400 flex-grow mb-3">{description}</p>
+          <p className="ability-card-description text-xs text-gray-400 flex-grow mb-3">{description}</p>
           <div className="flex justify-between text-xs text-gray-300">
             <span>Power: <span className="font-bold text-yellow-300">{ability.power}</span></span>
             <span>Cooldown: <span className="font-bold text-blue-300">{ability.cooldown} turns</span></span>
@@ -94,7 +94,7 @@ export default function AbilityCard({
               disabled={disabled}
               variant={isEquipped ? 'destructive' : 'default'}
               size="sm"
-              className={`w-full mt-4 ${isEquipped ? 'bg-red-600/80 hover:bg-red-600' : 'bg-purple-600 hover:bg-purple-700'}`}
+              className={`ability-card-action w-full mt-4 ${isEquipped ? 'bg-red-600/80 hover:bg-red-600' : 'bg-purple-600 hover:bg-purple-700'}`}
             >
               {disabled && !isEquipped && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               {isEquipped ? <Minus className="w-4 h-4 mr-2" /> : <Plus className="w-4 h-4 mr-2" />}

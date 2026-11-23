@@ -6,6 +6,7 @@ import { Fusion } from '@/entities/Fusion';
 import { User } from '@/entities/User';
 import { PlayerOrb } from '@/entities/PlayerOrb';
 import { Talent } from '@/entities/Talent';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -48,6 +49,7 @@ export default function Equipment() {
   const [equippedAbilities, setEquippedAbilities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterRarity, setFilterRarity] = useState('all');
+  const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [equipAction, setEquipAction] = useState(null);
   const [activeTab, setActiveTab] = useState('orbs');
@@ -362,16 +364,21 @@ export default function Equipment() {
     }
   };
 
+  const query = search.trim().toLowerCase();
+  const matchesSearch = item => [item.name, item.description, item.type, item.orbType]
+    .some(value => typeof value === 'string' && value.toLowerCase().includes(query));
+  const orbTypes = [...new Set(availablePlayerOrbs.map(orb => orb.orbType).filter(Boolean))].sort();
+
   const filteredAvailableOrbs = (availablePlayerOrbs || []).
   filter((orb) => {
     const rarityMatch = filterRarity === 'all' || orb.rarity === filterRarity;
     const typeMatch = filterType === 'all' || orb.orbType === filterType;
-    return !orb.isEquipped && rarityMatch && typeMatch;
+    return !orb.isEquipped && rarityMatch && typeMatch && matchesSearch(orb);
   });
 
   const getAvailableAbilities = () => {
     const equippedIds = (equippedAbilities || []).map((a) => a.id);
-    return (allAbilities || []).filter((ability) => !equippedIds.includes(ability.id));
+    return (allAbilities || []).filter((ability) => !equippedIds.includes(ability.id) && matchesSearch(ability));
   };
 
   const availableAbilities = getAvailableAbilities();
@@ -397,168 +404,104 @@ export default function Equipment() {
 
   return (
     <div className="container mx-auto max-w-7xl">
-      <div className="text-left mb-8">
-        <h1 className="text-4xl font-bold">Abomination Equipment</h1>
-        <p className="text-gray-400 mt-2">Enhance your abominations with eldritch orbs and forbidden abilities.</p>
-      </div>
+      <header className="game-hero equipment-hero mb-6 rounded-lg border">
+        <h1 className="text-3xl font-bold text-primary sm:text-4xl">Abomination Equipment</h1>
+        <p className="mt-1 text-muted-foreground">Choose an abomination and manage its orbs and ability glyphs.</p>
+      </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[var(--game-card-width)_minmax(0,1fr)] gap-4 xl:gap-8 items-start">
-        <div className="min-w-0 space-y-6">
-          <Card className="bg-gray-800/50 text-card-foreground rounded-lg border shadow-sm border-gray-700">
-            <CardHeader><CardTitle>Select Abomination</CardTitle></CardHeader>
-            <CardContent>
-              <Select value={selectedFusion?.id || ''} onValueChange={handleFusionSelect}>
-                <SelectTrigger><SelectValue placeholder="Choose abomination" /></SelectTrigger>
-                <SelectContent>
-                  {playerFusions.map((fusion) =>
-                  <SelectItem key={fusion.id} value={fusion.id}>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">{fusion.fusedName}</span>
-                        <span className="text-xs text-gray-400">Level {fusion.level}</span>
-                      </div>
-                    </SelectItem>
-                  )}
-                </SelectContent>
-              </Select>
-            </CardContent>
-          </Card>
+      <div className="equipment-workbench">
+        <aside className="equipment-station min-w-0 self-start">
+          <label id="loadout-fighter-label" className="block text-sm font-semibold text-primary">Abomination</label>
+          <Select value={selectedFusion?.id || ''} onValueChange={handleFusionSelect}>
+            <SelectTrigger aria-labelledby="loadout-fighter-label">
+              <SelectValue placeholder="Choose abomination" />
+            </SelectTrigger>
+            <SelectContent>
+              {playerFusions.map(fusion => <SelectItem key={fusion.id} value={fusion.id}>{fusion.fusedName}</SelectItem>)}
+            </SelectContent>
+          </Select>
+          {selectedFusion && <>
+            <div className="flex min-w-0 items-center gap-3 border-y py-3">
+              {selectedFusion.generatedImage && <img className="size-14 shrink-0 rounded border object-cover"
+                src={selectedFusion.generatedImage} alt="" />}
+              <div className="min-w-0">
+                <h2 className="break-words text-xl font-bold">{selectedFusion.fusedName}</h2>
+                <p className="text-sm text-muted-foreground">Level {selectedFusion.level} · {selectedFusion.originType}</p>
+              </div>
+            </div>
+            <dl className="grid grid-cols-2 gap-2 text-sm">
+              <div><dt className="text-muted-foreground">Orb slots</dt><dd>{equippedOrbs.length} / {orbSlots}</dd></div>
+              <div><dt className="text-muted-foreground">Glyph slots</dt><dd>{equippedAbilities.length} / 4</dd></div>
+            </dl>
+            <details className="min-w-0">
+              <summary className="cursor-pointer text-sm font-semibold text-primary">View stats and card</summary>
+              <div className="mt-3"><FusionCard fusion={selectedFusion} equippedOrbs={equippedOrbs} /></div>
+            </details>
+          </>}
+        </aside>
 
-          {selectedFusion && <FusionCard fusion={selectedFusion} equippedOrbs={equippedOrbs} />}
-        </div>
+        <Tabs value={activeTab} onValueChange={tab => { setActiveTab(tab); setSearch(''); }} className="min-w-0">
+          <TabsList className="equipment-tabs grid h-auto w-full grid-cols-2 gap-2">
+            <TabsTrigger value="orbs"><Eye className="size-4" /> Eldritch Orbs</TabsTrigger>
+            <TabsTrigger value="abilities"><Zap className="size-4" /> Ability Glyphs</TabsTrigger>
+          </TabsList>
 
-        <div className="min-w-0">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="orbs" className="flex items-center gap-2">
-                <Eye className="w-4 h-4" />
-                Eldritch Orbs
-              </TabsTrigger>
-              <TabsTrigger value="abilities" className="flex items-center gap-2">
-                <Zap className="w-4 h-4" />
-                Ability Glyphs
-              </TabsTrigger>
-            </TabsList>
+          <TabsContent value="orbs" className="space-y-4">
+            <section className="equipment-station" aria-labelledby="equipped-orbs">
+              <h2 id="equipped-orbs" className="text-2xl font-bold">Equipped orbs <span>{equippedOrbs.length}/{orbSlots}</span></h2>
+              {equippedOrbs.length ? <div className="equipment-items">{equippedOrbs.map(orb => <OrbCard
+                key={orb.playerOrbId} orb={orb} fusionOriginType={selectedFusion?.originType}
+                onUnequip={handleUnequipOrb} isEquipped />)}</div>
+                : <p className="text-sm text-muted-foreground">No orbs equipped. Choose an orb from your inventory below.</p>}
+            </section>
+            <section className="equipment-station" aria-labelledby="orb-inventory">
+              <h2 id="orb-inventory" className="text-2xl font-bold">Orb inventory <span>{filteredAvailableOrbs.length}</span></h2>
+              <div className="equipment-filters">
+                <Input aria-label="Search orbs" placeholder="Search orbs" value={search} onChange={event => setSearch(event.target.value)} />
+                <Select value={filterRarity} onValueChange={setFilterRarity}>
+                  <SelectTrigger aria-label="Filter by rarity"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All rarities</SelectItem>
+                    {['Ephemeral', 'Uncanny', 'Abyssal', 'Cosmic', 'Outer'].map(rarity =>
+                      <SelectItem key={rarity} value={rarity}>{rarity}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <Select value={filterType} onValueChange={setFilterType}>
+                  <SelectTrigger aria-label="Filter by orb type"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All types</SelectItem>
+                    {orbTypes.map(type => <SelectItem key={type} value={type}>{type}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              {equippedOrbs.length >= orbSlots && <p className="text-sm text-muted-foreground">Orb slots are full. Unequip an orb to make room.</p>}
+              {filteredAvailableOrbs.length ? <div className="equipment-items">{filteredAvailableOrbs.map(orb => <OrbCard
+                key={orb.playerOrbId} orb={orb} fusionOriginType={selectedFusion?.originType}
+                onEquip={handleEquipOrbRequest} onDestroy={handleDestroyOrbRequest}
+                canEquip={Boolean(selectedFusion) && equippedOrbs.length < orbSlots && !equipAction} />)}</div>
+                : <p className="text-sm text-muted-foreground">No unequipped orbs match this view.</p>}
+            </section>
+          </TabsContent>
 
-            <TabsContent value="orbs" className="space-y-6">
-              <Card className="bg-card border-border">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Filter className="w-5 h-5" />
-                    Filters
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="flex gap-4">
-                  <Select value={filterRarity} onValueChange={setFilterRarity}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="All Rarities" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Rarities</SelectItem>
-                      <SelectItem value="Ephemeral">Ephemeral</SelectItem>
-                      <SelectItem value="Uncanny">Uncanny</SelectItem>
-                      <SelectItem value="Abyssal">Abyssal</SelectItem>
-                      <SelectItem value="Cosmic">Cosmic</SelectItem>
-                      <SelectItem value="Outer">Outer</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select value={filterType} onValueChange={setFilterType}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="All Types" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="attack">Attack</SelectItem>
-                      <SelectItem value="lifesteal">Lifesteal</SelectItem>
-                      <SelectItem value="selfdamage">Self Damage</SelectItem>
-                      <SelectItem value="debuff">Debuff</SelectItem>
-                      <SelectItem value="immunity">Immunity</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card border-border">
-                <CardHeader>
-                  <CardTitle>Equipped Orbs ({(equippedOrbs || []).length}/{calculateOrbSlots(selectedFusion?.level || 1)})</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6 pr-6 pb-6 pl-6 lg:grid-cols-2 gap-4">
-                  {(equippedOrbs || []).length === 0 ?
-                  <p className="text-gray-400 text-center py-4">No orbs equipped</p> :
-                  <div className="p-2 sm:p-4 game-card-grid gap-4">
-                      {equippedOrbs.map((orb) =>
-                    <OrbCard
-                      key={orb.playerOrbId}
-                      orb={orb}
-                      fusionOriginType={selectedFusion?.originType}
-                      onUnequip={handleUnequipOrb}
-                      isEquipped={true}
-                      size="small" />
-                    )}
-                    </div>
-                  }
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card border-border">
-                <CardHeader>
-                  <CardTitle>Available Orbs ({filteredAvailableOrbs.length})</CardTitle>
-                </CardHeader>
-                <CardContent className="p-6 pt-8 pr-16 pb-8 pl-16">
-                  <div className="game-card-grid gap-4">
-                    {filteredAvailableOrbs.map((orb) =>
-                    <OrbCard
-                      key={orb.playerOrbId}
-                      orb={orb}
-                      fusionOriginType={selectedFusion?.originType}
-                      onEquip={handleEquipOrbRequest}
-                      onDestroy={handleDestroyOrbRequest}
-                      canEquip={
-                      (equippedOrbs || []).length < calculateOrbSlots(selectedFusion?.level || 1) &&
-                      !equipAction
-                      }
-                      size="small" />
-
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="abilities" className="space-y-6">
-              <Card className="bg-card border-border">
-                <CardHeader><CardTitle>Equipped Abilities ({(equippedAbilities || []).length}/4)</CardTitle></CardHeader>
-                <CardContent className="game-card-grid gap-4">
-                  {(equippedAbilities || []).length > 0 ?
-                  equippedAbilities.map((ability) =>
-                  <AbilityCard
-                    key={ability.id}
-                    ability={ability}
-                    fusion={selectedFusion}
-                    onAction={handleUnequipAbility}
-                    isEquipped
-                    disabled={equipAction === `unequip-ability-${ability.id}`} />
-                  ) :
-                  <p className="text-gray-400 text-center col-span-2 py-4">No abilities equipped.</p>
-                  }
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card border-border">
-                <CardHeader><CardTitle>Available Abilities</CardTitle></CardHeader>
-                <CardContent className="game-card-grid gap-4">
-                  {availableAbilities.map((ability) =>
-                  <AbilityCard
-                    key={ability.id}
-                    ability={ability}
-                    fusion={selectedFusion}
-                    onAction={handleEquipAbility}
-                    disabled={(equippedAbilities || []).length >= 4 || equipAction === `equip-ability-${ability.id}`} />
-                  )}
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
+          <TabsContent value="abilities" className="space-y-4">
+            <section className="equipment-station" aria-labelledby="equipped-glyphs">
+              <h2 id="equipped-glyphs" className="text-2xl font-bold">Equipped glyphs <span>{equippedAbilities.length}/4</span></h2>
+              {equippedAbilities.length ? <div className="equipment-items">{equippedAbilities.map(ability => <AbilityCard
+                key={ability.id} ability={ability} fusion={selectedFusion} onAction={handleUnequipAbility}
+                isEquipped disabled={Boolean(equipAction)} />)}</div>
+                : <p className="text-sm text-muted-foreground">Equip at least one glyph to use this abomination in battle.</p>}
+            </section>
+            <section className="equipment-station" aria-labelledby="glyph-library">
+              <h2 id="glyph-library" className="text-2xl font-bold">Glyph library <span>{availableAbilities.length}</span></h2>
+              <Input aria-label="Search glyphs" placeholder="Search glyphs" value={search} onChange={event => setSearch(event.target.value)} />
+              {equippedAbilities.length >= 4 && <p className="text-sm text-muted-foreground">Glyph slots are full. Unequip a glyph to make room.</p>}
+              {availableAbilities.length ? <div className="equipment-items">{availableAbilities.map(ability => <AbilityCard
+                key={ability.id} ability={ability} fusion={selectedFusion} onAction={handleEquipAbility}
+                disabled={!selectedFusion || equippedAbilities.length >= 4 || Boolean(equipAction)} />)}</div>
+                : <p className="text-sm text-muted-foreground">No available glyphs match this view.</p>}
+            </section>
+          </TabsContent>
+        </Tabs>
       </div>
 
       {orbToEquip && orbEquipCost &&

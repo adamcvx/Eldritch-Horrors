@@ -413,3 +413,50 @@ h1 { text-wrap: balance; }
   font-weight: 600;
   line-height: 1.15;
 }
+
+.equipment-hero { --hero-art: url('/Artwork/Flesh%20Pits.png'); padding: clamp(1rem, 3vw, 2rem); }
+.equipment-workbench {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(.6rem, 2vw, 1.25rem);
+  border: 1px solid var(--brass-edge);
+  border-radius: .5rem;
+  background: linear-gradient(120deg, #172621f5, #191613ed),
+    url('/Artwork/The%20Void.png') right top / 42rem auto no-repeat;
+  box-shadow: inset 0 0 0 3px #0b1414, inset 0 0 0 4px #a7894b33;
+}
+@media (min-width: 900px) {
+  .equipment-workbench { grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr); }
+}
+.equipment-station {
+  display: grid;
+  gap: .75rem;
+  min-width: 0;
+  padding: clamp(.7rem, 2vw, 1.1rem);
+  border: 1px solid #b2925b4d;
+  border-radius: .375rem;
+  background: #101a18ed;
+}
+.equipment-station h2 > span {
+  margin-inline-start: .4rem;
+  color: var(--brass);
+  font: 600 .85rem var(--body-font);
+}
+.equipment-tabs { background: #111a18; border: 1px solid #b2925b4d; }
+.equipment-tabs button { display: flex; gap: .4rem; min-width: 0; white-space: normal; }
+.equipment-tabs button[data-state="active"] { background: #392f20; color: #f0d3a1; }
+.equipment-items, .equipment-filters {
+  display: grid;
+  gap: .75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+.equipment-items { grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+.equipment-items .game-card {
+  inline-size: 100%;
+  block-size: auto;
+  min-block-size: 100%;
+  border-color: #8a704980;
+  background: #192622;
+  box-shadow: none;
+}
+.equipment-items .game-card .h-40 { height: 7rem; }

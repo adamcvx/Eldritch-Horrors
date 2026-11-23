@@ -18,7 +18,6 @@ const navigationCategories = [
   items: [
   { name: 'Flesh Altar', href: createPageUrl('FusionLab'), icon: GitMerge },
   { name: 'Abominations', href: createPageUrl('MyFusions'), icon: Star },
-  { name: 'Void Altar', href: createPageUrl('VoidAltar'), icon: Aperture },
   { name: 'Blasphemous Relics', href: createPageUrl('Equipment'), icon: Zap },
   { name: 'Forbidden Knowledge', href: createPageUrl('TalentTree'), icon: BookOpen }]
 
@@ -203,7 +202,6 @@ function LayoutContent({ children, currentPageName }) {
     // Determine which ambient track to play based on the current page
     if (currentPath.includes('FusionLab') ||
     currentPath.includes('MyFusions') ||
-    currentPath.includes('VoidAltar') ||
     currentPath.includes('Equipment') ||
     currentPath.includes('TalentTree')) {
 

@@ -1,3 +1,4 @@
+import { applyAscension } from './ascension.js';
 import { horrors, relics } from '../../../game.mjs';
 import { chooseFusionArtwork, conjureName, upgradeFusionIdentity } from './fusionIdentity.js';
 import { campaignWeek, createWeeklyCampaign } from './weeklyCampaign.js';
@@ -163,6 +164,10 @@ function write(change) {
   });
   pendingWrite = result.catch(() => {});
   return result;
+}
+
+export async function ascendFusion(fusionId) {
+  return write(data => applyAscension(data, fusionId));
 }
 
 export async function exportPlayerSave() {

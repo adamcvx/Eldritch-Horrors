@@ -67,7 +67,6 @@ import Quests from './pages/Quests';
 import QuickMatch from './pages/QuickMatch';
 import TalentTree from './pages/TalentTree';
 import Tutorial from './pages/Tutorial';
-import VoidAltar from './pages/VoidAltar';
 import Welcome from './pages/Welcome';
 import __Layout from './Layout.jsx';
 
@@ -93,7 +92,6 @@ export const PAGES = {
     "QuickMatch": QuickMatch,
     "TalentTree": TalentTree,
     "Tutorial": Tutorial,
-    "VoidAltar": VoidAltar,
     "Welcome": Welcome,
 }
 

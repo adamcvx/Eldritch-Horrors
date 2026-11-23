@@ -94,13 +94,13 @@ export default function TutorialPage() {
           linkText="Visit the Market"
         />
 
-        {/* Step 8: Void Altar */}
+        {/* Step 8: Ascension */}
         <TutorialSection
           icon={Aperture}
-          title="8. The Void Altar"
-          description="Some creations shine brighter through ascension. At the Void Altar, use Void Fragments—precious currency that empowers you to upgrade your chosen abomination, granting it a permanent 10% boost to all base stats."
-          linkTo={createPageUrl('VoidAltar')}
-          linkText="Approach the Void Altar"
+          title="8. Ascend an Abomination"
+          description="Reach level 25 through Empower in Abominations. Empower becomes Ascend, which lets you spend Void Fragments to add a star and increase base stats by 10%. Earn Fragments from Forbidden Path bosses. Each abomination can ascend up to five times."
+          linkTo={createPageUrl('MyFusions')}
+          linkText="Open Abominations"
         />
         
         {/* Step 9: Talents */}

@@ -1,3 +1,5 @@
+import AscendDialog from '@/components/cards/AscendDialog';
+import { ascensionOffer, MAX_FUSION_LEVEL } from '@/api/ascension';
 import WalletBadge from '@/components/user/WalletBadge';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -286,6 +288,7 @@ export default function MyFusions() {
   const [fusions, setFusions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [fusionToAscend, setFusionToAscend] = useState(null);
   const [fusionToDelete, setFusionToDelete] = useState(null);
   const [fusionToLevelUp, setFusionToLevelUp] = useState(null);
   const [preCalculatedCosts, setPreCalculatedCosts] = useState(null);
@@ -585,7 +588,8 @@ export default function MyFusions() {
       <div className="game-card-grid gap-4 xl:gap-6 game-gallery relative rounded-lg p-3 sm:p-5 xl:p-8 border">
           <AnimatePresence>
             {fusions.map((fusion) => {
-            const isMaxLevel = fusion.level >= 25;
+            const isMaxLevel = fusion.level >= MAX_FUSION_LEVEL;
+            const canAscend = Boolean(ascensionOffer(fusion));
             const isEmpowering = empoweringFusion === fusion.id;
             const isBanishing = banishingFusions.has(fusion.id);
 
@@ -625,8 +629,8 @@ export default function MyFusions() {
                       <div className="flex flex-col gap-3">
                         {/* Empower Button */}
                         <Button
-                        onClick={() => handleLevelUpClick(fusion)}
-                        className={`game-button-primary text-sm w-full ${isMaxLevel || isEmpowering || isBanishing ? 'opacity-50' : ''}`}
+                        onClick={() => isMaxLevel ? setFusionToAscend(fusion) : handleLevelUpClick(fusion)}
+                        className={`game-button-primary text-sm w-full ${(isMaxLevel && !canAscend) || isEmpowering || isBanishing ? 'opacity-50' : ''}`}
                         disabled={isMaxLevel || isEmpowering || isBanishing}>
 
                           {isEmpowering ?
@@ -635,7 +639,7 @@ export default function MyFusions() {
                               Empowering...
                             </> :
                         isMaxLevel ?
-                        <>Max Level</> :
+                        <><Star className="w-4 h-4" />{canAscend ? "Ascend" : "Fully Ascended"}</> :
 
                         <>
                               <TrendingUp className="w-4 h-4 mr-1" />
@@ -663,6 +667,15 @@ export default function MyFusions() {
           </AnimatePresence>
         </div>
       }
+
+      {fusionToAscend && <AscendDialog fusion={fusionToAscend}
+        fragments={currentUser?.voidFragments ?? 0}
+        onClose={() => setFusionToAscend(null)}
+        onAscended={({ fusion, voidFragments }) => {
+          setFusions(rows => rows.map(row => row.id === fusion.id ? { ...row, ...fusion } : row));
+          updateUserData({ voidFragments });
+          setFusionToAscend(null);
+        }} />}
 
       {/* Level Up Confirmation Modal */}
       {fusionToLevelUp && preCalculatedCosts &&

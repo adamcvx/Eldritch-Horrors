@@ -451,3 +451,8 @@ h1 { text-wrap: balance; }
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
 }
 .equipment-toolbar { display: grid; gap: .85rem; margin-bottom: 1rem; }
+
+@media (max-width: 639px) {
+  .equipment-workbench { padding: .35rem; }
+  .equipment-station { padding: .5rem; }
+}
